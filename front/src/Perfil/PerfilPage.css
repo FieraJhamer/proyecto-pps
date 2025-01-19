@@ -1,0 +1,60 @@
+.Contenedor-Perfil {
+    height: 50%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 1rem;
+
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+        -20px -20px 60px #ffffff;
+}
+
+.Perfil-Usuario{
+    margin-bottom: 25px;
+    color: #333;
+    
+}
+
+.Perfil-Nombre{
+    color:#555;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 0 0 60px 0;
+}
+
+.Boton-Salir {
+    background-color: #f3f7fe;
+    color: #3b82f6;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100px;
+    height: 45px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+
+.Boton-Salir:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 5px #3b83f65f;
+    color: #fff;
+}
+
+.Admin {
+    color: goldenrod;
+    font-weight: bold;
+    font-size: larger;
+    margin: 0 0 25px 0;
+}
+
+.Usuario {
+    color: #212c92;
+    font-weight: bold;
+    font-size: larger;
+    margin: 0 0 25px 0;
+}
