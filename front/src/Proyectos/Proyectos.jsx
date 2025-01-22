@@ -30,13 +30,16 @@ export default function Busqueda() {
     },[])
   
     const filtrarProyectos = () => {
-      if (textoBusqueda.trim() === "") {
-        return proyectos; 
-      }
-      return proyectos.filter((proyecto) =>
-        proyecto.integrantes.toLowerCase().includes(textoBusqueda.toLowerCase())
-      );
+      return proyectos.filter((proyecto) => {
+        const coincideTexto = textoBusqueda === "" || 
+          proyecto.integrantes.toLowerCase().includes(textoBusqueda.toLowerCase());
+        const coincideCarrera = carreraFiltro === "" || 
+          proyecto.carreras === carreraFiltro;
+    
+        return coincideTexto && coincideCarrera;
+      });
     };
+    
   
     const proyectosFiltrados = filtrarProyectos();
 
@@ -58,8 +61,8 @@ export default function Busqueda() {
   
         <div style={{display:"flex",alignItems:"center"}}>
             <button onClick={()=>setCarreraFiltro("")} disabled={carreraFiltro==""}>Todos</button>
-            <button onClick={()=>setCarreraFiltro("A")} disabled={carreraFiltro=="A"}>A</button>
-            <button onClick={()=>setCarreraFiltro("B")} disabled={carreraFiltro=="B"}>B</button>
+            <button onClick={()=>setCarreraFiltro("Programacion")} disabled={carreraFiltro=="Programacion"}>A</button>
+            <button onClick={()=>setCarreraFiltro("Medicina")} disabled={carreraFiltro=="Medicina"}>B</button>
         </div>
   
         <div className="resultados-busqueda">
