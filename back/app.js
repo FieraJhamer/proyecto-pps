@@ -2,8 +2,12 @@ import express from "express";
 import cors from "cors";
 import { conectarDB } from "./db.js";
 import usuarios from "./usuarios/usuarios.js";
+<<<<<<< HEAD
 import router,{ authConfig } from "./usuarios/auth.js";
 import { db } from "./db.js";
+=======
+import router, { authConfig } from "./usuarios/auth.js";
+>>>>>>> 1b1af74322310d003426becb56e9f451f805959e
 import proyectos from "./proyectos/proyectos.js";
 
 const app = express();
@@ -18,6 +22,7 @@ authConfig();
 app.use("/", usuarios);
 app.use("/", router);
 app.use("/", proyectos);
+<<<<<<< HEAD
 
 app.get("/", async (req, res) => {
   try {
@@ -35,6 +40,8 @@ app.get("/", async (req, res) => {
 //   const [usuarios] = await db.execute("select * from usuarios");
 //   res.send({ usuarios });
 //   });
+=======
+>>>>>>> 1b1af74322310d003426becb56e9f451f805959e
 
 app.listen(port, () => {
   console.log(`La aplicacion esta funcionando en: ${port}`);
