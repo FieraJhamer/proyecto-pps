@@ -1,11 +1,11 @@
 import express from "express"
-import {db} from '../db.js'
+import { db } from '../db.js'
 
 export const proyectosRouter = express.Router()
 
-proyectosRouter.get("/proyectos", async (req,res)=>{
-    const [proyectos]= await db.execute
-    (`SELECT 
+proyectosRouter.get("/proyectos", async (req, res) => {
+    const [proyectos] = await db.execute
+        (`SELECT 
 	p.nombre_proyecto, 
 	GROUP_CONCAT(CONCAT(a.nombre_alumno, ' ', a.apellido_alumno) SEPARATOR ', ') AS integrantes,
     c.nombre_carrera as carreras
