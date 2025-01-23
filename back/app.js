@@ -3,7 +3,7 @@ import cors from "cors";
 import { conectarDB } from "./db.js";
 import usuarios from "./usuarios/usuarios.js";
 import router, { authConfig } from "./usuarios/auth.js";
-import tesinas from "./tesinas.js";
+import proyectos from "./proyectos/proyectos.js";
 
 const app = express();
 const port = 3000;
@@ -16,12 +16,7 @@ authConfig();
 
 app.use("/", usuarios);
 app.use("/", router);
-app.use("/", tesinas);
-
-// app.get("/usuarios", async (req, res) => {
-//   const [usuarios] = await db.execute("select * from usuarios");
-//   res.send({ usuarios });
-//   });
+app.use("/", proyectos);
 
 app.listen(port, () => {
   console.log(`La aplicacion esta funcionando en: ${port}`);
