@@ -9,4 +9,5 @@ export async function conectarDB() {
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
   });
+  console.log("Conectando a la base de datos:", process.env.DB_NAME)
 }
