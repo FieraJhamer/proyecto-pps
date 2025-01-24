@@ -5,6 +5,7 @@ import { LoginPage } from "./LoginPage";
 import { SinRuta } from "./SinRuta";
 import { AuthPage } from "./Auth";
 import RegistroUsuarios from "./RegistroUsuarios/RegistroUsuarios.jsx"
+import Busqueda from "./components/Busqueda/Busqueda.jsx"
 
 import "./App.css";
 
@@ -34,6 +35,14 @@ function App() {
             element={
               <AuthPage>
                 <RegistroUsuarios/>
+              </AuthPage>
+            }
+          /> 
+          <Route
+            path="/home"
+            element={
+              <AuthPage>
+                <Busqueda/>
               </AuthPage>
             }
           />  
