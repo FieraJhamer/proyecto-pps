@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import "./Busqueda.css";
+import { useAuth } from "../../Auth";
 
 export default function Busqueda() {
+  const { sesion } = useAuth();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [textoBusqueda, setTextoBusqueda] = useState("");
@@ -17,9 +20,11 @@ export default function Busqueda() {
   const getProyectos = async () => {
     try {
       const response = await fetch("http://localhost:3000/proyectos", {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
-        },
+          Authorization: `Bearer ${sesion.token}`
+        }
       });
   
       if (!response.ok) {
