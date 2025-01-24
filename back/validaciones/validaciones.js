@@ -1,7 +1,6 @@
 import { param, validationResult } from "express-validator";
 import passport from "passport";
 
-
 export const verificarValidaciones = (req, res, next) => {
   // Enviar errores de validacion en caso de ocurrir alguno.
   const validacion = validationResult(req);

@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Proyectos.css"
+import { authConfig } from "../../../back/usuarios/auth";
+
 
 export default function Busqueda() {
+  const {sesion} = authConfig()
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     const [textoBusqueda,setTextoBusqueda]=useState("")
@@ -16,7 +20,13 @@ export default function Busqueda() {
     
     const getProyectos = async ()=>{
       try{
-        const response = await fetch("http://localhost:3000/proyectos")
+        const response = await fetch("http://localhost:3000/proyectos",{
+          method:"GET",
+          headers:{
+            "Content-Type":"application/json",
+            Authorization: `Bearer: ${sesion.token}`
+          }
+        })
         const data = await response.json()
         setProyectos(data)
       }
@@ -60,7 +70,7 @@ export default function Busqueda() {
   
         <div style={{display:"flex",alignItems:"center"}}>
             <button onClick={()=>setCarreraFiltro("")} disabled={carreraFiltro==""}>Todos</button>
-            <button onClick={()=>setCarreraFiltro("Programacion")} disabled={carreraFiltro=="Programacion"}>A</button>
+            <button onClick={()=>setCarreraFiltro("Tecnicatura Universitaria en Higiene y Seguridad")} disabled={carreraFiltro=="Tecnicatura Universitaria en Higiene y Seguridad"}>A</button>
             <button onClick={()=>setCarreraFiltro("Medicina")} disabled={carreraFiltro=="Medicina"}>B</button>
         </div>
   

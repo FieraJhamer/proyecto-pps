@@ -1,21 +1,14 @@
-import express from "express"
-import { db } from '../db.js'
+import express from "express";
+import { validarSuperUsuario, validarJwt } from "../validaciones/validaciones.js";
+import crearProyecto from "./crearProyecto.js";
+import modificarProyecto from "./modificarProyecto.js"
+import obtenerProyecto from "./obtenerProyecto.js"
 
-export const proyectosRouter = express.Router()
+const proyectos = express.Router();
 
-proyectosRouter.get("/proyectos", async (req, res) => {
-    const [proyectos] = await db.execute
-        (`SELECT 
-	p.nombre_proyecto, 
-	GROUP_CONCAT(CONCAT(a.nombre_alumno, ' ', a.apellido_alumno) SEPARATOR ', ') AS integrantes,
-    c.nombre_carrera as carreras
-                
-    FROM proyectos p 
-    JOIN alumnos a ON p.id_grupo = a.id_grupo
+proyectos.post("/proyectos", crearProyecto );
+proyectos.get("/proyectos", validarJwt, validarSuperUsuario, obtenerProyecto);
+proyectos.put("/proyectos", validarJwt, validarSuperUsuario, modificarProyecto);
 
-    join grupos g on p.id_grupo = g.id_grupo
+export default proyectos;
 
-    join carreras c on c.id_carrera=g.id_carrera
-    GROUP BY p.nombre_proyecto, c.nombre_carrera`)
-    res.send(proyectos)
-})
