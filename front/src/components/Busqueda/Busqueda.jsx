@@ -76,23 +76,23 @@ export default function Busqueda() {
       </div>
 
       <div style={{ display: "flex", alignItems: "center" }}>
-        <button
+        <button className={carreraFiltro=="" ? "Filtro-Block" :"Boton-Filtro"}
           onClick={() => setCarreraFiltro("")}
           disabled={carreraFiltro == ""}
         >
           Todos
         </button>
-        <button
-          onClick={() => setCarreraFiltro("Programacion")}
-          disabled={carreraFiltro == "Programacion"}
+        <button className={carreraFiltro=="Tecnicatura Universitaria en Higiene y Seguridad" ? "Filtro-Block":"Boton-Filtro"}
+          onClick={() => setCarreraFiltro("Tecnicatura Universitaria en Higiene y Seguridad")}
+          disabled={carreraFiltro == "Tecnicatura Universitaria en Higiene y Seguridad"}
         >
-          A
+          Tecnicatura Universitaria en Higiene y Seguridad
         </button>
-        <button
-          onClick={() => setCarreraFiltro("Medicina")}
-          disabled={carreraFiltro == "Medicina"}
+        <button className={carreraFiltro=="Licenciatura en Tecnología Educativa" ? "Filtro-Block":"Boton-Filtro"}
+          onClick={() => setCarreraFiltro("Licenciatura en Tecnología Educativa")}
+          disabled={carreraFiltro == "Licenciatura en Tecnología Educativa"}
         >
-          B
+          Licenciatura en Tecnología Educativa
         </button>
       </div>
 

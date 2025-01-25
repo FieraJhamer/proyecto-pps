@@ -8,7 +8,7 @@ const proyectos = express.Router();
 
 proyectos.post("/proyectos", validarJwt, crearProyecto);
 
-proyectos.get("/proyectos", validarJwt, obtenerProyecto);
+proyectos.get("/proyectos", validarJwt, validarSuperUsuario, obtenerProyecto);
 
 proyectos.put("/proyectos", validarJwt, modificarProyecto);
 
