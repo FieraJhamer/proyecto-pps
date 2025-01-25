@@ -8,7 +8,6 @@ const usuarios = express.Router()
 
 usuarios.get("/usuarios",
   validarJwt,
-  validarSuperUsuario,
    async (req, res) => {
   try {
     const [result] = await db.query("SELECT * FROM usuarios");
@@ -20,7 +19,6 @@ usuarios.get("/usuarios",
 
 usuarios.post("/usuarios",
   validarJwt,
-  validarSuperUsuario,
   body("nombre").isAlphanumeric().notEmpty().isLength({ max: 25 }),
   body("password").isStrongPassword({
     minLength: 8, // Minino de 8 caracteres (letras y numeros)

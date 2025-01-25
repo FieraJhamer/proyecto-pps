@@ -23,7 +23,7 @@ export function authConfig() {
       // console.log("en strategy", payload);
 
       const [usuarios] = await db.execute(
-      "SELECT nombre, superusuario FROM usuarios WHERE nombre = ?",
+      "SELECT nombre FROM usuarios WHERE nombre = ?",
         [payload.nombre]
         );
 
