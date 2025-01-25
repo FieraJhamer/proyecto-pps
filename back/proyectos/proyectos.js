@@ -6,8 +6,10 @@ import obtenerProyecto from "./obtenerProyecto.js"
 
 const proyectos = express.Router();
 
-proyectos.post("/proyectos", validarJwt, validarSuperUsuario, crearProyecto );
-proyectos.get("/proyectos", validarJwt, validarSuperUsuario, obtenerProyecto);
-proyectos.put("/proyectos", validarJwt, validarSuperUsuario, modificarProyecto);
+proyectos.post("/proyectos", validarJwt, crearProyecto);
+
+proyectos.get("/proyectos", validarJwt, obtenerProyecto);
+
+proyectos.put("/proyectos", validarJwt, modificarProyecto);
 
 export default proyectos;
