@@ -17,7 +17,6 @@ authConfig();
 app.use("/", usuarios);
 app.use("/", router);
 app.use("/", proyectos);
-<<<<<<< HEAD
 
 app.get("/", async (req, res) => {
   try {
@@ -35,8 +34,6 @@ app.get("/", async (req, res) => {
 //   const [usuarios] = await db.execute("select * from usuarios");
 //   res.send({ usuarios });
 //   });
-=======
->>>>>>> 1b1af74322310d003426becb56e9f451f805959e
 
 app.listen(port, () => {
   console.log(`La aplicacion esta funcionando en: ${port}`);
