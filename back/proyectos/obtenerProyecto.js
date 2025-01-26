@@ -2,8 +2,10 @@ import { db } from "../db.js";
 
 const obtenerProyecto = async (req, res) => {
   const [proyectos] = await db.execute(`
-        SELECT 
-        p.nombre_proyecto, 
+        SELECT
+
+        p.id_proyecto, p.nombre_proyecto, 
+        
         GROUP_CONCAT(CONCAT(a.nombre_alumno, ' ', a.apellido_alumno) SEPARATOR ', ') AS integrantes,
         c.nombre_carrera as carreras
                     

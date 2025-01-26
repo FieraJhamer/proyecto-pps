@@ -76,29 +76,29 @@ export default function Busqueda() {
       </div>
 
       <div style={{ display: "flex", alignItems: "center" }}>
-        <button
+        <button className={carreraFiltro=="" ? "Filtro-Block" :"Boton-Filtro"}
           onClick={() => setCarreraFiltro("")}
           disabled={carreraFiltro == ""}
         >
           Todos
         </button>
-        <button
-          onClick={() => setCarreraFiltro("Programacion")}
-          disabled={carreraFiltro == "Programacion"}
+        <button className={carreraFiltro=="Tecnicatura Universitaria en Higiene y Seguridad" ? "Filtro-Block":"Boton-Filtro"}
+          onClick={() => setCarreraFiltro("Tecnicatura Universitaria en Higiene y Seguridad")}
+          disabled={carreraFiltro == "Tecnicatura Universitaria en Higiene y Seguridad"}
         >
-          A
+          Tecnicatura Universitaria en Higiene y Seguridad
         </button>
-        <button
-          onClick={() => setCarreraFiltro("Medicina")}
-          disabled={carreraFiltro == "Medicina"}
+        <button className={carreraFiltro=="Licenciatura en Tecnología Educativa" ? "Filtro-Block":"Boton-Filtro"}
+          onClick={() => setCarreraFiltro("Licenciatura en Tecnología Educativa")}
+          disabled={carreraFiltro == "Licenciatura en Tecnología Educativa"}
         >
-          B
+          Licenciatura en Tecnología Educativa
         </button>
       </div>
 
       <div className="resultados-busqueda">
         {proyectosFiltrados.map((proyecto) => (
-          <div key={proyecto.id_carrera} className="card">
+          <div key={proyecto.id_proyecto} className="card">
             <div className="card-details">
               <p className="text-title">{proyecto.nombre_proyecto}</p>
               <p className="text-body">Integrantes: {proyecto.integrantes}</p>

@@ -73,7 +73,6 @@ const modificarProyecto = async (req, res) => {
           );
         }
       }
-
       res.status(200).send(result)
     } catch (error) {
       console.log(error)

@@ -83,6 +83,26 @@ input:hover {
     justify-content: center;
 }
 
+.Boton-Filtro{
+    margin: 0 3px;
+    border-radius: 5px;
+    border: none;
+    background-color:#008bf8 ;  
+    color: #fff;
+    font-size: 1rem;
+    padding: .1rem 1rem;
+    
+}
+.Filtro-Block{
+    margin: 0 3px;
+    border-radius: 5px;
+    border: none;
+    background-color:#606468 ;  
+    color: #fff;
+    font-size: 1rem;
+    padding: .1rem 1rem;
+}
+
 .card-button {
     transform: translate(-50%, 80%);
     width: 10%;
@@ -398,3 +418,4 @@ input:checked+.slider:before {
     flex-direction: column;
     gap: 20px 0;
 }
+
