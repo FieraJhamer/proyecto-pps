@@ -2,12 +2,7 @@ import express from "express";
 import cors from "cors";
 import { conectarDB } from "./db.js";
 import usuarios from "./usuarios/usuarios.js";
-<<<<<<< HEAD
-import router,{ authConfig } from "./usuarios/auth.js";
-import { db } from "./db.js";
-=======
 import router, { authConfig } from "./usuarios/auth.js";
->>>>>>> 1b1af74322310d003426becb56e9f451f805959e
 import proyectos from "./proyectos/proyectos.js";
 
 const app = express();
