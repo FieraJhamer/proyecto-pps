@@ -98,7 +98,7 @@ export default function Busqueda() {
 
       <div className="resultados-busqueda">
         {proyectosFiltrados.map((proyecto) => (
-          <div key={proyecto.id_carrera} className="card">
+          <div key={proyecto.id_proyecto} className="card">
             <div className="card-details">
               <p className="text-title">{proyecto.nombre_proyecto}</p>
               <p className="text-body">Integrantes: {proyecto.integrantes}</p>
