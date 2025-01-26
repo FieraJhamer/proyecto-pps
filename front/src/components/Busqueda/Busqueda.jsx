@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./Busqueda.css";
 import { useAuth } from "../../Auth";
+import EditarProyectoModal from "./EditarProyectoModal";
+import CrearProyectoButton from "./CrearProyectoButton";
 
 export default function Busqueda() {
   const { sesion } = useAuth();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [proyectos, setProyectos] = useState([]);
   const [carreraFiltro, setCarreraFiltro] = useState("");
@@ -14,30 +15,26 @@ export default function Busqueda() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const openViewModal = () => setIsViewModalOpen(true);
-  const closeViewModal = () => setIsViewModalOpen(false);
-
   const getProyectos = async () => {
     try {
       const response = await fetch("http://localhost:3000/proyectos", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${sesion.token}`
-        }
+          Authorization: `Bearer ${sesion.token}`,
+        },
       });
-  
+
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.statusText}`);
       }
-  
+
       const data = await response.json();
       setProyectos(data);
     } catch (error) {
       console.error("Error al cargar los proyectos:", error);
     }
   };
-  
 
   useEffect(() => {
     getProyectos();
@@ -61,6 +58,7 @@ export default function Busqueda() {
 
   return (
     <div className="Busqueda-container">
+      <CrearProyectoButton></CrearProyectoButton>
       <div className="input-busqueda">
         <svg className="icon" aria-hidden="true" viewBox="0 0 24 24">
           <g>
@@ -76,21 +74,40 @@ export default function Busqueda() {
       </div>
 
       <div style={{ display: "flex", alignItems: "center" }}>
-        <button className={carreraFiltro=="" ? "Filtro-Block" :"Boton-Filtro"}
+        <button
+          className={carreraFiltro === "" ? "Filtro-Block" : "Boton-Filtro"}
           onClick={() => setCarreraFiltro("")}
-          disabled={carreraFiltro == ""}
+          disabled={carreraFiltro === ""}
         >
           Todos
         </button>
-        <button className={carreraFiltro=="Tecnicatura Universitaria en Higiene y Seguridad" ? "Filtro-Block":"Boton-Filtro"}
-          onClick={() => setCarreraFiltro("Tecnicatura Universitaria en Higiene y Seguridad")}
-          disabled={carreraFiltro == "Tecnicatura Universitaria en Higiene y Seguridad"}
+        <button
+          className={
+            carreraFiltro ===
+            "Tecnicatura Universitaria en Higiene y Seguridad"
+              ? "Filtro-Block"
+              : "Boton-Filtro"
+          }
+          onClick={() =>
+            setCarreraFiltro("Tecnicatura Universitaria en Higiene y Seguridad")
+          }
+          disabled={
+            carreraFiltro ===
+            "Tecnicatura Universitaria en Higiene y Seguridad"
+          }
         >
           Tecnicatura Universitaria en Higiene y Seguridad
         </button>
-        <button className={carreraFiltro=="Licenciatura en Tecnología Educativa" ? "Filtro-Block":"Boton-Filtro"}
-          onClick={() => setCarreraFiltro("Licenciatura en Tecnología Educativa")}
-          disabled={carreraFiltro == "Licenciatura en Tecnología Educativa"}
+        <button
+          className={
+            carreraFiltro === "Licenciatura en Tecnología Educativa"
+              ? "Filtro-Block"
+              : "Boton-Filtro"
+          }
+          onClick={() =>
+            setCarreraFiltro("Licenciatura en Tecnología Educativa")
+          }
+          disabled={carreraFiltro === "Licenciatura en Tecnología Educativa"}
         >
           Licenciatura en Tecnología Educativa
         </button>
@@ -110,226 +127,14 @@ export default function Busqueda() {
             >
               Editar
             </button>
-            <button className="card-button" onClick={openViewModal}>
+            <button className="card-button">
               Ver
             </button>
           </div>
         ))}
       </div>
 
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2 className="fase1-title">Editar proyecto</h2>
-            <form>
-              <div className="fase1-container">
-                <div className="fase1-left">
-                  <span>
-                    Título del Proyecto
-                    <input
-                      type="text"
-                      id="project-title"
-                      placeholder="Título del proyecto"
-                    />
-                  </span>
-
-                  <span>
-                    Fecha de carga
-                    <input type="date"></input>
-                  </span>
-
-                  <span>
-                    Comentarios
-                    <input type="text" placeholder="Comentario de ejemplo" />
-                  </span>
-                </div>
-
-                <div className="fase1-center">
-                  <span>
-                    Primer integrante
-                    <input type="text" placeholder="Apellido y nombre" />
-                    <input type="text" placeholder="N° de legajo" />
-                  </span>
-
-                  <span>
-                    Segundo integrante
-                    <input type="text" placeholder="Apellido y nombre" />
-                    <input type="text" placeholder="N° de legajo" />
-                  </span>
-
-                  <span>
-                    Tercer integrante
-                    <input type="text" placeholder="Apellido y nombre" />
-                    <input type="text" placeholder="N° de legajo" />
-                  </span>
-                </div>
-
-                <div className="fase1-right">
-                  <span>
-                    Propuesta del proyecto:{" "}
-                    <input type="file" accept="application/pdf" />
-                  </span>
-                  <span>
-                    Nota del tutor:{" "}
-                    <input type="file" accept="application/pdf" />
-                  </span>
-                  <span>
-                    CV del tutor: <input type="file" accept="application/pdf" />
-                  </span>
-
-                  <span className="span-switch">
-                    Etapa 1 - Aprobada
-                    <label className="switch">
-                      <input type="checkbox"></input>
-                      <span className="slider span-switch"></span>
-                    </label>
-                  </span>
-                </div>
-              </div>
-
-              <div className="fase2-container">
-                <span>
-                  Fecha de carga
-                  <input type="date"></input>
-                </span>
-
-                <span>
-                  Documento de la tesina:{" "}
-                  <input type="file" accept="application/pdf" />
-                </span>
-
-                <span className="span-switch">
-                  Etapa 2 - Aprobada
-                  <label className="switch">
-                    <input type="checkbox"></input>
-                    <span className="slider span-switch-2 fase2-switch"></span>
-                  </label>
-                </span>
-              </div>
-
-              <div className="fase3-container">
-                <span>
-                  Fecha de designación del tribunal
-                  <input type="date"></input>
-                </span>
-
-                <span className="miembros-tribunal">
-                  Miembros del tribunal
-                  <input type="text" placeholder="Primer miembro" />
-                  <input type="text" placeholder="Segundo miembro" />
-                  <input type="text" placeholder="Tercer miembro" />
-                </span>
-
-                <span className="span-switch">
-                  Etapa 3 - Aprobada
-                  <label className="switch">
-                    <input type="checkbox"></input>
-                    <span className="slider span-switch fase3-switch"></span>
-                  </label>
-                </span>
-              </div>
-
-              <div className="modal-buttons">
-                <button type="button" className="modal-save-button">
-                  Guardar
-                </button>
-                <button
-                  type="button"
-                  className="modal-close-button"
-                  onClick={closeModal}
-                >
-                  Cerrar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {isViewModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2 className="fase1-title">Detalles del Proyecto</h2>
-            <div className="view-modal-details">
-              <div className="modal-details-1">
-                <p>
-                  <strong>Título:</strong> Proyecto de Tesis: Ejemplo 1
-                </p>
-
-                <p>
-                  <strong>Integrantes:</strong>
-                </p>
-                <ul>
-                  <li>Gómez Alejandro (7630)</li>
-                  <li>Torres Leonel (7642)</li>
-                  <li>Sotomayor Ignacio (7636)</li>
-                </ul>
-              </div>
-
-              <div className="modal-details-2">
-                <p>
-                  <strong>Archivos cargados:</strong>
-                </p>
-                <ul className="file-list">
-                  <li>
-                    <strong>Propuesta del proyecto: </strong>
-                    <span className="file-name">propuesta_proyecto.pdf 📄</span>
-                  </li>
-
-                  <li>
-                    <strong>Nota del tutor: </strong>
-                    <span className="file-name">nota_tutor.pdf 📄</span>
-                  </li>
-
-                  <li>
-                    <strong>CV del tutor: </strong>
-                    <span className="file-name">cv_tutor.pdf 📄</span>
-                  </li>
-
-                  <li>
-                    <strong>Documento de la tesina: </strong>
-                    <span className="file-name">proyecto_tesina.pdf 📄</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="modal-details-3">
-                <p>
-                  <strong>Estado del proyecto</strong>
-                </p>
-                <p>
-                  <strong>
-                    Etapa 1: <span style={{ color: "green" }}>Completa</span>
-                  </strong>{" "}
-                  Jue. 5 de Abril de 2024 - Lun. 5 de Mayo de 2024
-                </p>
-                <p>
-                  <strong>
-                    Etapa 2: <span style={{ color: "red" }}>En proceso</span>
-                  </strong>{" "}
-                  Vie. 22 de Marzo de 2025 - Entre Agosto de 2025 y Marzo de
-                  2026 (Estimado)
-                </p>
-                <p>
-                  <strong>
-                    Etapa 3: <span style={{ color: "red" }}>No iniciada</span>
-                  </strong>{" "}
-                  Sin fecha
-                </p>
-              </div>
-            </div>
-            <div className="modal-buttons">
-              <button
-                type="button"
-                className="modal-close-button"
-                onClick={closeViewModal}
-              >
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {isModalOpen && <EditarProyectoModal onClose={closeModal} />}
     </div>
   );
 }
