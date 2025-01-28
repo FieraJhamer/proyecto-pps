@@ -442,3 +442,7 @@ input:checked+.slider:before {
 .crear-proyecto-button:hover {
     background-color: #0056b3;
 }
+
+form {
+    overflow: auto;
+}
