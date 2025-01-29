@@ -1,16 +1,21 @@
-import { Route, Routes } from "react-router-dom";
+/*import { Route, Routes } from "react-router-dom";
 import { Layout } from "./Layout";
 import { PerfilPage } from "../src/Perfil/PerfilPage";
 import { LoginPage } from "./LoginPage";
 import { SinRuta } from "./SinRuta";
 import { AuthPage } from "./Auth";
 import RegistroUsuarios from "./RegistroUsuarios/RegistroUsuarios.jsx"
-import Busqueda from "./components/Busqueda/Busqueda.jsx"
-
+*/
+import Proyectos from "./Proyectos/Proyectos";
 import "./App.css";
 
 function App() {
-  return (
+  return(
+    <>
+    <Proyectos></Proyectos>
+    </>
+  )
+/*  return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -53,7 +58,7 @@ function App() {
       </Routes>
     </>
   );
+*/
 
 }
-
 export default App;

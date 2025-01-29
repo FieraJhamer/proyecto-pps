@@ -15,3 +15,4 @@ proyectos.get("/proyectos/:id", validarJwt, obtenerProyectoPorId);
 proyectos.put("/proyectos/:id", validarJwt, modificarProyecto);
 
 export default proyectos;
+

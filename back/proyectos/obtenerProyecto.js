@@ -1,4 +1,5 @@
-import { db } from "../db.js";
+import express from "express"
+import { db } from '../db.js'
 
 const obtenerProyecto = async (req, res) => {
   const [proyectos] = await db.execute(`
@@ -76,5 +77,5 @@ export const obtenerProyectoPorId = async (req, res) => {
   }
 };
 
-
 export default obtenerProyecto;
+

@@ -8,7 +8,6 @@ import passport from "passport";
 
 const authRouter = express.Router();
 
-
 export function authConfig() {
   // Opciones de configuracion de passport-jwt
   const jwtOptions = {
@@ -37,7 +36,6 @@ export function authConfig() {
     })
   );
 }
-
 
 authRouter.post(
   "/login",
