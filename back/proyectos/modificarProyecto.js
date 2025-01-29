@@ -2,7 +2,6 @@ import { db } from "../db.js";
 
 const modificarProyecto = async (req, res) => {
     const { id } = req.params;
-
     const { nombre_proyecto, integrantes, fechas, etapas, extensiones } = req.body;
     try {
       const [result] = await db.query(`update proyectos set nombre_proyecto = ? where id_proyecto = ?`, [

@@ -11,9 +11,17 @@ export default function Busqueda() {
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [proyectos, setProyectos] = useState([]);
   const [carreraFiltro, setCarreraFiltro] = useState("");
+  const [selectedProyectoId, setSelectedProyectoId] = useState(null);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = (id_proyecto) => {
+    setSelectedProyectoId(id_proyecto);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProyectoId(null);
+  };
 
   const getProyectos = async () => {
     try {
@@ -123,7 +131,8 @@ export default function Busqueda() {
             </div>
             <button
               className="card-button card-button-editar"
-              onClick={()=>openModal()}
+              onClick={openModal(proyecto.id_proyecto)}
+
             >
               Editar
             </button>
@@ -135,7 +144,7 @@ export default function Busqueda() {
         ))}
       </div>
 
-      {isModalOpen && <EditarProyectoModal onClose={closeModal} />}
+      {isModalOpen && <EditarProyectoModal onClose={closeModal} proyectoId={selectedProyectoId} />}
     </div>
   );
 }
