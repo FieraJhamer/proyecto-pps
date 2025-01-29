@@ -123,11 +123,12 @@ export default function Busqueda() {
             </div>
             <button
               className="card-button card-button-editar"
-              onClick={openModal}
+              onClick={()=>openModal()}
             >
               Editar
             </button>
-            <button className="card-button">
+            <button className="card-button"
+            >
               Ver
             </button>
           </div>

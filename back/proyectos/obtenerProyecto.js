@@ -15,7 +15,7 @@ const obtenerProyecto = async (req, res) => {
         JOIN grupos g ON p.id_grupo = g.id_grupo
     
         JOIN carreras c ON c.id_carrera=g.id_carrera
-        GROUP BY p.nombre_proyecto, c.nombre_carrera`);
+        GROUP BY p.nombre_proyecto, c.nombre_carrera, p.id_proyecto`);
   res.send(proyectos);
 };
 
