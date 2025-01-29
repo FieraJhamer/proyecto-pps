@@ -1,6 +1,27 @@
 import "./Busqueda.css";
+import { useState, useEffect } from "react";
 
-export default function EditarProyectoModal({ onClose }) {
+export default function EditarProyectoModal({ onClose, proyectoId }) {
+  const [proyecto, setProyecto] = useState({
+    titulo: ""
+  });
+  
+  useEffect(() => {
+  const getProyecto = async () => {
+    try {
+      const response = await fetch(`/api/proyectos/${proyectoId}`);
+      const data = await response.json();
+      setProyecto({
+        titulo: data.titulo
+      });
+    } catch (error) {
+      console.error("Error al obtener el proyecto:", error);
+    }
+  };
+
+  getProyecto();
+}, [proyectoId]);
+
   return (
     <div className="modal">
       <div className="modal-content">
@@ -14,6 +35,8 @@ export default function EditarProyectoModal({ onClose }) {
                     type="text"
                     id="project-title"
                     placeholder="Título del proyecto"
+                    value={proyecto.titulo}
+                    onChange={(e) => setProyecto({ ...proyecto, comentarios: e.target.value })}
                   />
                 </span>
                 <span>
