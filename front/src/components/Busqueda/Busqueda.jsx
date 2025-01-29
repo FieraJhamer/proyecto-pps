@@ -13,6 +13,7 @@ export default function Busqueda() {
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [proyectos, setProyectos] = useState([]);
   const [carreraFiltro, setCarreraFiltro] = useState("");
+  
   const [selectedProyectoId, setSelectedProyectoId] = useState(null);
   const [ProyectoSelect,setProyectoSelect] = useState(null);
 
@@ -157,6 +158,7 @@ export default function Busqueda() {
       </div>
 
       {ViewModal && (
+
         <div className="modal">
           <div className="modal-content">
             <h2 className="fase1-title">Detalles del ejemplo</h2>
@@ -164,7 +166,6 @@ export default function Busqueda() {
               <div className="modal-details-1">
                 <p><strong>Titulo:</strong>{ProyectoSelect.nombre_proyecto}</p>
                 <p><strong>Integrantes:</strong>{ProyectoSelect.integrantes}</p>
-                
               </div>
 
               <div className="modal-buttons">
