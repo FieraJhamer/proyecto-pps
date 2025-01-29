@@ -8,15 +8,27 @@ export default function Busqueda() {
   const { sesion } = useAuth();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ViewModal,setViewModal]=useState(false)
+
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [proyectos, setProyectos] = useState([]);
   const [carreraFiltro, setCarreraFiltro] = useState("");
   const [selectedProyectoId, setSelectedProyectoId] = useState(null);
+  const [ProyectoSelect,setProyectoSelect] = useState(null);
 
   const openModal = (id_proyecto) => {
     setSelectedProyectoId(id_proyecto);
     setIsModalOpen(true);
   };
+  const OpenView = (proyecto)=>{
+    setViewModal(true)
+    setProyectoSelect(proyecto)
+  }
+
+  const closeView = ()=>{
+    setViewModal(false)
+    setProyectoSelect(null)
+  }
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -131,18 +143,36 @@ export default function Busqueda() {
             </div>
             <button
               className="card-button card-button-editar"
-              onClick={openModal(proyecto.id_proyecto)}
-
+              onClick={()=>openModal(proyecto.id_proyecto)}
             >
               Editar
             </button>
             <button className="card-button"
+            onClick={()=>OpenView(proyecto)}
             >
               Ver
             </button>
           </div>
         ))}
       </div>
+
+      {ViewModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2 className="fase1-title">Detalles del ejemplo</h2>
+
+              <div className="modal-details-1">
+                <p><strong>Titulo:</strong>{ProyectoSelect.nombre_proyecto}</p>
+                <p><strong>Integrantes:</strong>{ProyectoSelect.integrantes}</p>
+                
+              </div>
+
+              <div className="modal-buttons">
+              <button type="button" className="modal-close-button" onClick={closeView}>Cerrar</button>
+              </div>
+          </div>
+        </div>
+      )}
 
       {isModalOpen && <EditarProyectoModal onClose={closeModal} proyectoId={selectedProyectoId} />}
     </div>
