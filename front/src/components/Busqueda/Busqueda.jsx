@@ -131,7 +131,7 @@ export default function Busqueda() {
             </div>
             <button
               className="card-button card-button-editar"
-              onClick={openModal(proyecto.id_proyecto)}
+              onClick={()=>openModal(proyecto.id_proyecto)}
             >
               Editar
             </button>
