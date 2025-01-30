@@ -1,7 +1,10 @@
 import "./Busqueda.css";
 import { useState, useEffect } from "react";
+import { useAuth } from "../../Auth";
 
 export default function EditarProyectoModal({ onClose, proyectoId }) {
+  const { sesion } = useAuth();
+
   const [proyecto, setProyecto] = useState({
     titulo: ""
   });
@@ -9,12 +12,19 @@ export default function EditarProyectoModal({ onClose, proyectoId }) {
   useEffect(() => {
   const getProyecto = async () => {
     try {
-      const response = await fetch(`/api/proyectos/${proyectoId}`);
+      const response = await fetch(`http://localhost:3000/proyectos/${proyectoId}`,{method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sesion.token}`,
+        }});
       const data = await response.json();
+      console.log(data)
       setProyecto({
-        titulo: data.titulo
+        titulo: data.nombre_proyecto || ""
       });
     } catch (error) {
+      console.log(proyectoId)
+      console.log(error)
       console.error("Error al obtener el proyecto:", error);
     }
   };
