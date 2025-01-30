@@ -5,7 +5,7 @@ import { useAuth } from "../../Auth";
 export default function CrearProyectoButton() {
   const { sesion } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0); // Estado para el carrusel
+  const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     carrera_id: "",
     nombre_proyecto: "",
@@ -56,16 +56,29 @@ export default function CrearProyectoButton() {
 
   const steps = [
     {
-      title: "ETAPA 1",
+      title: "Etapa 1",
       content: (
         <div className="form-group">
-          <label>Etapa 1 Tipo:</label>
-          <input
-            type="text"
-            name="etapa1_tipo"
-            value={formData.etapa1_tipo}
-            onChange={handleChange}
-          />
+        {/*
+          <span>
+            <label>Etapa 1 Tipo:</label>
+            <input
+              type="text"
+              name="etapa1_tipo"
+              value={formData.etapa1_tipo}
+              onChange={handleChange}
+            />
+          </span>
+        */}
+
+          <span>
+            <label>Carrera</label>
+            <select name="carrera_id" value={formData.carrera_id}>
+              <option>Seleccione una carrera</option>
+              <option value="1">Tec. en Higiene y Seguridad</option>
+              <option value="2">Lic. en Tecnología Educativa</option>
+            </select>
+          </span>
         </div>
       ),
     },
