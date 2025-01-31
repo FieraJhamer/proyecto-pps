@@ -48,10 +48,8 @@ export const validarCrearProyecto = [
   body("fechaFinCursada").isISO8601(),
   body("fechaCargaArchivosEtapa1").isISO8601(),
   body("fechaAprobacionEtapa1").isISO8601(),
-  body("fechaResolucionExtensionEtapa1").isISO8601(),
   body("fechaCargaArchivosEtapa2").isISO8601(),
   body("fechaAprobacionEtapa2").isISO8601(),
-  body("fechaResolucionExtensionEtapa2_fecha").isISO8601(),
   body("fechaDesignacionTribunal").isISO8601(),
   body("fechaDefensaProyecto").isISO8601(),
 

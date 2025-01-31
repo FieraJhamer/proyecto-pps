@@ -7,36 +7,53 @@ export default function CrearProyectoButton() {
   const { sesion } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+
   const [formData, setFormData] = useState({
+        carrera_id: "",
+        nombre_proyecto: "",
+        alumno1_nombre: "",
+        alumno1_apellido: "",
+        alumno1_legajo: "",
+        alumno2_nombre: "",
+        alumno2_apellido: "",
+        alumno2_legajo: "",
+        alumno3_nombre: "",
+        alumno3_apellido: "",
+        alumno3_legajo: "",
+        etapa1_tipo: 1,
+        etapa2_tipo: 2,
+        extension1_tipo: 1,
+        extension2_tipo: 2,
+        fechaFinCursada_tipo: 1,
+        fechaFinCursada: "",
+        fechaCargaArchivosEtapa1_tipo: 2,
+        fechaCargaArchivosEtapa1: "",
+        fechaAprobacionEtapa1_tipo: 3,
+        fechaAprobacionEtapa1: "",
+        fechaResolucionExtensionEtapa1_tipo: 4,
+        fechaResolucionExtensionEtapa1: null,
+        fechaCargaArchivosEtapa2_tipo: 5,
+        fechaCargaArchivosEtapa2: "",
+        fechaAprobacionEtapa2_tipo: 6,
+        fechaAprobacionEtapa2: "",
+        fechaResolucionExtensionEtapa2_tipo: 7,
+        fechaResolucionExtensionEtapa2: null,
+        fechaDesignacionTribunal_tipo: 8,
+        fechaDesignacionTribunal: "",
+        fechaDefensaProyecto_tipo: 9,
+        fechaDefensaProyecto: "",
+        tribunalIntegrante1: "",
+        tribunalIntegrante2: "",
+        tribunalIntegrante3: "",
+
     /* ETAPA 1 */
-    carrera_id: "",
-    nombre_proyecto: "",
-    alumno1_nombre: "",
-    alumno1_apellido: "",
-    alumno1_legajo: "",
-    alumno2_nombre: "",
-    alumno2_apellido: "",
-    alumno2_legajo: "",
-    alumno3_nombre: "",
-    alumno3_apellido: "",
-    alumno3_legajo: "",
-    fechaFinCursada: "",
-    fechaCargaArchivosEtapa1: "",
     /* documentoPropuestaProyecto: "", */
     /* documentoAceptacionTutor: "", */
     /* documentoCVTutor: "", */
-    fechaAprobacionEtapa1: "",
 
     /* ETAPA 2 */
-    fechaCargaArchivosEtapa2: "",
     /* documentoTesina: "", */
-    fechaAprobacionEtapa2: "",
-    tribunalIntegrante1: "",
-    tribunalIntegrante2: "",
-    tribunalIntegrante3: "",
     /* documentoResolucionTribunal: "", */
-    fechaDesignacionTribunal: "",
-    fechaDefensaProyecto: ""
   });
 
   const openModal = () => setIsModalOpen(true);
@@ -64,6 +81,7 @@ export default function CrearProyectoButton() {
       }
 
       closeModal();
+      console.log("Se enviaron los datos correctamente")
     } catch (error) {
       console.error("Error al subir el proyecto:", error);
     }
@@ -299,7 +317,7 @@ export default function CrearProyectoButton() {
                   </button>
                 )}
 
-                <button type="submit" className="modal-save-button">
+                <button type="submit" className="modal-save-button" onClick={handleSubmit}>
                   Crear
                 </button>
 
