@@ -8,6 +8,7 @@ export default function CrearProyectoButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
+    /* ETAPA 1 */
     carrera_id: "",
     nombre_proyecto: "",
     alumno1_nombre: "",
@@ -21,10 +22,22 @@ export default function CrearProyectoButton() {
     alumno3_legajo: "",
     fechaFinCursada: "",
     fechaCargaArchivosEtapa1: "",
-    fechaAprobacionEtapa1: ""
-  });
-  {/*TERMINAR DE AGREGAR LOS DATOS PARA LOS ARCHIVOS MÁS ADELANTE*/}
+    /* documentoPropuestaProyecto: "", */
+    /* documentoAceptacionTutor: "", */
+    /* documentoCVTutor: "", */
+    fechaAprobacionEtapa1: "",
 
+    /* ETAPA 2 */
+    fechaCargaArchivosEtapa2: "",
+    /* documentoTesina: "", */
+    fechaAprobacionEtapa2: "",
+    tribunalIntegrante1: "",
+    tribunalIntegrante2: "",
+    tribunalIntegrante3: "",
+    /* documentoResolucionTribunal: "", */
+    fechaDesignacionTribunal: "",
+    fechaDefensaProyecto: ""
+  });
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -149,17 +162,17 @@ export default function CrearProyectoButton() {
             {/* LOS INPUTS DE ARCHIVOS AHORA NO FUNCAN */}
             <span>
               <label>Propuesta de proyecto</label>
-              <input name="filePropuestaProyecto" type="file" accept="application/pdf" />
+              <input name="documentoPropuestaProyecto" type="file" accept="application/pdf" />
             </span>
 
             <span>
               <label>Nota de aceptación del tutor</label>
-              <input name="fileAceptacionTutor" type="file" accept="application/pdf" />
+              <input name="documentoAceptacionTutor" type="file" accept="application/pdf" />
             </span>
 
             <span>
               <label>CV del tutor</label>
-              <input name="fileCVTutor" type="file" accept="application/pdf" />
+              <input name="documentoCVTutor" type="file" accept="application/pdf" />
             </span>
 
           </div>
@@ -167,16 +180,70 @@ export default function CrearProyectoButton() {
       ),
     },
     {
-      title: "ETAPA 2",
+      title: "Etapa 2",
       content: (
         <div className="form-group">
-          <label>Etapa 2 Tipo:</label>
-          <input
-            type="text"
-            name="etapa2_tipo"
-            value={formData.etapa2_tipo}
-            onChange={handleChange}
-          />
+          <div className="form-group-left">
+            <span>
+                <label>Fecha de carga de archivos de la etapa 1</label>
+                <input
+                  type="date"
+                  name="fechaCargaArchivosEtapa2"
+                  value={formData.fechaCargaArchivosEtapa2}
+                  onChange={handleChange}
+                />
+            </span>
+
+            {/* LOS INPUTS DE ARCHIVOS AHORA NO FUNCAN */}
+            <span>
+              <label>Documento de tesina</label>
+              <input name="documentoTesina" type="file" accept="application/pdf" />
+            </span>
+
+            <span>
+                <label>Fecha de aprobación de la etapa 2</label>
+                <input
+                  type="date"
+                  name="fechaAprobacionEtapa2"
+                  value={formData.fechaAprobacionEtapa2}
+                  onChange={handleChange}
+                />
+            </span>
+          </div>
+
+          <div className="form-group-right">
+            {[1, 2, 3].map((num) => (
+                  <span key={num}>
+                    <label>Miembro del tribunal N°{num}</label>
+                    <input
+                      type="text"
+                      name={`tribunalIntegrante${num}`}
+                      value={formData[`tribunalIntegrante${num}`]}
+                      onChange={handleChange}
+                    />
+                  </span>
+              ))}
+
+            <span>
+              <label>Fecha de designación del tribunal</label>
+              <input
+                type="date"
+                name="fechaDesignacionTribunal"
+                value={formData.fechaDesignacionTribunal}
+                onChange={handleChange}
+              />
+            </span>
+
+            <span>
+              <label>Fecha de defensa del proyecto</label>
+              <input
+                type="date"
+                name="fechaDefensaProyecto"
+                value={formData.fechaDefensaProyecto}
+                onChange={handleChange}
+              />
+            </span>
+          </div>
         </div>
       ),
     }
