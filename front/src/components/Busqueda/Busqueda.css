@@ -266,6 +266,7 @@ input:hover {
     width: 95%;
 }
 
+/*
 .modal input {
     outline: none;
     border: none;
@@ -277,6 +278,7 @@ input:hover {
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.05);
     margin: 2px 0 0 0;
 }
+*/
 
 .fase1-center input,
 .miembros-tribunal input {
