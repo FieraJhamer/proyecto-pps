@@ -81,7 +81,6 @@ export const obtenerFechas = async (req,res)=>{
     try{
         const [ListadoFechas] = await db.query('select fecha from fechas where id_proyecto=?',[id])
         res.send(ListadoFechas)
-        console.log(ListadoFechas)
     }
     catch(error){
         console.log(error)
