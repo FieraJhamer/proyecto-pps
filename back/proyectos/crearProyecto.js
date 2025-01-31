@@ -24,23 +24,26 @@ const crearProyecto = async (req, res) => {
     fechaAprobacionEtapa1_tipo,
     fechaAprobacionEtapa1,
     fechaResolucionExtensionEtapa1_tipo,
-    fechaResolucionExtensionEtapa1,
+    fechaResolucionExtensionEtapa1ll,
     fechaCargaArchivosEtapa2_tipo,
     fechaCargaArchivosEtapa2,
     fechaAprobacionEtapa2_tipo,
     fechaAprobacionEtapa2,
     fechaResolucionExtensionEtapa2_tipo,
-    fechaResolucionExtensionEtapa2_fecha,
+    fechaResolucionExtensionEtapa2,
     fechaDesignacionTribunal_tipo,
     fechaDesignacionTribunal,
     fechaDefensaProyecto_tipo,
     fechaDefensaProyecto,
+    tribunalIntegrante1,
+    tribunalIntegrante2,
+    tribunalIntegrante3,
   } = req.body;
 
   try {
     const [result] = await db.query(
       `
-        CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         carrera_id,
         nombre_proyecto,
@@ -64,17 +67,20 @@ const crearProyecto = async (req, res) => {
         fechaAprobacionEtapa1_tipo,
         fechaAprobacionEtapa1,
         fechaResolucionExtensionEtapa1_tipo,
-        fechaResolucionExtensionEtapa1,
+        fechaResolucionExtensionEtapa1ll,
         fechaCargaArchivosEtapa2_tipo,
         fechaCargaArchivosEtapa2,
         fechaAprobacionEtapa2_tipo,
         fechaAprobacionEtapa2,
         fechaResolucionExtensionEtapa2_tipo,
-        fechaResolucionExtensionEtapa2_fecha,
+        fechaResolucionExtensionEtapa2,
         fechaDesignacionTribunal_tipo,
         fechaDesignacionTribunal,
         fechaDefensaProyecto_tipo,
         fechaDefensaProyecto,
+        tribunalIntegrante1,
+        tribunalIntegrante2,
+        tribunalIntegrante3,
       ]
     );
 

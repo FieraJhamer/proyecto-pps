@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Busqueda.css";
 import { useAuth } from "../../Auth";
 import EditarProyectoModal from "./EditarProyectoModal";
-import CrearProyectoButton from "./CrearProyectoButton";
+import CrearProyectoButton from "../CrearProyectoButton/CrearProyectoButton";
 
 export default function Busqueda() {
   const { sesion } = useAuth();
