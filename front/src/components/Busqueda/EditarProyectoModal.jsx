@@ -6,7 +6,8 @@ export default function EditarProyectoModal({ onClose, proyectoId }) {
   const { sesion } = useAuth();
 
   const [proyecto, setProyecto] = useState({
-    titulo: ""
+    titulo: "",
+    alumnos: []
   });
   
   useEffect(() => {
@@ -20,7 +21,8 @@ export default function EditarProyectoModal({ onClose, proyectoId }) {
       const data = await response.json();
       console.log(data)
       setProyecto({
-        titulo: data.nombre_proyecto || ""
+        titulo: data.nombre_proyecto || "",
+        alumnos: data.integrantes || []
       });
     } catch (error) {
       console.log(proyectoId)
@@ -31,6 +33,32 @@ export default function EditarProyectoModal({ onClose, proyectoId }) {
 
   getProyecto();
 }, [proyectoId]);
+
+const handleNombreYApellido = (e,i) => {
+  const updatedProyecto = { ...proyecto };
+  if (updatedProyecto.alumnos && updatedProyecto.alumnos[i]) {
+    const [nombre, apellido] = e.target.value.split(' ');
+    if (nombre === undefined || apellido === undefined) {
+      return;
+    }
+    updatedProyecto.alumnos[i].nombre_alumno = nombre;
+    updatedProyecto.alumnos[i].apellido_alumno = apellido;
+  }
+  setProyecto(updatedProyecto)
+
+}
+const handleLegajo = (e,i) => {
+  const updatedProyecto = { ...proyecto };
+  if (updatedProyecto.alumnos && updatedProyecto.alumnos[i]) {
+    if (e.target.value === undefined) {
+      return;
+    }
+    updatedProyecto.alumnos[i].legajo_alumno = e.target.value;
+  }
+  setProyecto(updatedProyecto)    
+}
+
+console.log(proyecto)
 
   return (
     <div className="modal">
@@ -61,14 +89,27 @@ export default function EditarProyectoModal({ onClose, proyectoId }) {
               <div className="fase1-center">
                 <span>
                   Primer integrante
-                  <input type="text" placeholder="Apellido y nombre" />
-                  <input type="text" placeholder="N° de legajo" />
+                  <input value={proyecto.alumnos && proyecto.alumnos[0] ?  `${proyecto.alumnos[0].nombre_alumno} ${proyecto.alumnos[0].apellido_alumno}` :''}  
+                         type="text" 
+                         placeholder="Apellido y nombre"
+                         onChange={(e)=>handleNombreYApellido(e,0)} />
+                  <input value={proyecto.alumnos && proyecto.alumnos[0] ?  `${proyecto.alumnos[0].legajo_alumno}` :''}
+                         type="text" 
+                         placeholder="N° de legajo"
+                         onChange={(e)=>handleLegajo(e,0)} />
                 </span>
                 <span>
                   Segundo integrante
-                  <input type="text" placeholder="Apellido y nombre" />
-                  <input type="text" placeholder="N° de legajo" />
+                  <input value={proyecto.alumnos && proyecto.alumnos[1] ?  `${proyecto.alumnos[1].nombre_alumno} ${proyecto.alumnos[1].apellido_alumno}` :''}
+                         type="text"
+                         placeholder="Apellido y nombre"
+                         onChange={(e)=>handleNombreYApellido(e,1)} />
+                  <input value={proyecto.alumnos && proyecto.alumnos[1] ?  `${proyecto.alumnos[1].legajo_alumno}` :''}
+                         type="text"
+                         placeholder="N° de legajo"
+                         onChange={(e)=>handleLegajo(e,1)} />
                 </span>
+                
                 <span>
                   Tercer integrante
                   <input type="text" placeholder="Apellido y nombre" />
