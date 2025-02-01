@@ -15,6 +15,7 @@ const obtenerProyecto = async (req, res) => {
         JOIN grupos g ON p.id_grupo = g.id_grupo
     
         JOIN carreras c ON c.id_carrera=g.id_carrera
+
         GROUP BY p.id_proyecto,p.nombre_proyecto, c.nombre_carrera`);
   res.send(proyectos);
 };
@@ -75,5 +76,16 @@ export const obtenerProyectoPorId = async (req, res) => {
   }
 };
 
+export const obtenerFechas = async (req,res)=>{
+    const {id} = req.params
+    try{
+        const [ListadoFechas] = await db.query('select fecha from fechas where id_proyecto=?',[id])
+        res.send(ListadoFechas)
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).send("Error al obtener fechas")
+    }
+}
 
 export default obtenerProyecto;
