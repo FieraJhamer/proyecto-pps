@@ -76,5 +76,16 @@ export const obtenerProyectoPorId = async (req, res) => {
   }
 };
 
+export const obtenerFechas = async (req,res)=>{
+    const {id} = req.params
+    try{
+        const [ListadoFechas] = await db.query('select fecha from fechas where id_proyecto=?',[id])
+        res.send(ListadoFechas)
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).send("Error al obtener fechas")
+    }
+}
 
 export default obtenerProyecto;

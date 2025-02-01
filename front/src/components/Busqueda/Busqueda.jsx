@@ -12,7 +12,9 @@ export default function Busqueda() {
 
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [proyectos, setProyectos] = useState([]);
+  const [fechas,setFechas]=useState([])
   const [carreraFiltro, setCarreraFiltro] = useState("");
+
   const [selectedProyectoId, setSelectedProyectoId] = useState(null);
   const [ProyectoSelect,setProyectoSelect] = useState(null);
 
@@ -23,6 +25,8 @@ export default function Busqueda() {
   const OpenView = (proyecto)=>{
     setViewModal(true)
     setProyectoSelect(proyecto)
+
+    getFechas(proyecto)
   }
 
   const closeView = ()=>{
@@ -55,6 +59,29 @@ export default function Busqueda() {
       console.error("Error al cargar los proyectos:", error);
     }
   };
+
+  const getFechas = async (proyecto)=>{
+    try{
+      const response = await fetch(`http://localhost:3000/proyectos/${proyecto.id_proyecto}/fechas`,{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sesion.token}`,
+        },
+      })
+
+      if (!response.ok){
+        throw new Error(`Error en la solicitud: ${response.statusText}`);
+      }
+
+      const data = await response.json()
+      setFechas(data)
+      console.log(data)
+    }
+    catch(error){
+      console.error("Error al cargar las fechas",error)
+    }
+  }
 
   useEffect(() => {
     getProyectos();
@@ -164,6 +191,43 @@ export default function Busqueda() {
               <div className="modal-details-1">
                 <p><strong>Titulo:</strong>{ProyectoSelect.nombre_proyecto}</p>
                 <p><strong>Integrantes:</strong>{ProyectoSelect.integrantes}</p>
+              </div>
+
+              <div className="modal-details-2">
+                <p><strong>Archivos cargados:</strong></p>
+                <ul className="file-list">
+                  <li>
+                    <strong>Propuesta del proyecto: </strong> 
+                      <span className="file-name">propuesta_proyecto.pdf 📄</span>
+                  </li>
+
+                  <li>
+                    <strong>Nota del tutor: </strong> 
+                      <span className="file-name">nota_tutor.pdf 📄</span>
+                  </li>
+
+                  <li>
+                    <strong>CV del tutor: </strong> 
+                      <span className="file-name">cv_tutor.pdf 📄</span>
+                  </li>
+
+                  <li>
+                    <strong>Documento de la tesina: </strong> 
+                      <span className="file-name">proyecto_tesina.pdf 📄</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="modal-details-3">
+
+                {fechas.length>0 && (
+                  <>
+                  <p><strong>Estado del proyecto</strong></p>
+                  <p><strong>Etapa 1: <span style={{color:"green"}}>Completa</span>{fechas[0].fecha}</strong></p>
+                  <p><strong>Etapa 2: <span style={{color:"red"}}>En proceso</span></strong>{fechas[1].fecha}</p>
+                  <p><strong>Etapa 3: <span style={{color:"red"}}>No iniciada</span></strong>{fechas[2].fecha}</p>
+                  </>
+                )}
                 
               </div>
 
@@ -171,6 +235,7 @@ export default function Busqueda() {
               <button type="button" className="modal-close-button" onClick={closeView}>Cerrar</button>
               </div>
           </div>
+
         </div>
       )}
 
