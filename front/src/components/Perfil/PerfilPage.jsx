@@ -1,4 +1,4 @@
-import { AuthRol, useAuth } from "../Auth";
+import { AuthRol, useAuth } from "../../Auth";
 import { useNavigate } from "react-router-dom";
 import "./PerfilPage.css"
 

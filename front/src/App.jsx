@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import { Layout } from "./Layout";
-import { PerfilPage } from "../src/Perfil/PerfilPage";
-import { LoginPage } from "./LoginPage";
-import { SinRuta } from "./SinRuta";
+import { Layout } from "./components/Layout/Layout.jsx";
+import { PerfilPage } from "./components/Perfil/PerfilPage.jsx";
+import { LoginPage } from "./components/LoginPage/LoginPage.jsx";
+import { SinRuta } from "./components/SinRuta/SinRuta.jsx";
 import { AuthPage } from "./Auth";
-import RegistroUsuarios from "./RegistroUsuarios/RegistroUsuarios.jsx"
+import RegistroUsuarios from "./components/RegistroUsuarios/RegistroUsuarios.jsx"
 import Busqueda from "./components/Busqueda/Busqueda.jsx"
 
 import "./App.css";

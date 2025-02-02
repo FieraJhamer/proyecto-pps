@@ -1,4 +1,4 @@
-import { useAuth } from "../Auth";
+import { useAuth } from "../../Auth";
 import { useEffect, useState } from "react";
 import "./RegistroUsuarios.css";
 
