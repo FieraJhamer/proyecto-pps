@@ -3,77 +3,85 @@ import "../Busqueda/Busqueda.css";
 import "./CrearProyectoButton.css";
 import { useAuth } from "../../Auth";
 
+/* TERMINAR DE PROBAR LA API CON MULTER Y EL ENVÍO DE ARCHIVOS PARA S3*/
+
 export default function CrearProyectoButton() {
   const { sesion } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
   const [formData, setFormData] = useState({
-        carrera_id: "",
-        nombre_proyecto: "",
-        alumno1_nombre: "",
-        alumno1_apellido: "",
-        alumno1_legajo: "",
-        alumno2_nombre: "",
-        alumno2_apellido: "",
-        alumno2_legajo: "",
-        alumno3_nombre: "",
-        alumno3_apellido: "",
-        alumno3_legajo: "",
-        etapa1_tipo: 1,
-        etapa2_tipo: 2,
-        extension1_tipo: 1,
-        extension2_tipo: 2,
-        fechaFinCursada_tipo: 1,
-        fechaFinCursada: "",
-        fechaCargaArchivosEtapa1_tipo: 2,
-        fechaCargaArchivosEtapa1: "",
-        fechaAprobacionEtapa1_tipo: 3,
-        fechaAprobacionEtapa1: "",
-        fechaResolucionExtensionEtapa1_tipo: 4,
-        fechaResolucionExtensionEtapa1: null,
-        fechaCargaArchivosEtapa2_tipo: 5,
-        fechaCargaArchivosEtapa2: "",
-        fechaAprobacionEtapa2_tipo: 6,
-        fechaAprobacionEtapa2: "",
-        fechaResolucionExtensionEtapa2_tipo: 7,
-        fechaResolucionExtensionEtapa2: null,
-        fechaDesignacionTribunal_tipo: 8,
-        fechaDesignacionTribunal: "",
-        fechaDefensaProyecto_tipo: 9,
-        fechaDefensaProyecto: "",
-        tribunalIntegrante1: "",
-        tribunalIntegrante2: "",
-        tribunalIntegrante3: "",
-
-    /* ETAPA 1 */
-    /* documentoPropuestaProyecto: "", */
-    /* documentoAceptacionTutor: "", */
-    /* documentoCVTutor: "", */
-
-    /* ETAPA 2 */
-    /* documentoTesina: "", */
-    /* documentoResolucionTribunal: "", */
+    carrera_id: "",
+    nombre_proyecto: "",
+    alumno1_nombre: "",
+    alumno1_apellido: "",
+    alumno1_legajo: "",
+    alumno2_nombre: "",
+    alumno2_apellido: "",
+    alumno2_legajo: "",
+    alumno3_nombre: "",
+    alumno3_apellido: "",
+    alumno3_legajo: "",
+    fechaFinCursada: "",
+    fechaCargaArchivosEtapa1: "",
+    fechaAprobacionEtapa1: "",
+    fechaCargaArchivosEtapa2: "",
+    fechaAprobacionEtapa2: "",
+    fechaDesignacionTribunal: "",
+    fechaDefensaProyecto: "",
+    tribunalIntegrante1: "",
+    tribunalIntegrante2: "",
+    tribunalIntegrante3: "",
   });
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const [files, setFiles] = useState({
+    docPropuestaProyecto: null,
+    docAceptacionTutor: null,
+    docCVTutor: null,
+    docTesina: null,
+    docResolucionTribunal: null,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+  
+    setFiles((prevFiles) => ({
+      ...prevFiles,
+      [name]: files.length > 1 ? [...files] : files[0],
+    }));
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const data = new FormData();
+
+    Object.entries(formData).forEach(([key, value]) => {
+      data.append(key, value);
+    });
+
+    Object.entries(files).forEach(([key, file]) => {
+      if (Array.isArray(file)) {
+        file.forEach((f) => data.append(key, f)); // PARA VARIOS ARCHIVOS
+      } else {
+        data.append(key, file); // PARA UN SOLO ARCHIVO
+      }
+    });
+    
+
     try {
-      const response = await fetch("http://localhost:3000/proyectos", {
+      const response = await fetch("http://localhost:3000/proyectos/test", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${sesion.token}`,
         },
-        body: JSON.stringify(formData),
+        body: data,
       });
 
       if (!response.ok) {
@@ -81,11 +89,14 @@ export default function CrearProyectoButton() {
       }
 
       closeModal();
-      console.log("Se enviaron los datos correctamente")
+      console.log("Proyecto creado con éxito");
     } catch (error) {
       console.error("Error al subir el proyecto:", error);
     }
   };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const steps = [
     {
@@ -145,54 +156,37 @@ export default function CrearProyectoButton() {
               </div>
             ))}
           </div>
-
+          
           <div className="form-group-right">
             <span>
-              <label>Fecha de finalización de cursada</label>
-              <input
-                type="date"
-                name="fechaFinCursada"
-                value={formData.fechaFinCursada}
-                onChange={handleChange}
-              />
-            </span>
+                <label>Propuesta de proyecto</label>
+                <input
+                  name="docPropuestaProyecto"
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handleFileChange}
+                />
+              </span>
 
-            <span>
-              <label>Fecha de carga de archivos de la etapa 1</label>
-              <input
-                type="date"
-                name="fechaCargaArchivosEtapa1"
-                value={formData.fechaCargaArchivosEtapa1}
-                onChange={handleChange}
-              />
-            </span>
+              <span>
+                <label>Nota de aceptación del tutor</label>
+                <input
+                  name="docAceptacionTutor"
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handleFileChange}
+                />
+              </span>
 
-            <span>
-              <label>Fecha de aprobación de etapa 1</label>
-              <input
-                type="date"
-                name="fechaAprobacionEtapa1"
-                value={formData.fechaAprobacionEtapa1}
-                onChange={handleChange}
-              />
-            </span>
-
-            {/* LOS INPUTS DE ARCHIVOS AHORA NO FUNCAN */}
-            <span>
-              <label>Propuesta de proyecto</label>
-              <input name="documentoPropuestaProyecto" type="file" accept="application/pdf" />
-            </span>
-
-            <span>
-              <label>Nota de aceptación del tutor</label>
-              <input name="documentoAceptacionTutor" type="file" accept="application/pdf" />
-            </span>
-
-            <span>
-              <label>CV del tutor</label>
-              <input name="documentoCVTutor" type="file" accept="application/pdf" />
-            </span>
-
+              <span>
+                <label>CV del tutor</label>
+                <input
+                  name="docCVTutor"
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handleFileChange}
+                />
+              </span>
           </div>
         </div>
       ),
@@ -212,10 +206,14 @@ export default function CrearProyectoButton() {
                 />
             </span>
 
-            {/* LOS INPUTS DE ARCHIVOS AHORA NO FUNCAN */}
             <span>
               <label>Documento de tesina</label>
-              <input name="documentoTesina" type="file" accept="application/pdf" />
+              <input
+                name="docTesina"
+                type="file"
+                accept="application/pdf"
+                onChange={handleFileChange}
+              />
             </span>
 
             <span>
@@ -243,6 +241,16 @@ export default function CrearProyectoButton() {
               ))}
 
             <span>
+              <label>Resolución del tribunal</label>
+              <input
+                name="docResolucionTribunal"
+                type="file"
+                accept="application/pdf"
+                onChange={handleFileChange}
+              />
+            </span>
+
+            <span>
               <label>Fecha de designación del tribunal</label>
               <input
                 type="date"
@@ -264,7 +272,7 @@ export default function CrearProyectoButton() {
           </div>
         </div>
       ),
-    }
+    },
   ];
 
   const goNext = () => {
@@ -286,16 +294,11 @@ export default function CrearProyectoButton() {
           <div className="modal-content">
             <h2>{steps[currentStep].title}</h2>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
               {steps[currentStep].content}
 
               <div className="modal-buttons">
-                <button
-                  type="button"
-                  className="modal-prev-button"
-                  onClick={goPrev}
-                  disabled={currentStep === 0}
-                >
+                <button type="button" onClick={goPrev} disabled={currentStep === 0}>
                   Anterior
                 </button>
 

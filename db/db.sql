@@ -34,7 +34,7 @@ CREATE TABLE `alumnos` (
   UNIQUE KEY `legajo_alumno_UNIQUE` (`legajo_alumno`),
   KEY `fk_alumnos_1_idx` (`id_grupo`),
   CONSTRAINT `fk_alumnos_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,39 +43,7 @@ CREATE TABLE `alumnos` (
 
 LOCK TABLES `alumnos` WRITE;
 /*!40000 ALTER TABLE `alumnos` DISABLE KEYS */;
-INSERT INTO `alumnos` VALUES
-(29,15,'Alexis','Gómez',1241),
-(30,15,'Gonzalo','Reyes',9512),
-(31,15,'Brian','Reyes',2513);
 /*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `archivos`
---
-
-DROP TABLE IF EXISTS `archivos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `archivos` (
-  `id_archivo` int(11) NOT NULL AUTO_INCREMENT,
-  `id_set_archivos` int(11) NOT NULL,
-  `enlace_archivo` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_archivo`),
-  UNIQUE KEY `id_archivo_UNIQUE` (`id_archivo`),
-  UNIQUE KEY `enlace_archivo_UNIQUE` (`enlace_archivo`),
-  KEY `fk_archivos_1_idx` (`id_set_archivos`),
-  CONSTRAINT `fk_archivos_1` FOREIGN KEY (`id_set_archivos`) REFERENCES `set_archivos` (`id_set_archivos`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `archivos`
---
-
-LOCK TABLES `archivos` WRITE;
-/*!40000 ALTER TABLE `archivos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `archivos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -107,6 +75,37 @@ INSERT INTO `carreras` VALUES
 UNLOCK TABLES;
 
 --
+-- Table structure for table `documentos`
+--
+
+DROP TABLE IF EXISTS `documentos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `documentos` (
+  `id_documentos` int(11) NOT NULL AUTO_INCREMENT,
+  `doc_propuesta_proyecto` varchar(250) DEFAULT NULL,
+  `doc_nota_tutor` varchar(250) DEFAULT NULL,
+  `doc_cv_tutor` varchar(250) DEFAULT NULL,
+  `doc_proyecto` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id_documentos`),
+  UNIQUE KEY `id_documentos_UNIQUE` (`id_documentos`),
+  UNIQUE KEY `doc_propuesta_proyecto_UNIQUE` (`doc_propuesta_proyecto`),
+  UNIQUE KEY `doc_nota_tutor_UNIQUE` (`doc_nota_tutor`),
+  UNIQUE KEY `doc_cv_tutor_UNIQUE` (`doc_cv_tutor`),
+  UNIQUE KEY `doc_proyecto_UNIQUE` (`doc_proyecto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `documentos`
+--
+
+LOCK TABLES `documentos` WRITE;
+/*!40000 ALTER TABLE `documentos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `documentos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `etapas`
 --
 
@@ -124,7 +123,7 @@ CREATE TABLE `etapas` (
   KEY `fk_etapas_2_idx` (`id_tipo_etapa`),
   CONSTRAINT `fk_etapas_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_etapas_2` FOREIGN KEY (`id_tipo_etapa`) REFERENCES `tipo_etapas` (`id_tipo_etapa`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,9 +132,6 @@ CREATE TABLE `etapas` (
 
 LOCK TABLES `etapas` WRITE;
 /*!40000 ALTER TABLE `etapas` DISABLE KEYS */;
-INSERT INTO `etapas` VALUES
-(17,1,15,0),
-(18,2,15,0);
 /*!40000 ALTER TABLE `etapas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,7 +153,7 @@ CREATE TABLE `extensiones` (
   KEY `fk_extensiones_2_idx` (`id_tipo_extension`),
   CONSTRAINT `fk_extensiones_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_extensiones_2` FOREIGN KEY (`id_tipo_extension`) REFERENCES `tipo_extensiones` (`id_tipo_extension`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,9 +162,6 @@ CREATE TABLE `extensiones` (
 
 LOCK TABLES `extensiones` WRITE;
 /*!40000 ALTER TABLE `extensiones` DISABLE KEYS */;
-INSERT INTO `extensiones` VALUES
-(15,15,1,NULL),
-(16,15,2,NULL);
 /*!40000 ALTER TABLE `extensiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +183,7 @@ CREATE TABLE `fechas` (
   KEY `fk_fechas_2_idx` (`id_tipo_fecha`),
   CONSTRAINT `fk_fechas_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fechas_2` FOREIGN KEY (`id_tipo_fecha`) REFERENCES `tipo_fechas` (`id_tipo_fecha`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,16 +192,6 @@ CREATE TABLE `fechas` (
 
 LOCK TABLES `fechas` WRITE;
 /*!40000 ALTER TABLE `fechas` DISABLE KEYS */;
-INSERT INTO `fechas` VALUES
-(55,15,1,'2025-01-30'),
-(56,15,2,'2025-02-27'),
-(57,15,3,'2025-02-20'),
-(58,15,4,NULL),
-(59,15,5,'2025-01-23'),
-(60,15,6,'2025-03-19'),
-(61,15,7,NULL),
-(62,15,8,'2025-01-23'),
-(63,15,9,'2025-01-29');
 /*!40000 ALTER TABLE `fechas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +209,7 @@ CREATE TABLE `grupos` (
   UNIQUE KEY `id_grupo_UNIQUE` (`id_grupo`),
   KEY `fk_grupos_1_idx` (`id_carrera`),
   CONSTRAINT `fk_grupos_1` FOREIGN KEY (`id_carrera`) REFERENCES `carreras` (`id_carrera`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,8 +218,6 @@ CREATE TABLE `grupos` (
 
 LOCK TABLES `grupos` WRITE;
 /*!40000 ALTER TABLE `grupos` DISABLE KEYS */;
-INSERT INTO `grupos` VALUES
-(15,2);
 /*!40000 ALTER TABLE `grupos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,11 +232,14 @@ CREATE TABLE `proyectos` (
   `id_proyecto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_proyecto` varchar(100) NOT NULL,
   `id_grupo` int(11) NOT NULL,
+  `id_documentos` int(11) NOT NULL,
   PRIMARY KEY (`id_proyecto`),
   UNIQUE KEY `id_proyecto_UNIQUE` (`id_proyecto`),
   UNIQUE KEY `id_grupo_UNIQUE` (`id_grupo`),
-  CONSTRAINT `fk_proyectos_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `fk_proyectos_2_idx` (`id_documentos`),
+  CONSTRAINT `fk_proyectos_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proyectos_2` FOREIGN KEY (`id_documentos`) REFERENCES `documentos` (`id_documentos`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,37 +248,7 @@ CREATE TABLE `proyectos` (
 
 LOCK TABLES `proyectos` WRITE;
 /*!40000 ALTER TABLE `proyectos` DISABLE KEYS */;
-INSERT INTO `proyectos` VALUES
-(15,'Enseñanza en tiempos de IA',15);
 /*!40000 ALTER TABLE `proyectos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `set_archivos`
---
-
-DROP TABLE IF EXISTS `set_archivos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `set_archivos` (
-  `id_set_archivos` int(11) NOT NULL AUTO_INCREMENT,
-  `id_proyecto` int(11) NOT NULL,
-  PRIMARY KEY (`id_set_archivos`),
-  UNIQUE KEY `id_set_archivos_UNIQUE` (`id_set_archivos`),
-  KEY `fk_set_archivos_1_idx` (`id_proyecto`),
-  CONSTRAINT `fk_set_archivos_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `set_archivos`
---
-
-LOCK TABLES `set_archivos` WRITE;
-/*!40000 ALTER TABLE `set_archivos` DISABLE KEYS */;
-INSERT INTO `set_archivos` VALUES
-(15,15);
-/*!40000 ALTER TABLE `set_archivos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -404,7 +358,7 @@ CREATE TABLE `tribunales` (
   UNIQUE KEY `id_tribunal_UNIQUE` (`id_tribunal`),
   KEY `fk_tribunales_1_idx` (`id_proyecto`),
   CONSTRAINT `fk_tribunales_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,8 +367,6 @@ CREATE TABLE `tribunales` (
 
 LOCK TABLES `tribunales` WRITE;
 /*!40000 ALTER TABLE `tribunales` DISABLE KEYS */;
-INSERT INTO `tribunales` VALUES
-(3,15,'Javier Milei','Cristina Kirchner','Mauricio Macri');
 /*!40000 ALTER TABLE `tribunales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -461,4 +413,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-01-31 20:32:03
+-- Dump completed on 2025-02-02  4:37:00
