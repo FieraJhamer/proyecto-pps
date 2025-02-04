@@ -22,12 +22,25 @@ export default function CrearProyectoButton() {
     alumno3_nombre: "",
     alumno3_apellido: "",
     alumno3_legajo: "",
+    etapa1_tipo: 1,
+    etapa2_tipo: 2,
+    extension1_tipo: 1,
+    extension2_tipo: 2,
+    fechaFinCursada_tipo: 1,
     fechaFinCursada: "",
+    fechaCargaArchivosEtapa1_tipo: 2,
     fechaCargaArchivosEtapa1: "",
+    fechaAprobacionEtapa1_tipo: 3,
     fechaAprobacionEtapa1: "",
+    fechaResolucionExtensionEtapa1_tipo: 4,
+    fechaCargaArchivosEtapa2_tipo: 5,
     fechaCargaArchivosEtapa2: "",
+    fechaAprobacionEtapa2_tipo: 6,
     fechaAprobacionEtapa2: "",
+    fechaResolucionExtensionEtapa2_tipo: 7,
+    fechaDesignacionTribunal_tipo: 8,
     fechaDesignacionTribunal: "",
+    fechaDefensaProyecto_tipo: 9,
     fechaDefensaProyecto: "",
     tribunalIntegrante1: "",
     tribunalIntegrante2: "",
@@ -46,6 +59,7 @@ export default function CrearProyectoButton() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
 
   const handleFileChange = (e) => {
     const { name, files } = e.target;
@@ -73,10 +87,9 @@ export default function CrearProyectoButton() {
         data.append(key, file); // PARA UN SOLO ARCHIVO
       }
     });
-    
 
     try {
-      const response = await fetch("http://localhost:3000/proyectos/test", {
+      const response = await fetch("http://localhost:3000/proyectos/", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${sesion.token}`,
@@ -90,6 +103,7 @@ export default function CrearProyectoButton() {
 
       closeModal();
       console.log("Proyecto creado con éxito");
+      console.log(data)
     } catch (error) {
       console.error("Error al subir el proyecto:", error);
     }
@@ -130,63 +144,93 @@ export default function CrearProyectoButton() {
             {[1, 2, 3].map((num) => (
               <div key={num}>
                 <span>
-                <label>Alumno {num}</label>
-                <label>Nombre</label>
-                <input
-                  type="text"
-                  name={`alumno${num}_nombre`}
-                  value={formData[`alumno${num}_nombre`] || ""}
-                  onChange={handleChange}
-                />
-                <label>Apellido</label>
-                <input
-                  type="text"
-                  name={`alumno${num}_apellido`}
-                  value={formData[`alumno${num}_apellido`] || ""}
-                  onChange={handleChange}
-                />
-                <label>Legajo</label>
-                <input
-                  type="number"
-                  name={`alumno${num}_legajo`}
-                  value={formData[`alumno${num}_legajo`] || ""}
-                  onChange={handleChange}
-                />
+                  <label>Alumno {num}</label>
+                  <label>Nombre</label>
+                  <input
+                    type="text"
+                    name={`alumno${num}_nombre`}
+                    value={formData[`alumno${num}_nombre`] || ""}
+                    onChange={handleChange}
+                  />
+                  <label>Apellido</label>
+                  <input
+                    type="text"
+                    name={`alumno${num}_apellido`}
+                    value={formData[`alumno${num}_apellido`] || ""}
+                    onChange={handleChange}
+                  />
+                  <label>Legajo</label>
+                  <input
+                    type="number"
+                    name={`alumno${num}_legajo`}
+                    value={formData[`alumno${num}_legajo`] || ""}
+                    onChange={handleChange}
+                  />
                 </span>
               </div>
             ))}
           </div>
-          
+
           <div className="form-group-right">
             <span>
-                <label>Propuesta de proyecto</label>
-                <input
-                  name="docPropuestaProyecto"
-                  type="file"
-                  accept="application/pdf"
-                  onChange={handleFileChange}
-                />
-              </span>
+              <label>Fecha de fin de cursada</label>
+              <input
+                type="date"
+                name="fechaFinCursada"
+                value={formData.fechaFinCursada}
+                onChange={handleChange}
+              />
+            </span>
 
-              <span>
-                <label>Nota de aceptación del tutor</label>
-                <input
-                  name="docAceptacionTutor"
-                  type="file"
-                  accept="application/pdf"
-                  onChange={handleFileChange}
-                />
-              </span>
+            <span>
+              <label>Fecha de carga inicial de documentos</label>
+              <input
+                type="date"
+                name="fechaCargaArchivosEtapa1"
+                value={formData.fechaCargaArchivosEtapa1}
+                onChange={handleChange}
+              />
+            </span>
+            
+            <span>
+              <label>Fecha de aprobación de la etapa 1</label>
+              <input
+                type="date"
+                name="fechaAprobacionEtapa1"
+                value={formData.fechaAprobacionEtapa1}
+                onChange={handleChange}
+              />
+            </span>
 
-              <span>
-                <label>CV del tutor</label>
-                <input
-                  name="docCVTutor"
-                  type="file"
-                  accept="application/pdf"
-                  onChange={handleFileChange}
-                />
-              </span>
+            <span>
+              <label>Propuesta de proyecto</label>
+              <input
+                name="docPropuestaProyecto"
+                type="file"
+                accept="application/pdf"
+                onChange={handleFileChange}
+              />
+            </span>
+
+            <span>
+              <label>Nota de aceptación del tutor</label>
+              <input
+                name="docAceptacionTutor"
+                type="file"
+                accept="application/pdf"
+                onChange={handleFileChange}
+              />
+            </span>
+
+            <span>
+              <label>CV del tutor</label>
+              <input
+                name="docCVTutor"
+                type="file"
+                accept="application/pdf"
+                onChange={handleFileChange}
+              />
+            </span>
           </div>
         </div>
       ),
@@ -197,13 +241,13 @@ export default function CrearProyectoButton() {
         <div className="form-group">
           <div className="form-group-left">
             <span>
-                <label>Fecha de carga de archivos de la etapa 1</label>
-                <input
-                  type="date"
-                  name="fechaCargaArchivosEtapa2"
-                  value={formData.fechaCargaArchivosEtapa2}
-                  onChange={handleChange}
-                />
+              <label>Fecha de carga de archivos de la etapa 1</label>
+              <input
+                type="date"
+                name="fechaCargaArchivosEtapa2"
+                value={formData.fechaCargaArchivosEtapa2}
+                onChange={handleChange}
+              />
             </span>
 
             <span>
@@ -217,28 +261,28 @@ export default function CrearProyectoButton() {
             </span>
 
             <span>
-                <label>Fecha de aprobación de la etapa 2</label>
-                <input
-                  type="date"
-                  name="fechaAprobacionEtapa2"
-                  value={formData.fechaAprobacionEtapa2}
-                  onChange={handleChange}
-                />
+              <label>Fecha de aprobación de la etapa 2</label>
+              <input
+                type="date"
+                name="fechaAprobacionEtapa2"
+                value={formData.fechaAprobacionEtapa2}
+                onChange={handleChange}
+              />
             </span>
           </div>
 
           <div className="form-group-right">
             {[1, 2, 3].map((num) => (
-                  <span key={num}>
-                    <label>Miembro del tribunal N°{num}</label>
-                    <input
-                      type="text"
-                      name={`tribunalIntegrante${num}`}
-                      value={formData[`tribunalIntegrante${num}`]}
-                      onChange={handleChange}
-                    />
-                  </span>
-              ))}
+              <span key={num}>
+                <label>Miembro del tribunal N°{num}</label>
+                <input
+                  type="text"
+                  name={`tribunalIntegrante${num}`}
+                  value={formData[`tribunalIntegrante${num}`]}
+                  onChange={handleChange}
+                />
+              </span>
+            ))}
 
             <span>
               <label>Resolución del tribunal</label>
@@ -298,7 +342,11 @@ export default function CrearProyectoButton() {
               {steps[currentStep].content}
 
               <div className="modal-buttons">
-                <button type="button" onClick={goPrev} disabled={currentStep === 0}>
+                <button
+                  type="button"
+                  onClick={goPrev}
+                  disabled={currentStep === 0}
+                >
                   Anterior
                 </button>
 
@@ -320,7 +368,11 @@ export default function CrearProyectoButton() {
                   </button>
                 )}
 
-                <button type="submit" className="modal-save-button" onClick={handleSubmit}>
+                <button
+                  type="submit"
+                  className="modal-save-button"
+                  onClick={handleSubmit}
+                >
                   Crear
                 </button>
 
