@@ -1,4 +1,6 @@
 import { db } from "../db.js";
+import {client} from "../client.js"
+import {ListObjectsCommand} from '@aws-sdk/client-s3'
 
 const obtenerProyecto = async (req, res) => {
   const [proyectos] = await db.execute(`
@@ -87,5 +89,14 @@ export const obtenerFechas = async (req,res)=>{
         res.status(500).send("Error al obtener fechas")
     }
 }
+
+export const getFiles= async(req,res)=>{
+    const command = new ListObjectsCommand({
+        Bucket: process.env.AWS_BUCKET_NAME
+    })
+    const response = await client.send(command)
+    res.send(response)
+}
+
 
 export default obtenerProyecto;
