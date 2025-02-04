@@ -1,6 +1,6 @@
-import "./Layout.css";
+import "../Layout/Layout.css";
 import { Link, Outlet } from "react-router-dom";
-import { AuthRol } from "./Auth";
+import { AuthRol } from "../../Auth";
 
 export const Menu = () => {
   return (

@@ -25,7 +25,7 @@ next();
 }
 
 export const validarCrearProyecto = [
-  body("carrera_id").isInt({ min: 1 }),
+  body("carrera_id").isInt(),
   body("nombre_proyecto").isString().notEmpty(),
 
   body("alumno1_nombre").isString().notEmpty(),
