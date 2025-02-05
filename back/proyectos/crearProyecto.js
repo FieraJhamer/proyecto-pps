@@ -8,8 +8,8 @@ import { db } from "../db.js";
 /* CONFIGURACIÓN S3 */
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: process.env.ACCESS_KEY,
-    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
   region: process.env.BUCKET_REGION,
 });
@@ -18,7 +18,7 @@ const s3 = new S3Client({
 const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: process.env.BUCKET_NAME,
+    bucket: process.env.AWS_BUCKET_NAME,
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
