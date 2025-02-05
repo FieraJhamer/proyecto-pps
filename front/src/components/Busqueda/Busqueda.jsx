@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import "./Busqueda.css";
 import { useAuth } from "../../Auth";
-import EditarProyectoModal from "./EditarProyectoModal";
 import CrearProyectoButton from "../CrearProyectoButton/CrearProyectoButton";
+import EditarProyecto from "./EditarProyecto";
+
 
 export default function Busqueda() {
   const { sesion } = useAuth();
@@ -239,7 +240,7 @@ export default function Busqueda() {
         </div>
       )}
 
-      {isModalOpen && <EditarProyectoModal onClose={closeModal} proyectoId={selectedProyectoId} />}
+      {isModalOpen && <EditarProyecto onClose={closeModal} proyectoId={selectedProyectoId} />}
     </div>
   );
 }

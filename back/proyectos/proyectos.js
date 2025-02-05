@@ -3,6 +3,7 @@ import { validarJwt, validarSuperUsuario } from "../validaciones/validaciones.js
 
 import crearProyecto from "./crearProyecto.js";
 import { validarCrearProyecto } from "../validaciones/validaciones.js";
+import { validarId } from "../validaciones/validaciones.js";
 
 import modificarProyecto from "./modificarProyecto.js"
 import obtenerProyecto, { obtenerFechas } from "./obtenerProyecto.js"
@@ -13,10 +14,10 @@ proyectos.post("/proyectos", validarJwt, validarCrearProyecto, crearProyecto);
 
 proyectos.get("/proyectos", validarJwt, obtenerProyecto);
 
-proyectos.get("/proyectos/:id", validarJwt, obtenerProyectoPorId);
+proyectos.get("/proyectos/:id", validarJwt, validarId, obtenerProyectoPorId);
 
 proyectos.get("/proyectos/:id/fechas",validarJwt, obtenerFechas)
 
-proyectos.put("/proyectos/:id", validarJwt, modificarProyecto);
+proyectos.put("/proyectos/:id", validarJwt, validarId, modificarProyecto);
 
 export default proyectos;
