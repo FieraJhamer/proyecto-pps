@@ -3,8 +3,6 @@ import "../Busqueda/Busqueda.css";
 import "./CrearProyectoButton.css";
 import { useAuth } from "../../Auth";
 
-/* TERMINAR DE PROBAR LA API CON MULTER Y EL ENVÍO DE ARCHIVOS PARA S3*/
-
 export default function CrearProyectoButton() {
   const { sesion } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,15 +58,15 @@ export default function CrearProyectoButton() {
     setFormData({ ...formData, [name]: value });
   };
 
-
   const handleFileChange = (e) => {
     const { name, files } = e.target;
   
     setFiles((prevFiles) => ({
       ...prevFiles,
-      [name]: files.length > 1 ? [...files] : files[0],
+      [name]: files.length > 1 ? [...files] : files[0] || prevFiles[name],
     }));
   };
+  
   
 
   const handleSubmit = async (e) => {
@@ -338,7 +336,7 @@ export default function CrearProyectoButton() {
           <div className="modal-content">
             <h2>{steps[currentStep].title}</h2>
 
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form key={currentStep} onSubmit={handleSubmit} encType="multipart/form-data">
               {steps[currentStep].content}
 
               <div className="modal-buttons">
