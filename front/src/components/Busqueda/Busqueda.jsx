@@ -30,7 +30,7 @@ export default function Busqueda() {
     setIsModalOpen(true);
   };
   const OpenView = (proyecto)=>{
-    setSelectedProyectoId(proyecto.id_proyecto)
+    getDocumentos(proyecto.id_proyecto);
 
     setViewModal(true)
     setProyectoSelect(proyecto)
@@ -117,12 +117,6 @@ export default function Busqueda() {
   useEffect(() => {
     getProyectos();
   }, []);
-
-  useEffect(() => {
-    if (selectedProyectoId) {
-      getDocumentos(selectedProyectoId);
-    }
-  }, [selectedProyectoId]);
 
   const filtrarProyectos = () => {
     return proyectos.filter((proyecto) => {

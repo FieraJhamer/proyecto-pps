@@ -108,7 +108,9 @@ export const obtenerDocumentos = async (req,res)=>{
     const {id}=req.params
     try{
         const [ListaDocumentos]= await db.query(
-            'select doc_propuesta_proyecto,doc_nota_tutor,doc_cv_tutor,doc_proyecto from documentos where id_documentos=?'
+            `select doc_propuesta_proyecto,doc_nota_tutor,doc_cv_tutor,doc_proyecto from documentos d 
+            join proyectos p on d.id_documentos=p.id_documentos
+            where d.id_documentos=?`
         ,[id])
         res.send(ListaDocumentos)
     }
