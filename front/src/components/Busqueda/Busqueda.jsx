@@ -13,6 +13,12 @@ export default function Busqueda() {
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [proyectos, setProyectos] = useState([]);
   const [fechas,setFechas]=useState([])
+  const [documentos,setDocumentos]=useState({
+    doc_propuesta_proyecto: "",
+    doc_nota_tutor: "",
+    doc_cv_tutor: "",
+    doc_proyecto: "",
+  })
   const [carreraFiltro, setCarreraFiltro] = useState("");
 
   const [selectedProyectoId, setSelectedProyectoId] = useState(null);
@@ -27,6 +33,7 @@ export default function Busqueda() {
     setProyectoSelect(proyecto)
 
     getFechas(proyecto)
+    getDocumentos(proyecto)
   }
 
   const closeView = ()=>{
@@ -80,6 +87,29 @@ export default function Busqueda() {
     }
     catch(error){
       console.error("Error al cargar las fechas",error)
+    }
+  }
+
+  const getDocumentos = async (proyecto)=>{
+    try{
+      const response = await fetch(`http://localhost:3000/proyectos/${proyecto.id_proyecto}/documentos`,{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sesion.token}`,
+        },
+      })
+
+      if (!response.ok){
+        throw new Error(`Error en la solicitud: ${response.statusText}`);
+      }
+
+      const data = await response.json()
+      setDocumentos({...data})
+      console.log(documentos)
+    }
+    catch(error){
+      console.error("Error al cargar los documentos",error)
     }
   }
 
@@ -198,22 +228,22 @@ export default function Busqueda() {
                 <ul className="file-list">
                   <li>
                     <strong>Propuesta del proyecto: </strong> 
-                      <span className="file-name">propuesta_proyecto.pdf 📄</span>
+                      <span className="file-name">{documentos.doc_propuesta_proyecto}</span>
                   </li>
 
                   <li>
                     <strong>Nota del tutor: </strong> 
-                      <span className="file-name">nota_tutor.pdf 📄</span>
+                      <span className="file-name">{documentos.doc_nota_tutor}</span>
                   </li>
 
                   <li>
                     <strong>CV del tutor: </strong> 
-                      <span className="file-name">cv_tutor.pdf 📄</span>
+                      <span className="file-name">{documentos.doc_cv_tutor}</span>
                   </li>
 
                   <li>
                     <strong>Documento de la tesina: </strong> 
-                      <span className="file-name">proyecto_tesina.pdf 📄</span>
+                      <span className="file-name">{documentos.doc_proyecto}</span>
                   </li>
                 </ul>
               </div>
@@ -237,7 +267,8 @@ export default function Busqueda() {
           </div>
 
         </div>
-      )}
+      )
+      }
 
       {isModalOpen && <EditarProyectoModal onClose={closeModal} proyectoId={selectedProyectoId} />}
     </div>
