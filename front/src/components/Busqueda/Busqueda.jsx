@@ -107,7 +107,7 @@ export default function Busqueda() {
 
       const data = await response.json()
       setDocumentos({...data})
-      console.log(documentos)
+      console.log(data)
     }
     catch(error){
       console.error("Error al cargar los documentos",error)
