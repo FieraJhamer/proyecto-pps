@@ -104,6 +104,23 @@ export const obtenerFechas = async (req,res)=>{
     }
 }
 
+export const obtenerDocumentos = async (req,res)=>{
+    const {id}=req.params
+    try{
+        const [ListaDocumentos]= await db.query(
+            `select doc_propuesta_proyecto,doc_nota_tutor,doc_cv_tutor,doc_proyecto from documentos d 
+            join proyectos p on d.id_documentos=p.id_documentos
+            where p.id_proyecto=?`
+        ,[id])
+        res.send(ListaDocumentos)
+        console.log(ListaDocumentos)
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).send("Error al obtener documentos")
+    }
+}
+
 export const getFiles= async(req,res)=>{
     const command = new ListObjectsCommand({
         Bucket: process.env.AWS_BUCKET_NAME
