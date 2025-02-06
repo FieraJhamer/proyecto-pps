@@ -30,8 +30,8 @@ export default function Busqueda() {
     setIsModalOpen(true);
   };
   const OpenView = (proyecto)=>{
-    getDocumentos(proyecto.id_proyecto);
 
+    getDocumentos(proyecto.id_proyecto);
     setViewModal(true)
     setProyectoSelect(proyecto)
 
@@ -106,7 +106,7 @@ export default function Busqueda() {
       }
 
       const data = await response.json()
-      setDocumentos({...data})
+      setDocumentos({...data[0]})
       console.log(data)
     }
     catch(error){
@@ -229,22 +229,22 @@ export default function Busqueda() {
                 <ul className="file-list">
                   <li>
                     <strong>Propuesta del proyecto: </strong> 
-                      <span className="file-name">{documentos.doc_propuesta_proyecto}</span>
+                      <span className="file-name"><a href={documentos.doc_propuesta_proyecto}>link</a></span>
                   </li>
 
                   <li>
                     <strong>Nota del tutor: </strong> 
-                      <span className="file-name">{documentos.doc_nota_tutor}</span>
+                      <span className="file-name"><a href={documentos.doc_nota_tutor}>Link</a></span>
                   </li>
 
                   <li>
                     <strong>CV del tutor: </strong> 
-                      <span className="file-name">{documentos.doc_cv_tutor}</span>
+                      <span className="file-name"><a href={documentos.doc_cv_tutor}>Link</a></span>
                   </li>
 
                   <li>
                     <strong>Documento de la tesina: </strong> 
-                      <span className="file-name">{documentos.doc_proyecto}</span>
+                      <span className="file-name"><a href={documentos.doc_proyecto}>Link</a></span>
                   </li>
                 </ul>
               </div>
