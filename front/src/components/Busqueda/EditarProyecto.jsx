@@ -43,6 +43,11 @@ export default function EditarProyecto({ onClose, proyectoId }) {
         tribunalIntegrante1: "",
         tribunalIntegrante2: "",
         tribunalIntegrante3: "",
+        doc_propuesta_proyecto: "",
+        doc_nota_tutor: "",
+        doc_cv_tutor: "",
+        doc_proyecto: "",
+        doc_resolucion_tribunal: "",
 
   });
 
@@ -99,8 +104,14 @@ export default function EditarProyecto({ onClose, proyectoId }) {
             tribunalIntegrante1: data.tribunales[0]?.integrante_tribunal_1 || "",
             tribunalIntegrante2: data.tribunales[0]?.integrante_tribunal_2 || "",
             tribunalIntegrante3: data.tribunales[0]?.integrante_tribunal_3 || "",
-            tribunal_id: data.tribunales[0].id_tribunal || ""
+            tribunal_id: data.tribunales[0].id_tribunal || "",
+            doc_propuesta_proyecto: data.documentos[0]?.doc_propuesta_proyecto || "",
+            doc_nota_tutor: data.documentos[0]?.doc_nota_tutor || "",
+            doc_cv_tutor: data.documentos[0]?.doc_cv_tutor || "",
+            doc_proyecto: data.documentos[0]?.doc_proyecto || "",
+            doc_resolucion_tribunal: data.documentos[0]?.doc_resolucion_tribunal || "",
           });
+
         } catch (error) {
           console.error("Error precargando el proyecto:", error);
         }
