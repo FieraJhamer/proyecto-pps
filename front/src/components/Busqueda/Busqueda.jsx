@@ -30,11 +30,12 @@ export default function Busqueda() {
     setIsModalOpen(true);
   };
   const OpenView = (proyecto)=>{
+    setSelectedProyectoId(proyecto.id_proyecto)
+
     setViewModal(true)
     setProyectoSelect(proyecto)
 
     getFechas(proyecto)
-    getDocumentos(proyecto)
   }
 
   const closeView = ()=>{
@@ -84,16 +85,15 @@ export default function Busqueda() {
 
       const data = await response.json()
       setFechas(data)
-      console.log(data)
     }
     catch(error){
       console.error("Error al cargar las fechas",error)
     }
   }
 
-  const getDocumentos = async (proyecto)=>{
+  const getDocumentos = async (id)=>{
     try{
-      const response = await fetch(`http://localhost:3000/proyectos/${proyecto.id_proyecto}/documentos`,{
+      const response = await fetch(`http://localhost:3000/proyectos/${id}/documentos`,{
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -117,6 +117,12 @@ export default function Busqueda() {
   useEffect(() => {
     getProyectos();
   }, []);
+
+  useEffect(() => {
+    if (selectedProyectoId) {
+      getDocumentos(selectedProyectoId);
+    }
+  }, [selectedProyectoId]);
 
   const filtrarProyectos = () => {
     return proyectos.filter((proyecto) => {
