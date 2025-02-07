@@ -1,33 +1,5 @@
-import path from "path";
-import multer from "multer";
-import multerS3 from "multer-s3";
-import crypto from "crypto";
-import { S3Client } from "@aws-sdk/client-s3";
 import { db } from "../db.js";
-
-/* CONFIGURACIÓN S3 */
-const s3 = new S3Client({
-  credentials: {
-    accessKeyId: process.env.ACCESS_KEY,
-    secretAccessKey: process.env.SECRET_ACCESS_KEY,
-  },
-  region: process.env.BUCKET_REGION,
-});
-
-/* CONFIGURACIÓN DE MULTER PARA S3 */
-const upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: process.env.BUCKET_NAME,
-    metadata: function (req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
-    },
-    key: function (req, file, cb) {
-      const key = `${file.fieldname}-${crypto.randomBytes(16).toString("hex")}${path.extname(file.originalname)}`;
-      cb(null, key);
-    },
-  }),
-});
+import { upload } from "../s3/s3Client.js"
 
 const uploadFiles = upload.fields([
   { name: "docPropuestaProyecto", maxCount: 1 },
@@ -36,6 +8,14 @@ const uploadFiles = upload.fields([
   { name: "docTesina", maxCount: 1 },
   { name: "docResolucionTribunal", maxCount: 1 },
 ]);
+
+function limpiarEntero(valor) {
+  return valor && !isNaN(valor) ? Number(valor) : null;
+}
+
+function limpiarFecha(valor) {
+  return valor && valor.trim() !== '' ? valor : null;
+}
 
 const crearProyecto = async (req, res) => {
   try {
@@ -47,34 +27,36 @@ const crearProyecto = async (req, res) => {
       alumno1_legajo,
       alumno2_nombre,
       alumno2_apellido,
-      alumno2_legajo,
       alumno3_nombre,
       alumno3_apellido,
-      alumno3_legajo,
       etapa1_tipo,
       etapa2_tipo,
       extension1_tipo,
       extension2_tipo,
       fechaFinCursada_tipo,
-      fechaFinCursada,
       fechaCargaArchivosEtapa1_tipo,
-      fechaCargaArchivosEtapa1,
       fechaAprobacionEtapa1_tipo,
-      fechaAprobacionEtapa1,
       fechaResolucionExtensionEtapa1_tipo,
       fechaCargaArchivosEtapa2_tipo,
-      fechaCargaArchivosEtapa2,
       fechaAprobacionEtapa2_tipo,
-      fechaAprobacionEtapa2,
       fechaResolucionExtensionEtapa2_tipo,
       fechaDesignacionTribunal_tipo,
-      fechaDesignacionTribunal,
       fechaDefensaProyecto_tipo,
-      fechaDefensaProyecto,
       tribunalIntegrante1,
       tribunalIntegrante2,
       tribunalIntegrante3,
     } = req.body;
+
+    const alumno2_legajo = limpiarEntero(req.body.alumno2_legajo);
+    const alumno3_legajo = limpiarEntero(req.body.alumno3_Legajo);
+
+    const fechaFinCursada = limpiarFecha(req.body.fechaFinCursada);
+    const fechaCargaArchivosEtapa1 = limpiarFecha(req.body.fechaCargaArchivosEtapa1);
+    const fechaAprobacionEtapa1 = limpiarFecha(req.body.fechaAprobacionEtapa1);
+    const fechaCargaArchivosEtapa2 = limpiarFecha(req.body.fechaCargaArchivosEtapa2);
+    const fechaAprobacionEtapa2 = limpiarFecha(req.body.fechaAprobacionEtapa2);
+    const fechaDesignacionTribunal = limpiarFecha(req.body.fechaDesignacionTribunal);
+    const fechaDefensaProyecto = limpiarFecha(req.body.fechaDefensaProyecto);
 
     const docPropuestaProyecto = req.files?.docPropuestaProyecto?.[0]?.location;
     const docAceptacionTutor = req.files?.docAceptacionTutor?.[0]?.location;

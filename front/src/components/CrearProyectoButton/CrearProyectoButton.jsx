@@ -369,7 +369,6 @@ export default function CrearProyectoButton() {
                 <button
                   type="submit"
                   className="modal-save-button"
-                  onClick={handleSubmit}
                 >
                   Crear
                 </button>

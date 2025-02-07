@@ -34,7 +34,7 @@ CREATE TABLE `alumnos` (
   UNIQUE KEY `legajo_alumno_UNIQUE` (`legajo_alumno`),
   KEY `fk_alumnos_1_idx` (`id_grupo`),
   CONSTRAINT `fk_alumnos_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,10 @@ INSERT INTO `alumnos` VALUES
 (43,22,'Leonel','Torres',24124),
 (44,23,'Gonzalo','Montiel',24912),
 (45,23,'Marcelo','Gallardo',9120),
-(46,23,'Fernando','Gago',2949124);
+(46,23,'Fernando','Gago',2949124),
+(50,24,'Mateo','Gimenez',24149),
+(51,24,'Gaspar','Ahumada',999999),
+(52,24,'Gaspar 3','Darius',241241);
 /*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +105,7 @@ CREATE TABLE `documentos` (
   UNIQUE KEY `doc_cv_tutor_UNIQUE` (`doc_cv_tutor`),
   UNIQUE KEY `doc_proyecto_UNIQUE` (`doc_proyecto`),
   UNIQUE KEY `doc_resolucion_tribunal_UNIQUE` (`doc_resolucion_tribunal`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +116,8 @@ LOCK TABLES `documentos` WRITE;
 /*!40000 ALTER TABLE `documentos` DISABLE KEYS */;
 INSERT INTO `documentos` VALUES
 (1,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docPropuestaProyecto-6918b6cb4d1cecc88d0449780b5e3e20.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docAceptacionTutor-ad9fd67fc6d59939a5fd6e91dde5f19c.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docCVTutor-c908a45468d454d16dc00c9b29e7de95.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docTesina-293f90ddbeb5c47e5d5c0258a8e5487c.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docResolucionTribunal-1134956b8105ab979b29b9495650760d.pdf'),
-(2,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docPropuestaProyecto-b6f902d4f239f2c46d79de215038e2bd.pdf',NULL,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docCVTutor-d2c8cf024b63d0e204dd0feb39973560.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docTesina-e0ec202d7622992b723ef98622a5ee8e.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docResolucionTribunal-eda5100d83c6009815aeee7361e4bbe8.pdf');
+(2,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docPropuestaProyecto-b6f902d4f239f2c46d79de215038e2bd.pdf',NULL,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docCVTutor-d2c8cf024b63d0e204dd0feb39973560.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docTesina-e0ec202d7622992b723ef98622a5ee8e.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docResolucionTribunal-eda5100d83c6009815aeee7361e4bbe8.pdf'),
+(3,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docPropuestaProyecto-be99def95bf80ae6f052fc7a43a8fddd.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docAceptacionTutor-e58915ab648508247525c3a46ce45693.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docCVTutor-6724a3b021c7da2c980808645bbfe218.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docTesina-06d8fdb0c77a2ba29c5c4913c2a29adc.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/docResolucionTribunal-2fd0afebcb43de4a6bfd053b6fc900f0.pdf');
 /*!40000 ALTER TABLE `documentos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +139,7 @@ CREATE TABLE `etapas` (
   KEY `fk_etapas_2_idx` (`id_tipo_etapa`),
   CONSTRAINT `fk_etapas_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_etapas_2` FOREIGN KEY (`id_tipo_etapa`) REFERENCES `tipo_etapas` (`id_tipo_etapa`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +152,9 @@ INSERT INTO `etapas` VALUES
 (25,1,19,0),
 (26,2,19,0),
 (27,1,20,0),
-(28,2,20,0);
+(28,2,20,0),
+(31,1,21,0),
+(32,2,21,0);
 /*!40000 ALTER TABLE `etapas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +176,7 @@ CREATE TABLE `extensiones` (
   KEY `fk_extensiones_2_idx` (`id_tipo_extension`),
   CONSTRAINT `fk_extensiones_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_extensiones_2` FOREIGN KEY (`id_tipo_extension`) REFERENCES `tipo_extensiones` (`id_tipo_extension`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +189,9 @@ INSERT INTO `extensiones` VALUES
 (23,19,1,NULL),
 (24,19,2,NULL),
 (25,20,1,NULL),
-(26,20,2,NULL);
+(26,20,2,NULL),
+(29,21,1,NULL),
+(30,21,2,NULL);
 /*!40000 ALTER TABLE `extensiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +213,7 @@ CREATE TABLE `fechas` (
   KEY `fk_fechas_2_idx` (`id_tipo_fecha`),
   CONSTRAINT `fk_fechas_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_fechas_2` FOREIGN KEY (`id_tipo_fecha`) REFERENCES `tipo_fechas` (`id_tipo_fecha`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +240,16 @@ INSERT INTO `fechas` VALUES
 (105,20,6,'2025-02-26'),
 (106,20,7,NULL),
 (107,20,8,'2025-02-19'),
-(108,20,9,'2025-02-18');
+(108,20,9,'2025-02-18'),
+(118,21,1,'2025-02-12'),
+(119,21,2,'2025-02-20'),
+(120,21,3,'2025-02-18'),
+(121,21,4,NULL),
+(122,21,5,'2025-02-18'),
+(123,21,6,'2025-02-19'),
+(124,21,7,NULL),
+(125,21,8,'2025-02-27'),
+(126,21,9,'2025-06-26');
 /*!40000 ALTER TABLE `fechas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +267,7 @@ CREATE TABLE `grupos` (
   UNIQUE KEY `id_grupo_UNIQUE` (`id_grupo`),
   KEY `fk_grupos_1_idx` (`id_carrera`),
   CONSTRAINT `fk_grupos_1` FOREIGN KEY (`id_carrera`) REFERENCES `carreras` (`id_carrera`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +281,8 @@ INSERT INTO `grupos` VALUES
 (20,1),
 (21,1),
 (22,1),
-(23,2);
+(23,2),
+(24,2);
 /*!40000 ALTER TABLE `grupos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,7 +304,7 @@ CREATE TABLE `proyectos` (
   KEY `fk_proyectos_2_idx` (`id_documentos`),
   CONSTRAINT `fk_proyectos_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_proyectos_2` FOREIGN KEY (`id_documentos`) REFERENCES `documentos` (`id_documentos`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,7 +315,8 @@ LOCK TABLES `proyectos` WRITE;
 /*!40000 ALTER TABLE `proyectos` DISABLE KEYS */;
 INSERT INTO `proyectos` VALUES
 (19,'Bucket S3',22,1),
-(20,'Prueba AWS S3',23,2);
+(20,'Prueba AWS S3',23,2),
+(21,'Los del grupo',24,3);
 /*!40000 ALTER TABLE `proyectos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -408,7 +427,7 @@ CREATE TABLE `tribunales` (
   UNIQUE KEY `id_tribunal_UNIQUE` (`id_tribunal`),
   KEY `fk_tribunales_1_idx` (`id_proyecto`),
   CONSTRAINT `fk_tribunales_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,7 +438,8 @@ LOCK TABLES `tribunales` WRITE;
 /*!40000 ALTER TABLE `tribunales` DISABLE KEYS */;
 INSERT INTO `tribunales` VALUES
 (7,19,'Pedro Sanchez','Bill Gates','Donald Trump'),
-(8,20,'Primero','Segundo','TERCERO');
+(8,20,'Primero','Segundo','TERCERO'),
+(9,21,'Russo','Brandoni','De la Puente');
 /*!40000 ALTER TABLE `tribunales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -466,4 +486,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-02-03 23:42:49
+-- Dump completed on 2025-02-06 15:24:24

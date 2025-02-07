@@ -13,6 +13,7 @@ const port = 3000;
 conectarDB();
 
 app.use(express.json());
+
 app.use(cors());
 authConfig();
 
