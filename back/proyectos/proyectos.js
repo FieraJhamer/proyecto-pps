@@ -12,7 +12,7 @@ import {getFiles} from "./obtenerProyecto.js"
 
 const proyectos = express.Router();
 
-// CORREGIR ERROR EN EL ENVÍO DE LOS DATOS
+// CORREGIR LA VALIDACION DEL FORMULARIO ANTES DE SUBIR LOS ARCHIVOS
 proyectos.post("/proyectos", validarJwt, uploadFiles, validarCrearProyecto, crearProyecto);
 
 proyectos.get("/proyectos", validarJwt, obtenerProyecto);
