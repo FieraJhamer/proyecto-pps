@@ -29,6 +29,12 @@ export const obtenerProyectoPorId = async (req, res) => {
           `SELECT id_proyecto, nombre_proyecto FROM proyectos WHERE id_proyecto = ?`,
           [id]
       );
+      const [carrera] = await db.query(`SELECT c.id_carrera, c.nombre_carrera
+        FROM proyectos p
+        JOIN grupos g ON p.id_grupo = g.id_grupo
+        JOIN carreras c ON g.id_carrera = c.id_carrera
+        WHERE p.id_proyecto = ?`, [id]);
+        
 
       if (!proyecto) {
           return res.status(404).send("Proyecto no encontrado");
@@ -62,6 +68,12 @@ export const obtenerProyectoPorId = async (req, res) => {
           [id]
       );
 
+      const [tribunales] = await db.query(
+        `SELECT id_tribunal, integrante_tribunal_1, integrante_tribunal_2, integrante_tribunal_3
+        FROM tribunales
+        WHERE id_proyecto = ?`
+        , [id]
+        );
       const proyectoCompleto = {
           id_proyecto: proyecto.id_proyecto,
           nombre_proyecto: proyecto.nombre_proyecto,
@@ -69,6 +81,8 @@ export const obtenerProyectoPorId = async (req, res) => {
           fechas,
           etapas,
           extensiones,
+          carrera,
+          tribunales
       };
 
       res.status(200).json(proyectoCompleto);
@@ -87,6 +101,23 @@ export const obtenerFechas = async (req,res)=>{
     catch(error){
         console.log(error)
         res.status(500).send("Error al obtener fechas")
+    }
+}
+
+export const obtenerDocumentos = async (req,res)=>{
+    const {id}=req.params
+    try{
+        const [ListaDocumentos]= await db.query(
+            `select doc_propuesta_proyecto,doc_nota_tutor,doc_cv_tutor,doc_proyecto from documentos d 
+            join proyectos p on d.id_documentos=p.id_documentos
+            where p.id_proyecto=?`
+        ,[id])
+        res.send(ListaDocumentos)
+        console.log(ListaDocumentos)
+    }
+    catch(error){
+        console.log(error)
+        res.status(500).send("Error al obtener documentos")
     }
 }
 
