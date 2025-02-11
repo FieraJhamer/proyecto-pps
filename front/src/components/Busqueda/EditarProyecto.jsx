@@ -149,8 +149,10 @@ export default function EditarProyecto({ onClose, proyectoId }) {
           throw new Error("Error al subir el archivo");
         }
         const data = await response.json();
+        console.log(data.url)
         // data.url contiene la URL del archivo subido
         setFormData((prev) => ({ ...prev, [name]: data.url }));
+        alert("Archivo subido con éxito");
       } catch (error) {
         console.log(error)
       }
@@ -206,6 +208,13 @@ export default function EditarProyecto({ onClose, proyectoId }) {
         integrante_tribunal_1: formData.tribunalIntegrante1,
         integrante_tribunal_2: formData.tribunalIntegrante2,
         integrante_tribunal_3: formData.tribunalIntegrante3}
+      ],
+      documentos: [
+        {doc_propuesta_proyecto: formData.doc_propuesta_proyecto,
+         doc_nota_tutor: formData.doc_nota_tutor,
+         doc_cv_tutor: formData.doc_cv_tutor,
+         doc_proyecto: formData.doc_proyecto,
+         doc_resolucion_tribunal: formData.doc_resolucion_tribunal}
       ]
     };
     console.log(data.tribunales)
@@ -330,7 +339,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
                 <a target="_blank" rel="noopener noreferrer" href={formData.doc_propuesta_proyecto}>Archivo actual</a>
               ) : (
                 <p>No hay archivos cargados</p> )} 
-              <input onChange={handleFileChange} name="documentoPropuestaProyecto" type="file" accept="application/pdf" id="file-input-propuesta" style={{ display: "none" }}/>
+              <input onChange={handleFileChange} name="doc_propuesta_proyecto" type="file" accept="application/pdf" id="file-input-propuesta" style={{ display: "none" }}/>
               <label htmlFor="file-input-propuesta" className="custom-file-upload" style={{ cursor: "pointer"}} >
                 Seleccionar nuevo archivo
               </label>
@@ -342,7 +351,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
                 <a target="_blank" rel="noopener noreferrer" href={formData.doc_nota_tutor}>Archivo actual</a>
               ) : (
                 <p>No hay archivos cargados</p> )} 
-              <input onChange={handleFileChange} name="documentoAceptacionTutor" type="file" accept="application/pdf" id="file-input-aceptacion-propuesta" style={{ display: "none" }}/>
+              <input onChange={handleFileChange} name="doc_nota_tutor" type="file" accept="application/pdf" id="file-input-aceptacion-propuesta" style={{ display: "none" }}/>
               <label htmlFor="file-input-aceptacion-propuesta" className="custom-file-upload" style={{ cursor: "pointer" }}>
                 Seleccionar nuevo archivo
               </label>
@@ -354,7 +363,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
                 <a target="_blank" rel="noopener noreferrer" href={formData.doc_cv_tutor}>Archivo actual</a>
               ) : (
                 <p>No hay archivos cargados</p> )}   
-              <input onChange={handleFileChange} name="documentoCVTutor" type="file" accept="application/pdf" id="file-input-cv-tutor" style={{display: "none"}} />
+              <input onChange={handleFileChange} name="doc_cv_tutor" type="file" accept="application/pdf" id="file-input-cv-tutor" style={{display: "none"}} />
               <label htmlFor="file-input-cv-tutor" className="custom-file-upload" style={{ cursor: "pointer" }}>
                 Seleccionar nuevo archivo
               </label>
@@ -386,7 +395,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
                 <a target="_blank" rel="noopener noreferrer" href={formData.doc_proyecto}>Archivo actual</a>
               ) : (
                 <p>No hay archivos cargados</p> )} 
-              <input onChange={handleFileChange} name="documentoCVTutor" type="file" accept="application/pdf" id="file-input-cv-tutor" style={{display: "none"}} />
+              <input onChange={handleFileChange} name="doc_proyecto" type="file" accept="application/pdf" id="file-input-cv-tutor" style={{display: "none"}} />
               <label htmlFor="file-input-cv-tutor" className="custom-file-upload" style={{ cursor: "pointer" }}>
                 Seleccionar nuevo archivo
               </label>
