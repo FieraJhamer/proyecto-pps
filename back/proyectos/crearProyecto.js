@@ -120,4 +120,4 @@ const crearProyecto = async (req, res) => {
   }
 };
 
-export { uploadFiles, crearProyecto };
+export { upload, uploadFiles, crearProyecto };

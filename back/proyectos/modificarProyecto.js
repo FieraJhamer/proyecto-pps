@@ -1,8 +1,41 @@
 import { db } from "../db.js";
+import { upload } from "../s3/s3Client.js"
+
+export const uploadFile = (req, res, next) => {
+    upload.single("file")(req, res, (err) => {
+      if (err) {
+        console.error("Error en multer:", err);
+        return res.status(400).json({ error: err.message });
+      }
+      console.log("Archivo recibido:", req.file);
+      next();
+    });
+  };
+
+export const modificarArchivo = async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No se ha enviado ningún archivo" });
+      }
+
+      console.log("En modificar archivo", req.file)
+  
+
+      const fileUrl = req.file.location;
+  
+      res.json({ url: fileUrl });
+
+    } catch (error) {
+      console.error("Error al subir el archivo a S3:", error);
+      res.status(500).json({ error: "Error al subir el archivoo" });
+    }
+  };
+  
+
 
 const modificarProyecto = async (req, res) => {
   const { id } = req.params;
-  const { id_carrera, nombre_proyecto, integrantes, fechas, etapas, extensiones, tribunales } = req.body;
+  const { id_carrera, nombre_proyecto, integrantes, fechas, etapas, extensiones, tribunales, documentos } = req.body;
   
 
   try {
@@ -78,6 +111,29 @@ const modificarProyecto = async (req, res) => {
               `INSERT INTO tribunales (id_proyecto, id_tribunal, integrante_tribunal_1, integrante_tribunal_2, integrante_tribunal_3) VALUES (?, ?, ?, ?, ?)`,
               [id, id_tribunal, integrante_tribunal_1, integrante_tribunal_2, integrante_tribunal_3]
           );
+      }
+
+      if (documentos) {
+        console.log(documentos[0].doc_propuesta_proyecto)
+        const [[{ id_documentos }]] = await db.query(`SELECT id_documentos FROM proyectos WHERE id_proyecto = ?`, [id]);
+  
+        await db.query(
+          `UPDATE documentos SET 
+            doc_propuesta_proyecto = ?, 
+            doc_nota_tutor = ?, 
+            doc_cv_tutor = ?, 
+            doc_proyecto = ?, 
+            doc_resolucion_tribunal = ? 
+           WHERE id_documentos = ?`,
+          [
+            documentos[0].doc_propuesta_proyecto,
+            documentos[0].doc_nota_tutor,
+            documentos[0].doc_cv_tutor,
+            documentos[0].doc_proyecto,
+            documentos[0].doc_resolucion_tribunal,
+            id_documentos,
+          ]
+        );
       }
 
       await db.commit(); // Confirmar cambios

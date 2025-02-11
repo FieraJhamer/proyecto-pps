@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import "../CrearProyectoButton/CrearProyectoButton.css";
 import { useAuth } from "../../Auth";
+import "./EditarProyecto.css";
 
 export default function EditarProyecto({ onClose, proyectoId }) {
   const { sesion } = useAuth();
@@ -43,6 +44,11 @@ export default function EditarProyecto({ onClose, proyectoId }) {
         tribunalIntegrante1: "",
         tribunalIntegrante2: "",
         tribunalIntegrante3: "",
+        doc_propuesta_proyecto: "",
+        doc_nota_tutor: "",
+        doc_cv_tutor: "",
+        doc_proyecto: "",
+        doc_resolucion_tribunal: "",
 
   });
 
@@ -99,8 +105,14 @@ export default function EditarProyecto({ onClose, proyectoId }) {
             tribunalIntegrante1: data.tribunales[0]?.integrante_tribunal_1 || "",
             tribunalIntegrante2: data.tribunales[0]?.integrante_tribunal_2 || "",
             tribunalIntegrante3: data.tribunales[0]?.integrante_tribunal_3 || "",
-            tribunal_id: data.tribunales[0].id_tribunal || ""
+            tribunal_id: data.tribunales[0].id_tribunal || "",
+            doc_propuesta_proyecto: data.documentos[0]?.doc_propuesta_proyecto || "",
+            doc_nota_tutor: data.documentos[0]?.doc_nota_tutor || "",
+            doc_cv_tutor: data.documentos[0]?.doc_cv_tutor || "",
+            doc_proyecto: data.documentos[0]?.doc_proyecto || "",
+            doc_resolucion_tribunal: data.documentos[0]?.doc_resolucion_tribunal || "",
           });
+
         } catch (error) {
           console.error("Error precargando el proyecto:", error);
         }
@@ -115,6 +127,40 @@ export default function EditarProyecto({ onClose, proyectoId }) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  const handleFileChange = async (e) => {
+    const { name, files } = e.target; // name debería ser "doc_propuesta_proyecto", "doc_nota_tutor", etc.
+    if (files && files.length > 0) {
+      const file = files[0];
+      const formDataFile = new FormData();
+      formDataFile.append("file", file);
+      console.log(formDataFile);
+      
+      try {
+        const response = await fetch("http://localhost:3000/files", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${sesion.token}`
+          },
+          body: formDataFile,
+        });
+        console.log(response)
+        if (!response.ok) {
+          throw new Error("Error al subir el archivo");
+        }
+        const data = await response.json();
+        console.log(data.url)
+        // data.url contiene la URL del archivo subido
+        setFormData((prev) => ({ ...prev, [name]: data.url }));
+        alert("Archivo subido con éxito");
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  };
+  
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -162,6 +208,13 @@ export default function EditarProyecto({ onClose, proyectoId }) {
         integrante_tribunal_1: formData.tribunalIntegrante1,
         integrante_tribunal_2: formData.tribunalIntegrante2,
         integrante_tribunal_3: formData.tribunalIntegrante3}
+      ],
+      documentos: [
+        {doc_propuesta_proyecto: formData.doc_propuesta_proyecto,
+         doc_nota_tutor: formData.doc_nota_tutor,
+         doc_cv_tutor: formData.doc_cv_tutor,
+         doc_proyecto: formData.doc_proyecto,
+         doc_resolucion_tribunal: formData.doc_resolucion_tribunal}
       ]
     };
     console.log(data.tribunales)
@@ -281,18 +334,39 @@ export default function EditarProyecto({ onClose, proyectoId }) {
 
             {/* LOS INPUTS DE ARCHIVOS AHORA NO FUNCAN */}
             <span>
-              <label>Propuesta de proyecto</label>
-              <input name="documentoPropuestaProyecto" type="file" accept="application/pdf" />
+              <label>Propuesta de proyecto:</label>
+              {formData.doc_propuesta_proyecto ? (
+                <a target="_blank" rel="noopener noreferrer" href={formData.doc_propuesta_proyecto}>Archivo actual</a>
+              ) : (
+                <p>No hay archivos cargados</p> )} 
+              <input onChange={handleFileChange} name="doc_propuesta_proyecto" type="file" accept="application/pdf" id="file-input-propuesta" style={{ display: "none" }}/>
+              <label htmlFor="file-input-propuesta" className="custom-file-upload" style={{ cursor: "pointer"}} >
+                Seleccionar nuevo archivo
+              </label>
             </span>
 
             <span>
-              <label>Nota de aceptación del tutor</label>
-              <input name="documentoAceptacionTutor" type="file" accept="application/pdf" />
+              <label>Nota de aceptación del tutor:</label>
+              {formData.doc_nota_tutor ? (
+                <a target="_blank" rel="noopener noreferrer" href={formData.doc_nota_tutor}>Archivo actual</a>
+              ) : (
+                <p>No hay archivos cargados</p> )} 
+              <input onChange={handleFileChange} name="doc_nota_tutor" type="file" accept="application/pdf" id="file-input-aceptacion-propuesta" style={{ display: "none" }}/>
+              <label htmlFor="file-input-aceptacion-propuesta" className="custom-file-upload" style={{ cursor: "pointer" }}>
+                Seleccionar nuevo archivo
+              </label>
             </span>
 
             <span>
-              <label>CV del tutor</label>
-              <input name="documentoCVTutor" type="file" accept="application/pdf" />
+              <label>CV del tutor:</label>
+              {formData.doc_cv_tutor ? (
+                <a target="_blank" rel="noopener noreferrer" href={formData.doc_cv_tutor}>Archivo actual</a>
+              ) : (
+                <p>No hay archivos cargados</p> )}   
+              <input onChange={handleFileChange} name="doc_cv_tutor" type="file" accept="application/pdf" id="file-input-cv-tutor" style={{display: "none"}} />
+              <label htmlFor="file-input-cv-tutor" className="custom-file-upload" style={{ cursor: "pointer" }}>
+                Seleccionar nuevo archivo
+              </label>
             </span>
 
           </div>
@@ -316,8 +390,15 @@ export default function EditarProyecto({ onClose, proyectoId }) {
 
             {/* LOS INPUTS DE ARCHIVOS AHORA NO FUNCAN */}
             <span>
-              <label>Documento de tesina</label>
-              <input name="documentoTesina" type="file" accept="application/pdf" />
+              <label>Documento de tesina:</label>
+              {formData.doc_proyecto ? (
+                <a target="_blank" rel="noopener noreferrer" href={formData.doc_proyecto}>Archivo actual</a>
+              ) : (
+                <p>No hay archivos cargados</p> )} 
+              <input onChange={handleFileChange} name="doc_proyecto" type="file" accept="application/pdf" id="file-input-cv-tutor" style={{display: "none"}} />
+              <label htmlFor="file-input-cv-tutor" className="custom-file-upload" style={{ cursor: "pointer" }}>
+                Seleccionar nuevo archivo
+              </label>
             </span>
 
             <span>
