@@ -1,8 +1,47 @@
 import { db } from "../db.js";
+import { upload } from "./crearProyecto.js";
+
+export const uploadFile = upload.single("file")
+
+export const modificarArchivo = async (req, res, next) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No se ha enviado ningún archivo" });
+      }
+
+      console.log(upload.s3)
+  
+      // Generar un nombre aleatorio para evitar colisiones
+      const fileName = `${crypto.randomUUID()}-${req.file.originalname}`;
+  
+      const uploadParams = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: fileName,
+        Body: req.file.buffer,
+        ContentType: req.file.mimetype,
+      };
+
+      console.log(req.file);
+  
+      const result = await s3.send(new PutObjectCommand(uploadParams));
+      console.log(result)
+  
+      // Construir la URL del archivo en S3
+      const fileUrl = `https://${process.env.BUCKET_NAME}.s3.${process.env.BUCKET_REGION}.amazonaws.com/${fileName}`;
+  
+      res.json({ url: fileUrl });
+      next();
+    } catch (error) {
+      console.error("Error al subir el archivo a S3:", error);
+      res.status(500).json({ error: "Error al subir el archivoo" });
+    }
+  };
+  
+
 
 const modificarProyecto = async (req, res) => {
   const { id } = req.params;
-  const { id_carrera, nombre_proyecto, integrantes, fechas, etapas, extensiones, tribunales } = req.body;
+  const { id_carrera, nombre_proyecto, integrantes, fechas, etapas, extensiones, tribunales, documentos } = req.body;
   
 
   try {
@@ -78,6 +117,28 @@ const modificarProyecto = async (req, res) => {
               `INSERT INTO tribunales (id_proyecto, id_tribunal, integrante_tribunal_1, integrante_tribunal_2, integrante_tribunal_3) VALUES (?, ?, ?, ?, ?)`,
               [id, id_tribunal, integrante_tribunal_1, integrante_tribunal_2, integrante_tribunal_3]
           );
+      }
+
+      if (documentos) {
+        const [[{ id_documentos }]] = await db.query(`SELECT id_documentos FROM proyectos WHERE id_proyecto = ?`, [id]);
+  
+        await db.query(
+          `UPDATE documentos SET 
+            doc_propuesta_proyecto = ?, 
+            doc_nota_tutor = ?, 
+            doc_cv_tutor = ?, 
+            doc_proyecto = ?, 
+            doc_resolucion_tribunal = ? 
+           WHERE id_documentos = ?`,
+          [
+            documentos.doc_propuesta_proyecto,
+            documentos.doc_nota_tutor,
+            documentos.doc_cv_tutor,
+            documentos.doc_proyecto,
+            documentos.doc_resolucion_tribunal,
+            id_documentos,
+          ]
+        );
       }
 
       await db.commit(); // Confirmar cambios

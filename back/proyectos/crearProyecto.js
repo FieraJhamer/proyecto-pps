@@ -26,6 +26,7 @@ const upload = multer({
       const key = `${file.fieldname}-${crypto.randomBytes(16).toString("hex")}${path.extname(file.originalname)}`;
       cb(null, key);
     },
+    limits: { fileSize: 50 * 1024 * 1024 }
   }),
 });
 
@@ -138,4 +139,4 @@ const crearProyecto = async (req, res) => {
   }
 };
 
-export { uploadFiles, crearProyecto };
+export { upload, uploadFiles, crearProyecto };

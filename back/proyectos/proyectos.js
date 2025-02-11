@@ -5,7 +5,7 @@ import { validarCrearProyecto } from "../validaciones/validaciones.js";
 import { validarId } from "../validaciones/validaciones.js";
 
 import { uploadFiles, crearProyecto} from "./crearProyecto.js";
-import modificarProyecto from "./modificarProyecto.js";
+import modificarProyecto, {modificarArchivo, uploadFile} from "./modificarProyecto.js";
 import obtenerProyecto, { obtenerDocumentos, obtenerFechas } from "./obtenerProyecto.js";
 import { obtenerProyectoPorId } from "./obtenerProyecto.js";
 import {getFiles} from "./obtenerProyecto.js"
@@ -14,6 +14,8 @@ const proyectos = express.Router();
 
 // CORREGIR ERROR EN EL ENVÍO DE LOS DATOS
 proyectos.post("/proyectos", validarJwt, uploadFiles, validarCrearProyecto, crearProyecto);
+
+proyectos.post("/files", validarJwt, uploadFile, modificarArchivo);
 
 proyectos.get("/proyectos", validarJwt, obtenerProyecto);
 
@@ -25,6 +27,6 @@ proyectos.get("/proyectos/:id/documentos",validarJwt,obtenerDocumentos)
 
 proyectos.get("/files",validarJwt,getFiles)
 
-proyectos.put("/proyectos/:id", validarJwt, validarId, modificarProyecto);
+proyectos.put("/proyectos/:id", validarJwt, validarId, uploadFiles, modificarProyecto);
 
 export default proyectos;
