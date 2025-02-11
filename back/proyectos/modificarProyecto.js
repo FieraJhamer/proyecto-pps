@@ -1,5 +1,5 @@
 import { db } from "../db.js";
-import { upload } from "./crearProyecto.js";
+import { upload } from "../s3/s3Client.js"
 
 export const uploadFile = (req, res, next) => {
     upload.single("file")(req, res, (err) => {

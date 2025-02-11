@@ -251,15 +251,17 @@ export default function Busqueda() {
 
               <div className="modal-details-3">
 
-                {fechas.length>0 && (
-                  <>
-                  <p><strong>Estado del proyecto</strong></p>
-                  <p><strong>Etapa 1: <span style={{color:"green"}}>Completa</span>{fechas[0].fecha}</strong></p>
-                  <p><strong>Etapa 2: <span style={{color:"red"}}>En proceso</span></strong>{fechas[1].fecha}</p>
-                  <p><strong>Etapa 3: <span style={{color:"red"}}>No iniciada</span></strong>{fechas[2].fecha}</p>
-                  </>
-                )}
-                
+              <p><strong>Estado del proyecto</strong></p>
+
+              <p><strong>Etapa 1: <span style={{ color: "green" }}>Completa</span></strong></p>
+              <p>{fechas?.[0]?.fecha ?? "No hay fecha registrada"}</p>
+
+              <p><strong>Etapa 2: <span style={{ color: "red" }}>En proceso</span></strong></p>
+              <p>{fechas?.[1]?.fecha ?? "No hay fecha registrada"}</p>
+
+              <p><strong>Etapa 3: <span style={{ color: "red" }}>No iniciada</span></strong></p>
+              <p>{fechas?.[2]?.fecha ?? "No hay fecha registrada"}</p>
+
               </div>
 
               <div className="modal-buttons">

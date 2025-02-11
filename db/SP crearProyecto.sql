@@ -29,67 +29,62 @@ BEGIN
     DECLARE idProyecto INT;
     DECLARE idDocumentos INT;
     DECLARE proyectoExistente INT DEFAULT 0;
-    
+    DECLARE contadorAlumnos INT DEFAULT 0;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error en la transacción';
+    END;
+
     SELECT COUNT(*) INTO proyectoExistente FROM proyectos WHERE nombre_proyecto = nombreProyecto;
-    
+
     IF proyectoExistente > 0 THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: El proyecto con el mismo nombre ya existe';
     END IF;
-    
+
     INSERT INTO grupos (id_carrera) VALUES (carreraId);
     SET idGrupo = LAST_INSERT_ID();
     
-    INSERT INTO documentos (id_documentos, doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal)
-    VALUES (idDocumentos, docPropuestaProyecto, docNotaTutor, docCVTutor, docProyecto, docResolucionTribunal);
+    INSERT INTO documentos (doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal)
+    VALUES (docPropuestaProyecto, docNotaTutor, docCVTutor, docProyecto, docResolucionTribunal);
     SET idDocumentos = LAST_INSERT_ID();
-    
+
     INSERT INTO proyectos (nombre_proyecto, id_grupo, id_documentos) VALUES (nombreProyecto, idGrupo, idDocumentos);
     SET idProyecto = LAST_INSERT_ID();
-    
-    IF alumno1Legajo IS NOT NULL THEN
-        INSERT IGNORE INTO alumnos (id_grupo, nombre_alumno, apellido_alumno, legajo_alumno)
+
+    SET contadorAlumnos = 0;
+
+    IF alumno1Nombre IS NOT NULL AND alumno1Apellido IS NOT NULL THEN
+        INSERT INTO alumnos (id_grupo, nombre_alumno, apellido_alumno, legajo_alumno)
         VALUES (idGrupo, alumno1Nombre, alumno1Apellido, alumno1Legajo);
+        SET contadorAlumnos = contadorAlumnos + 1;
     END IF;
-    
-    IF alumno2Legajo IS NOT NULL THEN
-        INSERT IGNORE INTO alumnos (id_grupo, nombre_alumno, apellido_alumno, legajo_alumno)
+
+    IF alumno2Nombre IS NOT NULL AND alumno2Apellido IS NOT NULL THEN
+        INSERT INTO alumnos (id_grupo, nombre_alumno, apellido_alumno, legajo_alumno)
         VALUES (idGrupo, alumno2Nombre, alumno2Apellido, alumno2Legajo);
+        SET contadorAlumnos = contadorAlumnos + 1;
     END IF;
-    
-    IF alumno3Legajo IS NOT NULL THEN
-        INSERT IGNORE INTO alumnos (id_grupo, nombre_alumno, apellido_alumno, legajo_alumno)
+
+    IF alumno3Nombre IS NOT NULL AND alumno3Apellido IS NOT NULL THEN
+        INSERT INTO alumnos (id_grupo, nombre_alumno, apellido_alumno, legajo_alumno)
         VALUES (idGrupo, alumno3Nombre, alumno3Apellido, alumno3Legajo);
+        SET contadorAlumnos = contadorAlumnos + 1;
     END IF;
     
-    INSERT INTO etapas (id_tipo_etapa, id_proyecto, completa) VALUES
-    (etapa1Tipo, idProyecto, 0),
-    (etapa2Tipo, idProyecto, 0);
-    
-    INSERT INTO extensiones (id_proyecto, id_tipo_extension) VALUES
-    (idProyecto, extension1Tipo),
-    (idProyecto, extension2Tipo);
-    
-    INSERT INTO fechas (id_proyecto, id_tipo_fecha, fecha) VALUES
-    (idProyecto, fecha1Tipo, fecha1Fecha),
-    (idProyecto, fecha2Tipo, fecha2Fecha),
-    (idProyecto, fecha3Tipo, fecha3Fecha);
-    
-    IF fecha4Tipo IS NOT NULL THEN
+    IF contadorAlumnos < 1 OR contadorAlumnos > 3 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: Debe haber entre 1 y 3 alumnos';
+    END IF;
+
+    IF fecha1Fecha IS NOT NULL THEN
+        INSERT INTO fechas (id_proyecto, id_tipo_fecha, fecha) VALUES (idProyecto, fecha1Tipo, fecha1Fecha);
+    END IF;
+
+    IF COALESCE(fecha4Tipo, 0) <> 0 THEN
         INSERT INTO fechas (id_proyecto, id_tipo_fecha, fecha) VALUES (idProyecto, fecha4Tipo, NULL);
     END IF;
-    
-    INSERT INTO fechas (id_proyecto, id_tipo_fecha, fecha) VALUES
-    (idProyecto, fecha5Tipo, fecha5Fecha),
-    (idProyecto, fecha6Tipo, fecha6Fecha);
-    
-    IF fecha7Tipo IS NOT NULL THEN
-        INSERT INTO fechas (id_proyecto, id_tipo_fecha, fecha) VALUES (idProyecto, fecha7Tipo, NULL);
-    END IF;
-    
-    INSERT INTO fechas (id_proyecto, id_tipo_fecha, fecha) VALUES
-    (idProyecto, fecha8Tipo, fecha8Fecha),
-    (idProyecto, fecha9Tipo, fecha9Fecha);
-    
+
     INSERT INTO tribunales (id_proyecto, integrante_tribunal_1, integrante_tribunal_2, integrante_tribunal_3) 
     VALUES (idProyecto, integranteTrib1, integranteTrib2, integranteTrib3);
 END
