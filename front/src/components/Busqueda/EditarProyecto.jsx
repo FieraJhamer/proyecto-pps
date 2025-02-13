@@ -73,13 +73,13 @@ export default function EditarProyecto({ onClose, proyectoId }) {
             nombre_proyecto: data.nombre_proyecto || "",
             alumno1_nombre: data.integrantes[0]?.nombre_alumno || "",
             alumno1_apellido: data.integrantes[0]?.apellido_alumno || "",
-            alumno1_legajo: data.integrantes[0]?.legajo_alumno || "",
+            alumno1_legajo: data.integrantes[0]?.legajo_alumno || null,
             alumno2_nombre: data.integrantes[1]?.nombre_alumno || "",
             alumno2_apellido: data.integrantes[1]?.apellido_alumno || "",
-            alumno2_legajo: data.integrantes[1]?.legajo_alumno || "",
+            alumno2_legajo: data.integrantes[1]?.legajo_alumno || null,
             alumno3_nombre: data.integrantes[2]?.nombre_alumno || "",
             alumno3_apellido: data.integrantes[2]?.apellido_alumno || "",
-            alumno3_legajo: data.integrantes[2]?.legajo_alumno || "",
+            alumno3_legajo: data.integrantes[2]?.legajo_alumno || null,
             etapa1_tipo: data.etapas && data.etapas[0] ? data.etapas[0].id_tipo_etapa : 1,
             etapa2_tipo: data.etapas && data.etapas[1] ? data.etapas[1].id_tipo_etapa : 2,
             extension1_tipo: data.extensiones && data.extensiones[0] ? data.extensiones[0].id_tipo_extension : 1,
@@ -464,7 +464,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
           <div className="modal-content">
             <h2>{steps[currentStep].title}</h2>
 
-            <form onSubmit={handleSubmit}>
+            <form key={currentStep} onSubmit={handleSubmit}>
               {steps[currentStep].content}
 
               <div className="modal-buttons">
