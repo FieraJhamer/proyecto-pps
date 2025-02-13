@@ -229,22 +229,38 @@ export default function Busqueda() {
                 <ul className="file-list">
                   <li>
                     <strong>Propuesta del proyecto: </strong> 
-                      <span className="file-name"><a href={documentos.doc_propuesta_proyecto}>link</a></span>
+                      <span className="file-name">
+                        {documentos.doc_propuesta_proyecto ? <a href={documentos.doc_propuesta_proyecto}>Link a la propuesta de proyecto</a>
+                        :
+                        <p>Documento no disponible</p>}
+                        </span>
                   </li>
 
                   <li>
                     <strong>Nota del tutor: </strong> 
-                      <span className="file-name"><a href={documentos.doc_nota_tutor}>Link</a></span>
+                      <span className="file-name">
+                      {documentos.doc_nota_tutor ? <a href={documentos.doc_nota_tutor}>Link a la nota del tutor</a>
+                      :
+                      <p>No hay documento disponible</p>}  
+                      </span>
                   </li>
 
                   <li>
                     <strong>CV del tutor: </strong> 
-                      <span className="file-name"><a href={documentos.doc_cv_tutor}>Link</a></span>
+                      <span className="file-name">
+                        {documentos.doc_cv_tutor ? <a href={documentos.doc_cv_tutor} >Link al CV del tutor</a> 
+                        :
+                         <p>No hay documento disponible</p>}
+                      </span>
                   </li>
 
                   <li>
                     <strong>Documento de la tesina: </strong> 
-                      <span className="file-name"><a href={documentos.doc_proyecto}>Link</a></span>
+                    <span className="file-name">
+                      {documentos?.doc_proyecto ? <a href={documentos.doc_proyecto}>Link al documento de tesina</a>
+                       : 
+                       <p>No hay documento disponible</p>}
+                    </span>
                   </li>
                 </ul>
               </div>
