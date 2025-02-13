@@ -3,7 +3,7 @@ import "../Busqueda/Busqueda.css";
 import "./CrearProyectoButton.css";
 import { useAuth } from "../../Auth";
 
-export default function CrearProyectoButton() {
+export default function CrearProyectoButton({getProyectos}) {
   const { sesion } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -100,6 +100,12 @@ export default function CrearProyectoButton() {
       closeModal();
       console.log("Proyecto creado con éxito");
       console.log(data)
+
+      if (getProyectos) {
+        getProyectos();
+      }
+
+
     } catch (error) {
       console.error("Error al subir el proyecto:", error);
     }
