@@ -106,11 +106,11 @@ export default function EditarProyecto({ onClose, proyectoId }) {
             tribunalIntegrante2: data.tribunales[0]?.integrante_tribunal_2 || "",
             tribunalIntegrante3: data.tribunales[0]?.integrante_tribunal_3 || "",
             tribunal_id: data.tribunales[0].id_tribunal || "",
-            doc_propuesta_proyecto: data.documentos[0]?.doc_propuesta_proyecto || "",
-            doc_nota_tutor: data.documentos[0]?.doc_nota_tutor || "",
-            doc_cv_tutor: data.documentos[0]?.doc_cv_tutor || "",
-            doc_proyecto: data.documentos[0]?.doc_proyecto || "",
-            doc_resolucion_tribunal: data.documentos[0]?.doc_resolucion_tribunal || "",
+            doc_propuesta_proyecto: data.documentos[0]?.doc_propuesta_proyecto || null,
+            doc_nota_tutor: data.documentos[0]?.doc_nota_tutor || null,
+            doc_cv_tutor: data.documentos[0]?.doc_cv_tutor || null,
+            doc_proyecto: data.documentos[0]?.doc_proyecto || null,
+            doc_resolucion_tribunal: data.documentos[0]?.doc_resolucion_tribunal || null,
           });
 
         } catch (error) {
