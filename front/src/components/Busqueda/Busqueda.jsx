@@ -5,8 +5,8 @@ import { useAuth } from "../../Auth";
 import CrearProyectoButton from "../CrearProyectoButton/CrearProyectoButton";
 import EditarProyecto from "../EditarProyectoButton/EditarProyecto";
 import { useCloseOnEscape } from "../../utils/UseOnCloseEscape";
-
-
+import { formatDate } from "../../utils/FormatDate";
+import { compareDates } from "../../utils/CompareDates";
 
 export default function Busqueda() {
   const { sesion } = useAuth();
@@ -271,47 +271,79 @@ export default function Busqueda() {
               </div>
 
               <div className="modal-view-dates">
+                <p><strong>Fechas:</strong></p>
 
-              <p><strong>Fechas:</strong></p>
-
-              <p>Fin de cursada:</p>
-              <p>{fechas?.[0]?.fecha ?? "No hay fecha registrada"}</p>
-
-              <p>Carga de archivos de la etapa 1</p>
-              <p>{fechas?.[1]?.fecha ?? "No hay fecha registrada"}</p>
-
-              <p>Aprobación de la etapa 1</p>
-              <p>{fechas?.[2]?.fecha ?? "No hay fecha registrada"}</p>
-
-              {/* FECHA DE RESOLUCION DE EXTENSION DE ETAPA 1
-              <p>NOMBRE DE FECHA</p>
-              <p>{fechas?.[3]?.fecha ?? "No hay fecha registrada"}</p>
-              */}
-
-              <p>Carga de archivos de la etapa 2</p>
-              <p>{fechas?.[4]?.fecha ?? "No hay fecha registrada"}</p>
-
-              <p>Aprobación de la etapa 2</p>
-              <p>{fechas?.[5]?.fecha ?? "No hay fecha registrada"}</p>
-
-              {/* FECHA DE RESOLUCION DE EXTENSION DE ETAPA 2
-              <p>NOMBRE DE FECHA</p>
-              <p>{fechas?.[6]?.fecha ?? "No hay fecha registrada"}</p>
-              */}
-
-              <p>Designación del tribunal</p>
-              <p>{fechas?.[7]?.fecha ?? "No hay fecha registrada"}</p>
-
-              <p>Fecha de defensa</p>
-              <p>{fechas?.[8]?.fecha ?? "No hay fecha registrada"}</p>
-
+                <table className="dates-table">
+                  <thead>
+                    <tr>
+                      <th>Etapa</th>
+                      <th>Fecha</th>
+                      <th>Plazos entre fechas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Fin de cursada</td>
+                      <td>{fechas?.[0]?.fecha ? formatDate(fechas?.[0]?.fecha) : "No hay fecha registrada"}</td>
+                      <td style={{ backgroundColor: compareDates(fechas?.[0]?.fecha, fechas?.[1]?.fecha, 30) }}>
+                      {compareDates(fechas?.[0]?.fecha, fechas?.[1]?.fecha, 30) === "yellow" ? "Fecha faltante" : "Archivos iniciales (30 días)"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Carga de archivos de la etapa 1</td>
+                      <td>{fechas?.[1]?.fecha ? formatDate(fechas?.[1]?.fecha) : "No hay fecha registrada"}</td>
+                      <td style={{ backgroundColor: compareDates(fechas?.[1]?.fecha, fechas?.[2]?.fecha, 30) }}>
+                      {compareDates(fechas?.[1]?.fecha, fechas?.[2]?.fecha, 30) === "yellow" ? "Fecha faltante" : "Aprobación etapa 1 (30 días)"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Aprobación de la etapa 1</td>
+                      <td>{fechas?.[2]?.fecha ? formatDate(fechas?.[2]?.fecha) : "No hay fecha registrada"}</td>
+                      <td style={{ backgroundColor: compareDates(fechas?.[2]?.fecha, fechas?.[4]?.fecha, 180) }}>
+                      {compareDates(fechas?.[2]?.fecha, fechas?.[4]?.fecha, 180) === "yellow" ? "Fecha faltante" : "Proyecto de tesina (180 días)"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Resolución de extensión de la etapa 1</td>
+                      <td>{fechas?.[3]?.fecha ? formatDate(fechas?.[3]?.fecha) : "No hay fecha registrada"}</td>
+                      <td>No aplica</td>
+                    </tr>
+                    <tr>
+                      <td>Carga de archivos de la etapa 2</td>
+                      <td>{fechas?.[4]?.fecha ? formatDate(fechas?.[4]?.fecha) : "No hay fecha registrada"}</td>
+                      <td style={{ backgroundColor: compareDates(fechas?.[4]?.fecha, fechas?.[5]?.fecha, 30) }}>
+                      {compareDates(fechas?.[4]?.fecha, fechas?.[5]?.fecha, 30) === "yellow" ? "Fecha faltante" : "Aprobación etapa 2 (30 días)"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Aprobación de la etapa 2</td>
+                      <td>{fechas?.[5]?.fecha ? formatDate(fechas?.[5]?.fecha) : "No hay fecha registrada"}</td>
+                      <td>No aplica</td>
+                    </tr>
+                    <tr>
+                      <td>Resolución de extensión de la etapa 2</td>
+                      <td>{fechas?.[6]?.fecha ? formatDate(fechas?.[6]?.fecha) : "No hay fecha registrada"}</td>
+                      <td>No aplica</td>
+                    </tr>
+                    <tr>
+                      <td>Designación del tribunal</td>
+                      <td>{fechas?.[7]?.fecha ? formatDate(fechas?.[7]?.fecha) : "No hay fecha registrada"}</td>
+                      <td>No aplica</td>
+                    </tr>
+                    <tr>
+                      <td>Fecha de defensa</td>
+                      <td>{fechas?.[8]?.fecha ? formatDate(fechas?.[8]?.fecha) : "No hay fecha registrada"}</td>
+                      <td>No aplica</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
 
               <div className="modal-buttons">
               <button type="button" className="modal-close-button" onClick={closeView}>Cerrar</button>
               </div>
-          </div>
 
+          </div>
         </div>
       )
       }

@@ -59,8 +59,37 @@
     list-style-type: none;
 }
 
+.dates-table {
+    margin: 10px 0 0 0;
+}
+
 span {
     display: flex;
     width: 80%;
     flex-direction: column;
+}
+
+table {
+    border-collapse: collapse;
+    height: 90%;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #818181;
+    text-align: left;
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: #d4d4d4;
+}
+
+th:first-child, td:first-child {
+    min-width: 40px;
+}
+
+th, td {
+    word-wrap: break-word;
 }
