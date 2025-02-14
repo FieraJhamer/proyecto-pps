@@ -3,7 +3,7 @@ import "../Busqueda/Busqueda.css";
 import "./CrearProyectoButton.css";
 import { useAuth } from "../../Auth";
 
-export default function CrearProyectoButton() {
+export default function CrearProyectoButton({getProyectos}) {
   const { sesion } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -66,8 +66,6 @@ export default function CrearProyectoButton() {
       [name]: files.length > 1 ? [...files] : files[0] || prevFiles[name],
     }));
   };
-  
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,6 +100,12 @@ export default function CrearProyectoButton() {
       closeModal();
       console.log("Proyecto creado con éxito");
       console.log(data)
+
+      if (getProyectos) {
+        getProyectos();
+      }
+
+
     } catch (error) {
       console.error("Error al subir el proyecto:", error);
     }
@@ -112,7 +116,7 @@ export default function CrearProyectoButton() {
 
   const steps = [
     {
-      title: "Etapa 1",
+      title: "Crear nuevo proyecto",
       content: (
         <div className="form-group">
           <div className="form-group-left">
@@ -127,8 +131,8 @@ export default function CrearProyectoButton() {
                 <option value="1">Tec. en Higiene y Seguridad</option>
                 <option value="2">Lic. en Tecnología Educativa</option>
               </select>
-            </span>
 
+            </span>
             <span>
               <label>Nombre del proyecto</label>
               <input
@@ -136,31 +140,35 @@ export default function CrearProyectoButton() {
                 name="nombre_proyecto"
                 value={formData.nombre_proyecto}
                 onChange={handleChange}
+                placeholder="Título del documento"
               />
             </span>
 
             <span>
                     <label>Alumno 1</label>
-                    <label>Nombre</label>
                     <input
                       type="text"
                       name={`alumno1_nombre`}
                       value={formData[`alumno1_nombre`] || ""}
                       onChange={handleChange}
+                      placeholder="Nombre"
+                      required
                     />
-                    <label>Apellido</label>
                     <input
                       type="text"
                       name={`alumno1_apellido`}
                       value={formData[`alumno1_apellido`] || ""}
                       onChange={handleChange}
+                      placeholder="Apellido"
+                      required
                     />
-                    <label>Legajo</label>
                     <input
                       type="number"
                       name={`alumno1_legajo`}
                       value={formData[`alumno1_legajo`] || ""}
                       onChange={handleChange}
+                      placeholder="N° de legajo"
+                      required
                     />
                   </span>
           </div>
@@ -169,29 +177,29 @@ export default function CrearProyectoButton() {
 
           <div className="form-group-right">
             {[2, 3].map((num) => (
-              <div key={num}>
+              <div key={num} className="form-group-right-alumnos">
                   <span>
                     <label>Alumno {num}</label>
-                    <label>Nombre</label>
                     <input
                       type="text"
                       name={`alumno${num}_nombre`}
                       value={formData[`alumno${num}_nombre`] || ""}
                       onChange={handleChange}
+                      placeholder="Nombre"
                     />
-                    <label>Apellido</label>
                     <input
                       type="text"
                       name={`alumno${num}_apellido`}
                       value={formData[`alumno${num}_apellido`] || ""}
                       onChange={handleChange}
+                      placeholder="Apellido"
                     />
-                    <label>Legajo</label>
                     <input
                       type="number"
                       name={`alumno${num}_legajo`}
                       value={formData[`alumno${num}_legajo`] || ""}
                       onChange={handleChange}
+                      placeholder="N° de legajo"
                     />
                   </span>
               </div>
@@ -202,13 +210,13 @@ export default function CrearProyectoButton() {
       ),
     },
     {
-      title: "Etapa 2",
+      title: "Crear nuevo proyecto",
       content: (
         <div className="form-group">
 
           <div className="form-group-left">
           <span>
-              <label>Fecha de fin de cursada</label>
+              <label>Fin de cursada</label>
               <input
                 type="date"
                 name="fechaFinCursada"
@@ -218,7 +226,7 @@ export default function CrearProyectoButton() {
             </span>
 
             <span>
-              <label>Fecha de carga inicial de documentos</label>
+              <label>Carga inicial de documentos</label>
               <input
                 type="date"
                 name="fechaCargaArchivosEtapa1"
@@ -228,7 +236,7 @@ export default function CrearProyectoButton() {
             </span>
             
             <span>
-              <label>Fecha de aprobación de la etapa 1</label>
+              <label>Aprobación de la etapa 1</label>
               <input
                 type="date"
                 name="fechaAprobacionEtapa1"
@@ -239,7 +247,7 @@ export default function CrearProyectoButton() {
           </div>
 
           <div className="form-group-right">
-          <span>
+            <span>
               <label>Propuesta de proyecto</label>
               <input
                 name="docPropuestaProyecto"
@@ -290,8 +298,8 @@ export default function CrearProyectoButton() {
       </button>
 
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal-create">
+          <div className="modal-create-content">
             <h2>{steps[currentStep].title}</h2>
 
             <form key={currentStep} onSubmit={handleSubmit} encType="multipart/form-data">

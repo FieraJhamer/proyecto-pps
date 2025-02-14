@@ -1,5 +1,5 @@
 import { db } from "../db.js";
-import {client} from "../client.js"
+import {client} from "../s3/client.js"
 import {ListObjectsCommand} from '@aws-sdk/client-s3'
 
 const obtenerProyecto = async (req, res) => {

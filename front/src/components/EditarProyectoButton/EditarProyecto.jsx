@@ -106,11 +106,11 @@ export default function EditarProyecto({ onClose, proyectoId }) {
             tribunalIntegrante2: data.tribunales[0]?.integrante_tribunal_2 || "",
             tribunalIntegrante3: data.tribunales[0]?.integrante_tribunal_3 || "",
             tribunal_id: data.tribunales[0].id_tribunal || "",
-            doc_propuesta_proyecto: data.documentos[0]?.doc_propuesta_proyecto || "",
-            doc_nota_tutor: data.documentos[0]?.doc_nota_tutor || "",
-            doc_cv_tutor: data.documentos[0]?.doc_cv_tutor || "",
-            doc_proyecto: data.documentos[0]?.doc_proyecto || "",
-            doc_resolucion_tribunal: data.documentos[0]?.doc_resolucion_tribunal || "",
+            doc_propuesta_proyecto: data.documentos[0]?.doc_propuesta_proyecto || null,
+            doc_nota_tutor: data.documentos[0]?.doc_nota_tutor || null,
+            doc_cv_tutor: data.documentos[0]?.doc_cv_tutor || null,
+            doc_proyecto: data.documentos[0]?.doc_proyecto || null,
+            doc_resolucion_tribunal: data.documentos[0]?.doc_resolucion_tribunal || null,
           });
 
         } catch (error) {
@@ -268,33 +268,34 @@ export default function EditarProyecto({ onClose, proyectoId }) {
                 name="nombre_proyecto"
                 value={formData.nombre_proyecto}
                 onChange={handleChange}
+                placeholder="Título"
               />
             </span>
 
             {[1, 2, 3].map((num) => (
-              <div key={num}>
+              <div key={num} className="form-group-alumnos">
                 <span>
                 <label>Alumno {num}</label>
-                <label>Nombre</label>
                 <input
                   type="text"
                   name={`alumno${num}_nombre`}
                   value={formData[`alumno${num}_nombre`] || ""}
                   onChange={handleChange}
+                  placeholder="Nombre"
                 />
-                <label>Apellido</label>
                 <input
                   type="text"
                   name={`alumno${num}_apellido`}
                   value={formData[`alumno${num}_apellido`] || ""}
                   onChange={handleChange}
+                  placeholder="Apellido"
                 />
-                <label>Legajo</label>
                 <input
                   type="number"
                   name={`alumno${num}_legajo`}
                   value={formData[`alumno${num}_legajo`] || ""}
                   onChange={handleChange}
+                  placeholder="N° de legajo"
                 />
                 </span>
               </div>
@@ -303,7 +304,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
 
           <div className="form-group-right">
             <span>
-              <label>Fecha de finalización de cursada</label>
+              <label>Finalización de cursada</label>
               <input
                 type="date"
                 name="fechaFinCursada"
@@ -313,7 +314,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
             </span>
 
             <span>
-              <label>Fecha de carga de archivos de la etapa 1</label>
+              <label>Carga de archivos de la etapa 1</label>
               <input
                 type="date"
                 name="fechaCargaArchivosEtapa1"
@@ -323,7 +324,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
             </span>
 
             <span>
-              <label>Fecha de aprobación de etapa 1</label>
+              <label>Aprobación de etapa 1</label>
               <input
                 type="date"
                 name="fechaAprobacionEtapa1"
@@ -332,7 +333,6 @@ export default function EditarProyecto({ onClose, proyectoId }) {
               />
             </span>
 
-            {/* LOS INPUTS DE ARCHIVOS AHORA NO FUNCAN */}
             <span>
               <label>Propuesta de proyecto:</label>
               {formData.doc_propuesta_proyecto ? (
@@ -379,7 +379,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
         <div className="form-group">
           <div className="form-group-left">
             <span>
-                <label>Fecha de carga de archivos de la etapa 1</label>
+                <label>Carga de archivos de la etapa 1</label>
                 <input
                   type="date"
                   name="fechaCargaArchivosEtapa2"
@@ -388,7 +388,6 @@ export default function EditarProyecto({ onClose, proyectoId }) {
                 />
             </span>
 
-            {/* LOS INPUTS DE ARCHIVOS AHORA NO FUNCAN */}
             <span>
               <label>Documento de tesina:</label>
               {formData.doc_proyecto ? (
@@ -402,7 +401,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
             </span>
 
             <span>
-                <label>Fecha de aprobación de la etapa 2</label>
+                <label>Aprobación de la etapa 2</label>
                 <input
                   type="date"
                   name="fechaAprobacionEtapa2"
@@ -460,11 +459,11 @@ export default function EditarProyecto({ onClose, proyectoId }) {
 
   return (
     <>
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal-edit">
+          <div className="modal-edit-content">
             <h2>{steps[currentStep].title}</h2>
 
-            <form key={currentStep} onSubmit={handleSubmit}>
+            <form key={steps[currentStep]} onSubmit={handleSubmit}>
               {steps[currentStep].content}
 
               <div className="modal-buttons">

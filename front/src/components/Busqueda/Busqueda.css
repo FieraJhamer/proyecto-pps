@@ -280,6 +280,14 @@ input:hover {
     margin: 2px 0 0 0;
 }
 
+.modal input:focus,
+.modal input:hover {
+    outline: none;
+    border-color: rgba(76, 150, 234, 0.4);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(76, 131, 234, 0.1);
+}
+
 .fase1-center input,
 .miembros-tribunal input {
     padding: 0.4rem 0.5rem;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Busqueda.css";
 import { useAuth } from "../../Auth";
 import CrearProyectoButton from "../CrearProyectoButton/CrearProyectoButton";
-import EditarProyecto from "./EditarProyecto";
+import EditarProyecto from "../EditarProyectoButton/EditarProyecto";
 
 
 export default function Busqueda() {
@@ -136,7 +136,7 @@ export default function Busqueda() {
 
   return (
     <div className="Busqueda-container">
-      <CrearProyectoButton></CrearProyectoButton>
+      <CrearProyectoButton getProyectos={getProyectos}></CrearProyectoButton>
       <div className="input-busqueda">
         <svg className="icon" aria-hidden="true" viewBox="0 0 24 24">
           <g>
