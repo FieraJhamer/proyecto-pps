@@ -50,6 +50,15 @@ const modificarProyecto = async (req, res) => {
 
           for (const integrante of integrantes) {
               const { nombre_alumno, apellido_alumno, legajo_alumno } = integrante;
+
+              if (
+                !nombre_alumno || typeof nombre_alumno !== "string" || !nombre_alumno.trim() ||
+                !apellido_alumno || typeof apellido_alumno !== "string" || !apellido_alumno.trim() ||
+                !legajo_alumno || (typeof legajo_alumno !== "string" && typeof legajo_alumno !== "number")
+              ) {
+                continue;
+              }
+
               await db.query(
                   `INSERT INTO alumnos (nombre_alumno, apellido_alumno, legajo_alumno, id_grupo) VALUES (?, ?, ?, ?)`,
                   [nombre_alumno, apellido_alumno, legajo_alumno, id_grupo]
