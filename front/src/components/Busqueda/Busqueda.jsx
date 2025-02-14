@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import "./Busqueda.css";
+import "./ViewModal.css"
 import { useAuth } from "../../Auth";
 import CrearProyectoButton from "../CrearProyectoButton/CrearProyectoButton";
 import EditarProyecto from "../EditarProyectoButton/EditarProyecto";
+import { useCloseOnEscape } from "../../utils/UseOnCloseEscape";
+
 
 
 export default function Busqueda() {
@@ -30,7 +33,6 @@ export default function Busqueda() {
     setIsModalOpen(true);
   };
   const OpenView = (proyecto)=>{
-
     getDocumentos(proyecto.id_proyecto);
     setViewModal(true)
     setProyectoSelect(proyecto)
@@ -134,6 +136,9 @@ export default function Busqueda() {
 
   const proyectosFiltrados = filtrarProyectos();
 
+  useCloseOnEscape(isModalOpen ? closeModal : null);
+  useCloseOnEscape(ViewModal ? closeView : null);
+
   return (
     <div className="Busqueda-container">
       <CrearProyectoButton getProyectos={getProyectos}></CrearProyectoButton>
@@ -196,8 +201,8 @@ export default function Busqueda() {
           <div key={proyecto.id_proyecto} className="card">
             <div className="card-details">
               <p className="text-title">{proyecto.nombre_proyecto}</p>
-              <p className="text-body">Integrantes: {proyecto.integrantes}</p>
-              <p className="text-body">Carrera: {proyecto.carreras}</p>
+              <p className="text-body">👤 Integrantes: {proyecto.integrantes}</p>
+              <p className="text-body">📚 Carrera: {proyecto.carreras}</p>
             </div>
             <button
               className="card-button card-button-editar"
@@ -215,24 +220,24 @@ export default function Busqueda() {
       </div>
 
       {ViewModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2 className="fase1-title">Detalles del ejemplo</h2>
+        <div className="modal-view">
+          <div className="modal-view-content">
+            <h2>Detalles del proyecto</h2>
 
-              <div className="modal-details-1">
-                <p><strong>Titulo:</strong>{ProyectoSelect.nombre_proyecto}</p>
-                <p><strong>Integrantes:</strong>{ProyectoSelect.integrantes}</p>
+              <div className="modal-view-details">
+                <p><strong>Nombre del proyecto:</strong> {ProyectoSelect.nombre_proyecto}</p>
+                <p><strong>Integrantes:</strong> {ProyectoSelect.integrantes}</p>
               </div>
 
-              <div className="modal-details-2">
+              <div className="modal-view-files">
                 <p><strong>Archivos cargados:</strong></p>
                 <ul className="file-list">
                   <li>
-                    <strong>Propuesta del proyecto: </strong> 
+                    <strong>Propuesta:</strong> 
                       <span className="file-name">
                         {documentos.doc_propuesta_proyecto ? <a href={documentos.doc_propuesta_proyecto}>Link a la propuesta de proyecto</a>
                         :
-                        <p>Documento no disponible</p>}
+                        <p>No se encontró el archivo</p>}
                         </span>
                   </li>
 
@@ -241,7 +246,7 @@ export default function Busqueda() {
                       <span className="file-name">
                       {documentos.doc_nota_tutor ? <a href={documentos.doc_nota_tutor}>Link a la nota del tutor</a>
                       :
-                      <p>No hay documento disponible</p>}  
+                      <p>No se encontró el archivo</p>}
                       </span>
                   </li>
 
@@ -250,33 +255,55 @@ export default function Busqueda() {
                       <span className="file-name">
                         {documentos.doc_cv_tutor ? <a href={documentos.doc_cv_tutor} >Link al CV del tutor</a> 
                         :
-                         <p>No hay documento disponible</p>}
+                        <p>No se encontró el archivo</p>}
                       </span>
                   </li>
 
                   <li>
-                    <strong>Documento de la tesina: </strong> 
+                    <strong>Doc. de la tesina: </strong> 
                     <span className="file-name">
                       {documentos?.doc_proyecto ? <a href={documentos.doc_proyecto}>Link al documento de tesina</a>
-                       : 
-                       <p>No hay documento disponible</p>}
+                      :
+                      <p>No se encontró el archivo</p>}
                     </span>
                   </li>
                 </ul>
               </div>
 
-              <div className="modal-details-3">
+              <div className="modal-view-dates">
 
-              <p><strong>Estado del proyecto</strong></p>
+              <p><strong>Fechas:</strong></p>
 
-              <p><strong>Etapa 1: <span style={{ color: "green" }}>Completa</span></strong></p>
+              <p>Fin de cursada:</p>
               <p>{fechas?.[0]?.fecha ?? "No hay fecha registrada"}</p>
 
-              <p><strong>Etapa 2: <span style={{ color: "red" }}>En proceso</span></strong></p>
+              <p>Carga de archivos de la etapa 1</p>
               <p>{fechas?.[1]?.fecha ?? "No hay fecha registrada"}</p>
 
-              <p><strong>Etapa 3: <span style={{ color: "red" }}>No iniciada</span></strong></p>
+              <p>Aprobación de la etapa 1</p>
               <p>{fechas?.[2]?.fecha ?? "No hay fecha registrada"}</p>
+
+              {/* FECHA DE RESOLUCION DE EXTENSION DE ETAPA 1
+              <p>NOMBRE DE FECHA</p>
+              <p>{fechas?.[3]?.fecha ?? "No hay fecha registrada"}</p>
+              */}
+
+              <p>Carga de archivos de la etapa 2</p>
+              <p>{fechas?.[4]?.fecha ?? "No hay fecha registrada"}</p>
+
+              <p>Aprobación de la etapa 2</p>
+              <p>{fechas?.[5]?.fecha ?? "No hay fecha registrada"}</p>
+
+              {/* FECHA DE RESOLUCION DE EXTENSION DE ETAPA 2
+              <p>NOMBRE DE FECHA</p>
+              <p>{fechas?.[6]?.fecha ?? "No hay fecha registrada"}</p>
+              */}
+
+              <p>Designación del tribunal</p>
+              <p>{fechas?.[7]?.fecha ?? "No hay fecha registrada"}</p>
+
+              <p>Fecha de defensa</p>
+              <p>{fechas?.[8]?.fecha ?? "No hay fecha registrada"}</p>
 
               </div>
 
@@ -289,7 +316,7 @@ export default function Busqueda() {
       )
       }
 
-      {isModalOpen && <EditarProyecto onClose={closeModal} proyectoId={selectedProyectoId} />}
+      {isModalOpen && <EditarProyecto onClose={closeModal} proyectoId={selectedProyectoId} getProyectos={getProyectos}/>}
     </div>
   );
 }

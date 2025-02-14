@@ -8,7 +8,7 @@ const obtenerProyecto = async (req, res) => {
 
         p.id_proyecto, p.nombre_proyecto, 
         
-        GROUP_CONCAT(CONCAT(a.nombre_alumno, ' ', a.apellido_alumno) SEPARATOR ', ') AS integrantes,
+        GROUP_CONCAT(CONCAT(a.nombre_alumno, ' ', a.apellido_alumno, ' (', a.legajo_alumno, ')') SEPARATOR ', ') AS integrantes,
         c.nombre_carrera as carreras
                     
         FROM proyectos p 

@@ -3,7 +3,7 @@ import "../CrearProyectoButton/CrearProyectoButton.css";
 import { useAuth } from "../../Auth";
 import "./EditarProyecto.css";
 
-export default function EditarProyecto({ onClose, proyectoId }) {
+export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
   const { sesion } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -217,7 +217,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
          doc_resolucion_tribunal: formData.doc_resolucion_tribunal}
       ]
     };
-    console.log(data.tribunales)
+    console.log(data)
   
     try {
       const response = await fetch(`http://localhost:3000/proyectos/${proyectoId}`, {
@@ -231,6 +231,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
   
       if (response.ok) {
         console.log("Proyecto actualizado con éxito");
+        getProyectos();
         onClose();
         alert("Proyecto actualizado con éxito");
       } else {
@@ -379,7 +380,7 @@ export default function EditarProyecto({ onClose, proyectoId }) {
         <div className="form-group">
           <div className="form-group-left">
             <span>
-                <label>Carga de archivos de la etapa 1</label>
+                <label>Carga de archivos de la etapa 2</label>
                 <input
                   type="date"
                   name="fechaCargaArchivosEtapa2"
