@@ -3,6 +3,8 @@ import "../Busqueda/Busqueda.css";
 import "./CrearProyectoButton.css";
 import { useAuth } from "../../Auth";
 
+import { useCloseOnEscape } from "../../utils/UseOnCloseEscape";
+
 export default function CrearProyectoButton({getProyectos}) {
   const { sesion } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,6 +115,9 @@ export default function CrearProyectoButton({getProyectos}) {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  useCloseOnEscape(isModalOpen ? closeModal : null);
+
 
   const steps = [
     {
