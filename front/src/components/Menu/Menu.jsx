@@ -14,13 +14,11 @@ export const Menu = () => {
             </Link>
           </li>
 
-          <AuthRol superusuario={1}>
-            <li>
-              <Link to="/home" className="nav-button">
-                <img src="./assets/home.svg" alt="Home" />
-              </Link>
-            </li>
-          </AuthRol>
+          <li>
+            <Link to="/home" className="nav-button">
+              <img src="./assets/home.svg" alt="Home" />
+            </Link>
+          </li>
 
           <AuthRol superusuario={1}>
             <li>
