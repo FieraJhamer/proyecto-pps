@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Busqueda.css";
 import { useAuth } from "../../Auth";
 import CrearProyectoButton from "../CrearProyectoButton/CrearProyectoButton";
-import EditarProyecto from "./EditarProyecto";
+import EditarProyecto from "../EditarProyectoButton/EditarProyecto";
 
 
 export default function Busqueda() {
