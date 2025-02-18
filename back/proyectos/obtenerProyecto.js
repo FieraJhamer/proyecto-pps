@@ -18,7 +18,9 @@ const obtenerProyecto = async (req, res) => {
     
         JOIN carreras c ON c.id_carrera=g.id_carrera
 
-        GROUP BY p.id_proyecto,p.nombre_proyecto, c.nombre_carrera`);
+        GROUP BY p.id_proyecto,p.nombre_proyecto, c.nombre_carrera
+        
+        ORDER BY p.id_proyecto DESC`);
   res.send(proyectos);
 };
 
@@ -76,7 +78,7 @@ export const obtenerProyectoPorId = async (req, res) => {
         );
 
         const [documentos] = await db.query(
-            `SELECT doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal
+            `SELECT doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal, doc_resolucion_ext_etapa1, doc_resolucion_ext_etapa2
              FROM documentos
              WHERE id_documentos = ?`,
             [proyecto.id_documentos]
@@ -117,7 +119,7 @@ export const obtenerDocumentos = async (req,res)=>{
     const {id}=req.params
     try{
         const [ListaDocumentos]= await db.query(
-            `select doc_propuesta_proyecto,doc_nota_tutor,doc_cv_tutor,doc_proyecto from documentos d 
+            `select doc_propuesta_proyecto,doc_nota_tutor,doc_cv_tutor,doc_proyecto, doc_resolucion_tribunal from documentos d 
             join proyectos p on d.id_documentos=p.id_documentos
             where p.id_proyecto=?`
         ,[id])

@@ -122,34 +122,31 @@ const modificarProyecto = async (req, res) => {
           );
       }
 
-      if (documentos && documentos.length > 0) {
+      if (documentos) {
         console.log(documentos[0].doc_propuesta_proyecto)
-        const [[documento]] = await db.query(
-          `SELECT id_documentos FROM proyectos WHERE id_proyecto = ?`,
-          [id]
+        const [[{ id_documentos }]] = await db.query(`SELECT id_documentos FROM proyectos WHERE id_proyecto = ?`, [id]);
+  
+        await db.query(
+          `UPDATE documentos SET 
+            doc_propuesta_proyecto = ?, 
+            doc_nota_tutor = ?, 
+            doc_cv_tutor = ?, 
+            doc_proyecto = ?, 
+            doc_resolucion_tribunal = ?,
+            doc_resolucion_ext_etapa1 = ?, 
+            doc_resolucion_ext_etapa2 = ? 
+           WHERE id_documentos = ?`,
+          [
+            documentos[0].doc_propuesta_proyecto,
+            documentos[0].doc_nota_tutor,
+            documentos[0].doc_cv_tutor,
+            documentos[0].doc_proyecto,
+            documentos[0].doc_resolucion_tribunal,
+            documentos[0].doc_resolucion_ext_etapa1,
+            documentos[0].doc_resolucion_ext_etapa2,
+            id_documentos,
+          ]
         );
-      
-        if (documento && documento.id_documentos) {
-          await db.query(
-            `UPDATE documentos SET 
-              doc_propuesta_proyecto = ?, 
-              doc_nota_tutor = ?, 
-              doc_cv_tutor = IF(? = '', NULL, ?), 
-              doc_proyecto = ?, 
-              doc_resolucion_tribunal = ? 
-             WHERE id_documentos = ?`,
-            [
-              documentos[0].doc_propuesta_proyecto,
-              documentos[0].doc_nota_tutor,
-              documentos[0].doc_cv_tutor, documentos[0].doc_cv_tutor,
-              documentos[0].doc_proyecto,
-              documentos[0].doc_resolucion_tribunal,
-              documento.id_documentos,
-            ]
-          );
-        } else {
-          console.log("NO HAY CAMBIOS EN LOS ARCHIVOS");
-        }
       }
 
       await db.commit(); // Confirmar cambios

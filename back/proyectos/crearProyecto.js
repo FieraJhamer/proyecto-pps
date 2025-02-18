@@ -7,6 +7,8 @@ const uploadFiles = upload.fields([
   { name: "docCVTutor", maxCount: 1 },
   { name: "docTesina", maxCount: 1 },
   { name: "docResolucionTribunal", maxCount: 1 },
+  { name: "docResolucionExtEtapa1", maxCount: 1 },
+  { name: "docResolucionExtEtapa2", maxCount: 1 },
 ]);
 
 function limpiarEntero(valor) {
@@ -63,9 +65,11 @@ const crearProyecto = async (req, res) => {
     const docCVTutor = req.files?.docCVTutor?.[0]?.location;
     const docTesina = req.files?.docTesina?.[0]?.location;
     const docResolucionTribunal = req.files?.docResolucionTribunal?.[0]?.location;
+    const docResolucionExtEtapa1 = req.files?.docResolucionExtEtapa1?.[0]?.location;
+    const docResolucionExtEtapa2 = req.files?.docResolucionExtEtapa2?.[0]?.location;
 
     const [result] = await db.query(
-      `CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         carrera_id,
         nombre_proyecto,
@@ -106,6 +110,8 @@ const crearProyecto = async (req, res) => {
         docCVTutor,
         docTesina,
         docResolucionTribunal,
+        docResolucionExtEtapa1,
+        docResolucionExtEtapa2,
       ]
     );
 

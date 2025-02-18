@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Busqueda.css";
 import "./ViewModal.css"
+import "./ViewModalResponsive.css"
 import { useAuth } from "../../Auth";
 import CrearProyectoButton from "../CrearProyectoButton/CrearProyectoButton";
 import EditarProyecto from "../EditarProyectoButton/EditarProyecto";
@@ -235,7 +236,7 @@ export default function Busqueda() {
                   <li>
                     <strong>Propuesta:</strong> 
                       <span className="file-name">
-                        {documentos.doc_propuesta_proyecto ? <a href={documentos.doc_propuesta_proyecto}>Link a la propuesta de proyecto</a>
+                        {documentos.doc_propuesta_proyecto ? <a href={documentos.doc_propuesta_proyecto} target="_BLANK">Link a la propuesta de proyecto</a>
                         :
                         <p>No se encontró el archivo</p>}
                         </span>
@@ -244,7 +245,7 @@ export default function Busqueda() {
                   <li>
                     <strong>Nota del tutor: </strong> 
                       <span className="file-name">
-                      {documentos.doc_nota_tutor ? <a href={documentos.doc_nota_tutor}>Link a la nota del tutor</a>
+                      {documentos.doc_nota_tutor ? <a href={documentos.doc_nota_tutor} target="_BLANK">Link a la nota del tutor</a>
                       :
                       <p>No se encontró el archivo</p>}
                       </span>
@@ -253,7 +254,7 @@ export default function Busqueda() {
                   <li>
                     <strong>CV del tutor: </strong> 
                       <span className="file-name">
-                        {documentos.doc_cv_tutor ? <a href={documentos.doc_cv_tutor} >Link al CV del tutor</a> 
+                        {documentos.doc_cv_tutor ? <a href={documentos.doc_cv_tutor} target="_BLANK">Link al CV del tutor</a> 
                         :
                         <p>No se encontró el archivo</p>}
                       </span>
@@ -262,7 +263,16 @@ export default function Busqueda() {
                   <li>
                     <strong>Doc. de la tesina: </strong> 
                     <span className="file-name">
-                      {documentos?.doc_proyecto ? <a href={documentos.doc_proyecto}>Link al documento de tesina</a>
+                      {documentos?.doc_proyecto ? <a href={documentos.doc_proyecto} target="_BLANK">Link al documento de tesina</a>
+                      :
+                      <p>No se encontró el archivo</p>}
+                    </span>
+                  </li>
+
+                  <li>
+                    <strong>Res. del tribunal: </strong> 
+                    <span className="file-name">
+                      {documentos?.doc_resolucion_tribunal ? <a href={documentos.doc_resolucion_tribunal} target="_BLANK">Link a la resolución de tribunal</a>
                       :
                       <p>No se encontró el archivo</p>}
                     </span>

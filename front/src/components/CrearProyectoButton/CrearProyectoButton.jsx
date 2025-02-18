@@ -53,6 +53,8 @@ export default function CrearProyectoButton({getProyectos}) {
     docCVTutor: null,
     docTesina: null,
     docResolucionTribunal: null,
+    docResolucionExt1Etapa1: null,
+    docResolucionExt1Etapa2: null,
   });
 
   const handleChange = (e) => {
