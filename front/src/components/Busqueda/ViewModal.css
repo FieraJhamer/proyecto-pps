@@ -93,3 +93,61 @@ th:first-child, td:first-child {
 th, td {
     word-wrap: break-word;
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+}
+
+.modal-view {
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-view.hidden {
+    animation: fadeOut 0.2s ease-out;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-view-content {
+    animation: slideIn 0.2s ease-out;
+}
+
+.modal-view-content.hidden {
+    animation: slideOut 0.2s ease-out;
+}

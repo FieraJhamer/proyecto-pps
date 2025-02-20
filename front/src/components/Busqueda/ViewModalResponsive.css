@@ -1,4 +1,4 @@
-@media screen and (max-width: 1366px) and (max-height: 768px) {
+@media screen and (max-height: 800px) {
     .Busqueda-container {
         flex-direction: column;
         padding: 10px;
@@ -16,12 +16,7 @@
     .card {
         width: 90%;
         height: 70px;
-        padding: 0.5rem 1.2rem;
-    }
-
-    .card-button {
-        width: 15%;
-        left: 88%;
+        padding: 1rem 1.2rem;
     }
 
     .modal-content {
@@ -35,14 +30,10 @@
         font-size: 14px;
         padding: 8px 16px;
     }
-}
 
-@media screen and (max-width: 1366px) and (max-height: 768px) {
     .modal-view-content {
         width: 70%;
-        /* Aumenta el ancho para mejor uso del espacio */
-        height: 85%;
-        /* Reduce la altura para evitar desbordamientos */
+        height: 90%;
         padding: 15px;
     }
 
@@ -50,42 +41,36 @@
     .modal-view-files,
     .modal-view-dates {
         width: 90%;
-        /* Ajusta el ancho para mayor espacio */
     }
 
     .modal-view-details {
-        height: 12%;
+        height: 10%;
     }
 
     .modal-view-files {
-        height: 12%;
+        height: 15%;
     }
 
     .modal-view-dates {
-        height: 35%;
+        height: 40%;
     }
 
     .file-list {
         flex-wrap: wrap;
-        /* Permite que los archivos se acomoden mejor */
     }
 
     .file-list>li {
-        width: 45%;
-        /* Permite que dos elementos entren por fila */
+        width: 20%;
         font-size: 14px;
-        /* Ajusta el tamaño de texto */
     }
 
     table {
         font-size: 14px;
-        /* Reduce el tamaño de texto para mejor visibilidad */
     }
 
     td,
     th {
         padding: 4px;
-        /* Reduce padding para más contenido visible */
     }
 
     .dates-table {
@@ -94,6 +79,6 @@
 
     span {
         width: 100%;
-        /* Asegura que el contenido se ajuste bien */
     }
+
 }

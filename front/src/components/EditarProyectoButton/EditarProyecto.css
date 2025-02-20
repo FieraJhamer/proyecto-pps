@@ -118,3 +118,62 @@ span {
 .custom-file-upload:hover {
   background-color: #0056b3;
 }
+
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+      transform: translateY(0);
+      opacity: 1;
+  }
+  to {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+}
+
+.modal-edit {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-edit.hidden {
+  animation: fadeOut 0.2s ease-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-edit-content {
+  animation: slideIn 0.2s ease-out;
+}
+
+.modal-edit-content.hidden {
+  animation: slideOut 0.2s ease-out;
+}

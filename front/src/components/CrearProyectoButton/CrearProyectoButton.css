@@ -106,3 +106,61 @@ span {
     background-color: #fff;
     box-shadow: 0 0 0 4px rgba(76, 131, 234, 0.1);
 }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+}
+
+.modal-create {
+    animation: fadeIn 0.2s ease-out;
+}
+
+.modal-create.hidden {
+    animation: fadeOut 0.2s ease-out;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-create-content {
+    animation: slideIn 0.2s ease-out;
+}
+
+.modal-create-content.hidden {
+    animation: slideOut 0.2s ease-out;
+}

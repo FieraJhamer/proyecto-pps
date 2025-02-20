@@ -41,10 +41,17 @@ export default function Busqueda() {
     getFechas(proyecto)
   }
 
-  const closeView = ()=>{
-    setViewModal(false)
-    setProyectoSelect(null)
-  }
+  const closeView = () => {
+    const modal = document.querySelector('.modal-view');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+    
+    setTimeout(() => {
+      setViewModal(false);
+      setProyectoSelect(null);
+    }, 200);
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
