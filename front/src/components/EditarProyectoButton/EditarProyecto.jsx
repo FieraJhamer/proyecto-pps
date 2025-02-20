@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import "../CrearProyectoButton/CrearProyectoButton.css";
 import { useAuth } from "../../Auth";
 import "./EditarProyecto.css";
+import "./EditarProyectoResponsive.css";
 
 export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
   const { sesion } = useAuth();

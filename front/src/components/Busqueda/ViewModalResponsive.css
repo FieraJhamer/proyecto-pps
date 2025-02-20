@@ -1,7 +1,6 @@
 @media screen and (max-height: 800px) {
     .Busqueda-container {
         flex-direction: column;
-        padding: 10px;
     }
 
     .input-busqueda {
