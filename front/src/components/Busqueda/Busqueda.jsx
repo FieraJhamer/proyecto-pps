@@ -54,8 +54,15 @@ export default function Busqueda() {
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedProyectoId(null);
+    const modal = document.querySelector('.modal-edit');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+
+    setTimeout(() => {
+      setIsModalOpen(false)
+      setSelectedProyectoId(null);
+    }, 200);
   };
 
   const getProyectos = async () => {
