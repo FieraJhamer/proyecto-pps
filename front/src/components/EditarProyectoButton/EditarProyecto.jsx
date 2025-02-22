@@ -131,6 +131,16 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
     setFormData({ ...formData, [name]: value });
   };
 
+  const [notification, setNotification] = useState({ message: "", type: "" });
+
+  const showNotification = (message, type) => {
+    setNotification({ message, type });
+
+    setTimeout(() => {
+      setNotification({ message: "", type: "" });
+    }, 3000);
+  };
+
   const handleFileChange = async (e) => {
     const { name, files } = e.target; // name debería ser "doc_propuesta_proyecto", "doc_nota_tutor", etc.
     if (files && files.length > 0) {
@@ -155,8 +165,9 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         console.log(data.url)
         // data.url contiene la URL del archivo subido
         setFormData((prev) => ({ ...prev, [name]: data.url }));
-        alert("Archivo subido con éxito");
+        showNotification("Archivo subido con éxito", "success");
       } catch (error) {
+        showNotification("Error al subir el archivo", "error");
         console.log(error)
       }
     }
@@ -531,6 +542,12 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
   return (
     <>
         <div className="modal-edit">
+          {notification.message && (
+            <div className={`notification ${notification.type}`}>
+              {notification.message}
+            </div>
+          )}
+
           <div className="modal-edit-content">
             <h2>{steps[currentStep].title}</h2>
 
