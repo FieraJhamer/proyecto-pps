@@ -7,6 +7,7 @@ import "./EditarProyectoResponsive.css";
 export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
   const { sesion } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
         carrera_id: "",
@@ -148,6 +149,8 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
       const formDataFile = new FormData();
       formDataFile.append("file", file);
       console.log(formDataFile);
+
+      setLoading(true);
       
       try {
         const response = await fetch("http://localhost:3000/files", {
@@ -169,6 +172,8 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
       } catch (error) {
         showNotification("Error al subir el archivo", "error");
         console.log(error)
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -481,7 +486,7 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         <div className="form-group">
           <div className="form-group-left">
             <span>
-              <label>Resolución de extensión (Etapa 1):</label>
+              <label>Resolución de ext. (Etapa 1):</label>
               {formData.doc_resolucion_ext_etapa1 ? (
                 <a target="_blank" rel="noopener noreferrer" href={formData.doc_resolucion_ext_etapa1}>Archivo actual</a>
               ) : (
@@ -505,7 +510,7 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
 
           <div className="form-group-right">
             <span>
-              <label>Resolución de extensión (Etapa 2):</label>
+              <label>Resolución de ext. (Etapa 2):</label>
               {formData.doc_resolucion_ext_etapa2 ? (
                 <a target="_blank" rel="noopener noreferrer" href={formData.doc_resolucion_ext_etapa2}>Archivo actual</a>
               ) : (
@@ -542,6 +547,7 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
   return (
     <>
         <div className="modal-edit">
+          {loading && <div className="spinner"></div>}
           {notification.message && (
             <div className={`notification ${notification.type}`}>
               {notification.message}
