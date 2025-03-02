@@ -1,6 +1,7 @@
 import { useAuth } from "../../Auth";
 import { useEffect, useState } from "react";
 import "./RegistroUsuarios.css";
+import "./RegistroUsuariosResponsive.css";
 
 const RegistroUsuarios = () => {
 
@@ -202,6 +203,7 @@ const RegistroUsuarios = () => {
           {sesion.superusuario === 1 && !modoEdicion && (
             <>
               <form onSubmit={onSubmit} className="registro-usuarios">
+                <h1 className="registro-usuarios-title">Registro de usuarios</h1>
                 <div className="inputs-nombre">
                   <input
                     value={registro.nombre}
@@ -276,81 +278,85 @@ const RegistroUsuarios = () => {
                   <button type="submit">Registrar usuario</button>
                   <button type="button" onClick={()=> setModoEdicion(true)} >Ver usuarios</button>
                 </div>
+                <p className="registro-usuario-msg">{mensaje}</p>
               </form>
-              <p>{mensaje}</p>
             </>
           )}
           {sesion.superusuario != 1 && (
             <h2>Debe ser superusario para poder registrar otros usuarios</h2>
           )}
-          {sesion.superusuario == 1 && modoEdicion &&  (
-            <>
-            <h1>Usuarios</h1>
-            <div className="lista-usuarios">
-            <ul>
-                {usuarios.map((usuario, i) => (
-                  <li key={i}>
-                    {usuario.nombre} {usuario.apellido} - {usuario.email} -{usuario.superusuario == 1 ? "Es superusuario" : "Usuario comun"} - id: {usuario.id_usuario}
-                    <div>
-                      <button  style={{color:"red"}} onClick={()=>{handleEliminarUsuario(usuario.id_usuario)}}>Eliminar</button>
-                      <button onClick={()=> {
-                        setModoModificacion(true);
-                        setUsuarioAModificar(usuario)
-                      }}>Modificar</button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div className="btn-volver-container">
-                <button  onClick={()=>setModoEdicion(false)}>Volver al registro</button>
+          {sesion.superusuario == 1 && modoEdicion && (
+            <div className="contenedor-lista-usuarios">
+              <div className="lista-usuarios">
+                <h1 className="lista-usuarios-title">Lista de usuarios</h1>
+                <ul>
+                  {usuarios.map((usuario, i) => (
+                    <li key={i}>
+                      <p>👤 Nombre: {usuario.nombre} {usuario.apellido}</p>
+                      <p>✉️ Correo: {usuario.email}</p>
+                      <p>🎖️ Rol: {usuario.superusuario == 1 ? "Administrador" : "Usuario"}</p>
+                      <div className="usuario-buttons">
+                        <button onClick={() => handleEliminarUsuario(usuario.id_usuario)} className="delete-user-button">
+                          Eliminar
+                        </button>
+                        <button onClick={() => {
+                          setModoModificacion(true);
+                          setUsuarioAModificar(usuario);
+                        }} className="modify-user-button">
+                          Modificar
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className="btn-volver-container">
+                  <button onClick={() => setModoEdicion(false)} className="volver-button">
+                    Volver al registro
+                  </button>
+                </div>
               </div>
+
+              {modoModificacion && (
+                <form onSubmit={onSubmitModificacion} className="form-modificar-usuario">
+                  <label htmlFor="nombre">Nombre:</label>
+                  <input
+                    value={usuarioAModificar.nombre}
+                    onChange={(e) => setUsuarioAModificar({ ...usuarioAModificar, nombre: e.target.value })}
+                    name="nombre"
+                    type="text"
+                    required
+                  />
+                  <label htmlFor="apellido">Apellido:</label>
+                  <input
+                    value={usuarioAModificar.apellido}
+                    onChange={(e) => setUsuarioAModificar({ ...usuarioAModificar, apellido: e.target.value })}
+                    name="apellido"
+                    type="text"
+                    required
+                  />
+                  <label htmlFor="superusuario">Superusuario:</label>
+                  <input
+                    checked={usuarioAModificar.superusuario == 1}
+                    onChange={(e) => setUsuarioAModificar({
+                      ...usuarioAModificar,
+                      superusuario: e.target.checked ? 1 : 0,
+                    })}
+                    name="superusuario"
+                    type="checkbox"
+                  />
+                  <div className="usuario-buttons">
+                    <button onClick={(e) => onSubmitModificacion(e, usuarioAModificar)}>Aceptar</button>
+                    <button type="button" onClick={() => {
+                      setModoModificacion(false);
+                      setMensaje("");
+                    }}>
+                      Cancelar
+                    </button>
+                  </div>
+                  <p style={{color: mensaje == "Usuario Modificado." ? "green" : "red" }} className="modificar-usuario-msg">{mensaje}</p>
+                </form>
+              )}
             </div>
-            </>
-          )}
-          {sesion.superusuario == 1 && modoModificacion && (
-            <>
-            <form onSubmit={onSubmitModificacion}>
-              <label htmlFor="nombre">Nombre:</label>
-              <input
-              value={usuarioAModificar.nombre}
-              onChange={(e) =>
-                setUsuarioAModificar({ ...usuarioAModificar, nombre: e.target.value })
-              }
-              name="nombre"
-              type="text"
-              required
-            />
-              <label htmlFor="apellido">Apellido:</label>
-              <input
-              value={usuarioAModificar.apellido}
-              onChange={(e) =>
-                setUsuarioAModificar({ ...usuarioAModificar, apellido: e.target.value })
-              }
-              name="apellido"
-              type="text"
-              required
-            />
-            <label htmlFor="superusuario">Superusuario:</label>
-            <input
-              checked={usuarioAModificar.superusuario == 1 ? true : false}
-              onChange={(e) =>
-                setUsuarioAModificar({
-                    ...usuarioAModificar,
-                      superusuario: e.target.checked ? parseInt(1) : parseInt(0),
-                    })
-                  }
-                  name="superusuario"
-                  type="checkbox"
-            />
-            <button onClick={(e)=> onSubmitModificacion(e,usuarioAModificar)}>Listo</button>
-            <button type="button" onClick={()=>{
-              setModoModificacion(false);
-              setMensaje("")
-              }
-              }>Cancelar</button>
-            </form>
-            <p style={{color: mensaje == "Usuario Modificado." ? "green" : "red" }}>{mensaje}</p>
-            </>
           )}
         </>
       );

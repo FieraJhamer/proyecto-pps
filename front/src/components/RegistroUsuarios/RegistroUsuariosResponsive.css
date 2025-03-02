@@ -1,0 +1,46 @@
+@media screen and (max-height: 800px) {
+    .registro-usuarios {
+        height: 75vh;
+        width: 28vw;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        border-radius: 1rem;
+    
+        background: #e0e0e0;
+        box-shadow: 20px 20px 60px #bebebe,
+            -20px -20px 60px #ffffff;
+    }
+
+    .lista-usuarios {
+        height: 70vh;
+        width: 28vw;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        border-radius: 1rem;
+        overflow-y: auto;
+
+        background: #e0e0e0;
+        box-shadow: 20px 20px 60px #bebebe,
+            -20px -20px 60px #ffffff;
+    }
+
+    .lista-usuarios ul li{
+        margin: 10px 0;
+    }
+
+    .form-modificar-usuario {
+        height: 50vh;
+        width: 20vw;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        border-radius: 1rem;
+
+        background: #e0e0e0;
+        box-shadow: 20px 20px 60px #bebebe,
+            -20px -20px 60px #ffffff;
+    }
+
+}
