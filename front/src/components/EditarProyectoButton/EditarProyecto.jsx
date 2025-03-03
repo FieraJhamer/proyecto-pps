@@ -2,10 +2,12 @@ import { useState,useEffect } from "react";
 import "../CrearProyectoButton/CrearProyectoButton.css";
 import { useAuth } from "../../Auth";
 import "./EditarProyecto.css";
+import "./EditarProyectoResponsive.css";
 
 export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
   const { sesion } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
         carrera_id: "",
@@ -91,13 +93,13 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
             fechaAprobacionEtapa1_tipo: 3,
             fechaAprobacionEtapa1: data.fechas[2]?.fecha_valor !== null ? data.fechas[2]?.fecha_valor.split("T")[0] : null,
             fechaResolucionExtensionEtapa1_tipo: 4,
-            fechaResolucionExtensionEtapa1: data.fechas[3]?.fecha_valor !== null ? data.fechas[3]?.fecha_valor.split("T")[0] : null,
+            fechaResolucionExtensionEtapa1: data.fechas[3]?.fecha_valor !== null ? data.fechas[3]?.fecha_valor.split("T")[0] : undefined,
             fechaCargaArchivosEtapa2_tipo: 5,
             fechaCargaArchivosEtapa2: data.fechas[4]?.fecha_valor !== null ? data.fechas[4]?.fecha_valor.split("T")[0] : null,
             fechaAprobacionEtapa2_tipo: 6,
             fechaAprobacionEtapa2: data.fechas[5]?.fecha_valor !== null ? data.fechas[5]?.fecha_valor.split("T")[0] : null,
             fechaResolucionExtensionEtapa2_tipo: 7,
-            fechaResolucionExtensionEtapa2: data.fechas[6]?.fecha_valor !== null ? data.fechas[6]?.fecha_valor.split("T")[0] : null,
+            fechaResolucionExtensionEtapa2: data.fechas[6]?.fecha_valor !== null ? data.fechas[6]?.fecha_valor.split("T")[0] : undefined,
             fechaDesignacionTribunal_tipo: 8,
             fechaDesignacionTribunal: data.fechas[7]?.fecha_valor !== null ? data.fechas[7]?.fecha_valor.split("T")[0] : null,
             fechaDefensaProyecto_tipo: 9,
@@ -111,6 +113,8 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
             doc_cv_tutor: data.documentos[0]?.doc_cv_tutor || null,
             doc_proyecto: data.documentos[0]?.doc_proyecto || null,
             doc_resolucion_tribunal: data.documentos[0]?.doc_resolucion_tribunal || null,
+            doc_resolucion_ext_etapa1: data.documentos[0]?.doc_resolucion_ext_etapa1 || null,
+            doc_resolucion_ext_etapa2: data.documentos[0]?.doc_resolucion_ext_etapa2 || null
           });
 
         } catch (error) {
@@ -128,6 +132,16 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
     setFormData({ ...formData, [name]: value });
   };
 
+  const [notification, setNotification] = useState({ message: "", type: "" });
+
+  const showNotification = (message, type) => {
+    setNotification({ message, type });
+
+    setTimeout(() => {
+      setNotification({ message: "", type: "" });
+    }, 3000);
+  };
+
   const handleFileChange = async (e) => {
     const { name, files } = e.target; // name debería ser "doc_propuesta_proyecto", "doc_nota_tutor", etc.
     if (files && files.length > 0) {
@@ -135,6 +149,8 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
       const formDataFile = new FormData();
       formDataFile.append("file", file);
       console.log(formDataFile);
+
+      setLoading(true);
       
       try {
         const response = await fetch("http://localhost:3000/files", {
@@ -152,9 +168,12 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         console.log(data.url)
         // data.url contiene la URL del archivo subido
         setFormData((prev) => ({ ...prev, [name]: data.url }));
-        alert("Archivo subido con éxito");
+        showNotification("Archivo subido con éxito", "success");
       } catch (error) {
+        showNotification("Error al subir el archivo", "error");
         console.log(error)
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -214,7 +233,9 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
          doc_nota_tutor: formData.doc_nota_tutor,
          doc_cv_tutor: formData.doc_cv_tutor,
          doc_proyecto: formData.doc_proyecto,
-         doc_resolucion_tribunal: formData.doc_resolucion_tribunal}
+         doc_resolucion_tribunal: formData.doc_resolucion_tribunal,
+         doc_resolucion_ext_etapa1: formData.doc_resolucion_ext_etapa1,
+         doc_resolucion_ext_etapa2: formData.doc_resolucion_ext_etapa2,}
       ]
     };
     console.log(data)
@@ -233,7 +254,6 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         console.log("Proyecto actualizado con éxito");
         getProyectos();
         onClose();
-        alert("Proyecto actualizado con éxito");
       } else {
         console.error("Error al actualizar el proyecto");
       }
@@ -395,8 +415,8 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
                 <a target="_blank" rel="noopener noreferrer" href={formData.doc_proyecto}>Archivo actual</a>
               ) : (
                 <p>No hay archivos cargados</p> )} 
-              <input onChange={handleFileChange} name="doc_proyecto" type="file" accept="application/pdf" id="file-input-cv-tutor" style={{display: "none"}} />
-              <label htmlFor="file-input-cv-tutor" className="custom-file-upload" style={{ cursor: "pointer" }}>
+              <input onChange={handleFileChange} name="doc_proyecto" type="file" accept="application/pdf" id="file-input-doc-tesina" style={{display: "none"}} />
+              <label htmlFor="file-input-doc-tesina" className="custom-file-upload" style={{ cursor: "pointer" }}>
                 Seleccionar nuevo archivo
               </label>
             </span>
@@ -413,6 +433,18 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
           </div>
 
           <div className="form-group-right">
+            <span>
+              <label>Resolución del tribunal:</label>
+              {formData.doc_resolucion_tribunal ? (
+                <a target="_blank" rel="noopener noreferrer" href={formData.doc_resolucion_tribunal}>Archivo actual</a>
+              ) : (
+                <p>No hay archivos cargados</p> )}   
+              <input onChange={handleFileChange} name="doc_resolucion_tribunal" type="file" accept="application/pdf" id="doc_resolucion_tribunal" style={{display: "none"}} />
+              <label htmlFor="doc_resolucion_tribunal" className="custom-file-upload" style={{ cursor: "pointer" }}>
+                Seleccionar nuevo archivo
+              </label>
+            </span>
+
             {[1, 2, 3].map((num) => (
                   <span key={num}>
                     <label>Miembro del tribunal N°{num}</label>
@@ -447,6 +479,60 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
           </div>
         </div>
       ),
+    },
+    {
+      title: "Extensiones",
+      content: (
+        <div className="form-group">
+          <div className="form-group-left">
+            <span>
+              <label>Resolución de ext. (Etapa 1):</label>
+              {formData.doc_resolucion_ext_etapa1 ? (
+                <a target="_blank" rel="noopener noreferrer" href={formData.doc_resolucion_ext_etapa1}>Archivo actual</a>
+              ) : (
+                <p>No hay archivos cargados</p> )} 
+              <input onChange={handleFileChange} name="doc_resolucion_ext_etapa1" type="file" accept="application/pdf" id="file-extension-tesina-etapa-1" style={{display: "none"}} />
+              <label htmlFor="file-extension-tesina-etapa-1" className="custom-file-upload" style={{ cursor: "pointer" }}>
+                Seleccionar nuevo archivo
+              </label>
+            </span>
+
+            <span>
+                <label>Fecha de resolución (Etapa 1):</label>
+                <input
+                  type="date"
+                  name="fechaResolucionExtensionEtapa1"
+                  value={formData.fechaResolucionExtensionEtapa1}
+                  onChange={handleChange}
+                />
+            </span>
+          </div>
+
+          <div className="form-group-right">
+            <span>
+              <label>Resolución de ext. (Etapa 2):</label>
+              {formData.doc_resolucion_ext_etapa2 ? (
+                <a target="_blank" rel="noopener noreferrer" href={formData.doc_resolucion_ext_etapa2}>Archivo actual</a>
+              ) : (
+                <p>No hay archivos cargados</p> )} 
+              <input onChange={handleFileChange} name="doc_resolucion_ext_etapa2" type="file" accept="application/pdf" id="file-extension-tesina-etapa-2" style={{display: "none"}} />
+              <label htmlFor="file-extension-tesina-etapa-2" className="custom-file-upload" style={{ cursor: "pointer" }}>
+                Seleccionar nuevo archivo
+              </label>
+            </span>
+
+            <span>
+                <label>Fecha de resolución (Etapa 2):</label>
+                <input
+                  type="date"
+                  name="fechaResolucionExtensionEtapa2"
+                  value={formData.fechaResolucionExtensionEtapa2}
+                  onChange={handleChange}
+                />
+            </span>
+          </div>
+        </div>
+      ),
     }
   ];
 
@@ -461,10 +547,17 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
   return (
     <>
         <div className="modal-edit">
+          {loading && <div className="spinner"></div>}
+          {notification.message && (
+            <div className={`notification ${notification.type}`}>
+              {notification.message}
+            </div>
+          )}
+
           <div className="modal-edit-content">
             <h2>{steps[currentStep].title}</h2>
 
-            <form key={steps[currentStep]} onSubmit={handleSubmit}>
+            <form key={currentStep} onSubmit={handleSubmit}>
               {steps[currentStep].content}
 
               <div className="modal-buttons">

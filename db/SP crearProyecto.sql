@@ -22,7 +22,9 @@ CREATE DEFINER=`alejandro`@`localhost` PROCEDURE `tesina_post`(
     IN docNotaTutor VARCHAR(250),
     IN docCVTutor VARCHAR(250),
     IN docProyecto VARCHAR(250),
-    IN docResolucionTribunal VARCHAR(250)
+    IN docResolucionTribunal VARCHAR(250),
+    IN docResolucionExtensionEtapa1 VARCHAR(250),
+    IN docResolucionExtensionEtapa2 VARCHAR(250)
 )
 BEGIN
     DECLARE idGrupo INT;
@@ -46,8 +48,8 @@ BEGIN
     INSERT INTO grupos (id_carrera) VALUES (carreraId);
     SET idGrupo = LAST_INSERT_ID();
     
-    INSERT INTO documentos (doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal)
-    VALUES (docPropuestaProyecto, docNotaTutor, docCVTutor, docProyecto, docResolucionTribunal);
+    INSERT INTO documentos (doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal, doc_resolucion_ext_etapa1, doc_resolucion_ext_etapa2)
+    VALUES (docPropuestaProyecto, docNotaTutor, docCVTutor, docProyecto, docResolucionTribunal, docResolucionExtensionEtapa1, docResolucionExtensionEtapa2);
     SET idDocumentos = LAST_INSERT_ID();
 
     INSERT INTO proyectos (nombre_proyecto, id_grupo, id_documentos) VALUES (nombreProyecto, idGrupo, idDocumentos);

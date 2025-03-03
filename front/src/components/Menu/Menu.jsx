@@ -1,6 +1,7 @@
-import "../Layout/Layout.css";
 import { Link, Outlet } from "react-router-dom";
 import { AuthRol } from "../../Auth";
+import "../Layout/Layout.css";
+import "./Menu.css"
 
 export const Menu = () => {
   return (
@@ -27,6 +28,12 @@ export const Menu = () => {
               </Link>
             </li>
           </AuthRol>
+
+          <li>
+            <Link to="/info" className="nav-button">
+              <img src="./assets/utn.svg" alt="Info" className="utn-info-svg"/>
+            </Link>
+          </li>
 
         </ul>
       </nav>

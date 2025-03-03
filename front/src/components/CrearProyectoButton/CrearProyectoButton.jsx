@@ -53,6 +53,8 @@ export default function CrearProyectoButton({getProyectos}) {
     docCVTutor: null,
     docTesina: null,
     docResolucionTribunal: null,
+    docResolucionExt1Etapa1: null,
+    docResolucionExt1Etapa2: null,
   });
 
   const handleChange = (e) => {
@@ -71,13 +73,13 @@ export default function CrearProyectoButton({getProyectos}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const data = new FormData();
-
+  
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, value);
     });
-
+  
     Object.entries(files).forEach(([key, file]) => {
       if (Array.isArray(file)) {
         file.forEach((f) => data.append(key, f)); // PARA VARIOS ARCHIVOS
@@ -85,7 +87,7 @@ export default function CrearProyectoButton({getProyectos}) {
         data.append(key, file); // PARA UN SOLO ARCHIVO
       }
     });
-
+  
     try {
       const response = await fetch("http://localhost:3000/proyectos/", {
         method: "POST",
@@ -94,27 +96,86 @@ export default function CrearProyectoButton({getProyectos}) {
         },
         body: data,
       });
-
+  
       if (!response.ok) {
         throw new Error(`Error en la solicitud: ${response.statusText}`);
       }
-
+  
+      setFormData({
+        carrera_id: "",
+        nombre_proyecto: "",
+        alumno1_nombre: "",
+        alumno1_apellido: "",
+        alumno1_legajo: "",
+        alumno2_nombre: "",
+        alumno2_apellido: "",
+        alumno2_legajo: "",
+        alumno3_nombre: "",
+        alumno3_apellido: "",
+        alumno3_legajo: "",
+        etapa1_tipo: 1,
+        etapa2_tipo: 2,
+        extension1_tipo: 1,
+        extension2_tipo: 2,
+        fechaFinCursada_tipo: 1,
+        fechaFinCursada: "",
+        fechaCargaArchivosEtapa1_tipo: 2,
+        fechaCargaArchivosEtapa1: "",
+        fechaAprobacionEtapa1_tipo: 3,
+        fechaAprobacionEtapa1: "",
+        fechaResolucionExtensionEtapa1_tipo: 4,
+        fechaCargaArchivosEtapa2_tipo: 5,
+        fechaCargaArchivosEtapa2: "",
+        fechaAprobacionEtapa2_tipo: 6,
+        fechaAprobacionEtapa2: "",
+        fechaResolucionExtensionEtapa2_tipo: 7,
+        fechaDesignacionTribunal_tipo: 8,
+        fechaDesignacionTribunal: "",
+        fechaDefensaProyecto_tipo: 9,
+        fechaDefensaProyecto: "",
+        tribunalIntegrante1: "",
+        tribunalIntegrante2: "",
+        tribunalIntegrante3: "",
+      });
+  
+      setFiles({
+        docPropuestaProyecto: null,
+        docAceptacionTutor: null,
+        docCVTutor: null,
+        docTesina: null,
+        docResolucionTribunal: null,
+        docResolucionExt1Etapa1: null,
+        docResolucionExt1Etapa2: null,
+      });
+  
       closeModal();
       console.log("Proyecto creado con éxito");
       console.log(data)
-
+  
       if (getProyectos) {
         getProyectos();
       }
-
-
+  
     } catch (error) {
       console.error("Error al subir el proyecto:", error);
     }
   };
+  
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  
+  const closeModal = () => {
+    const modal = document.querySelector(".modal-create");
+    if (modal) {
+      modal.classList.add("hidden");
+  
+      setTimeout(() => {
+        setIsModalOpen(false);
+      }, 200);
+    }
+  };
 
   useCloseOnEscape(isModalOpen ? closeModal : null);
 
@@ -303,8 +364,8 @@ export default function CrearProyectoButton({getProyectos}) {
       </button>
 
       {isModalOpen && (
-        <div className="modal-create">
-          <div className="modal-create-content">
+        <div className="modal-create .hidden">
+          <div className="modal-create-content .hidden">
             <h2>{steps[currentStep].title}</h2>
 
             <form key={currentStep} onSubmit={handleSubmit} encType="multipart/form-data">

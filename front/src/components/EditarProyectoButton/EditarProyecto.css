@@ -5,6 +5,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,4 +118,98 @@ span {
 
 .custom-file-upload:hover {
   background-color: #0056b3;
+}
+
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+      transform: translateY(0);
+      opacity: 1;
+  }
+  to {
+      transform: translateY(-50px);
+      opacity: 0;
+  }
+}
+
+.modal-edit {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-edit.hidden {
+  animation: fadeOut 0.2s ease-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-edit-content {
+  animation: slideIn 0.2s ease-out;
+}
+
+.modal-edit-content.hidden {
+  animation: slideOut 0.2s ease-out;
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 1s ease-in-out;
+}
+.success {
+  background-color: #4caf50;
+}
+.error {
+  background-color: #f44336;
+}
+
+.spinner {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: 8px solid #ccc;
+  border-top: 8px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
