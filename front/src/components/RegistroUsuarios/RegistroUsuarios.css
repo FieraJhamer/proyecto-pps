@@ -11,6 +11,12 @@
         -20px -20px 60px #ffffff;
 }
 
+.registro-usuarios-title {
+    color: #333333;
+    margin: 0 0 50px 0;
+    font-size: 1.8em;
+}
+
 .registro-usuarios h2 {
     margin: 0 0 40px 0;
 }
@@ -22,7 +28,7 @@
     gap: 0 15px;
 }
 
-.registro-usuarios input {
+.registro-usuarios input, .form-modificar-usuario input {
     outline: none;
     border: none;
     margin: 0 0 25px 0;
@@ -34,7 +40,7 @@
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.05);
 }
 
-.registro-usuarios button {
+.registro-usuarios button, .form-modificar-usuario button {
     background-color: #f3f7fe;
     color: #3b82f6;
     border: none;
@@ -47,7 +53,7 @@
 }
 
 
-.registro-usuarios button:hover {
+.registro-usuarios button:hover, .form-modificar-usuario button:hover {
     background-color: #3b82f6;
     box-shadow: 0 0 0 5px #3b83f65f;
     color: #fff;
@@ -67,12 +73,19 @@
 .btn-volver-container {
     display: flex;
     justify-content: center;
-    margin-top: 80px;
+    margin-top: auto;
+}
+
+.lista-usuarios-title {
+    margin: 30px 0 30px 0;
+    font-size: 1.8em;
+    color: #333333;
+    align-self: center;
 }
 
 .lista-usuarios {
-    max-height: 60vh;
-    width: 20vw;
+    height: 70vh;
+    width: 22vw;
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -84,7 +97,42 @@
         -20px -20px 60px #ffffff;
 }
 
-.lista-usuarios button {
+.lista-usuarios ul {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    padding: 0 20px;
+    margin: 10px 0;
+    overflow-y: scroll;
+}
+
+.lista-usuarios ul li {
+    margin: 0px 0 20px 0;
+}
+
+.lista-usuarios ul li p {
+    margin: 10px 0;
+}
+
+.usuario-buttons {
+    display: flex;
+    margin: 5px 0 0 0;
+    gap: 0 10px;
+}
+
+.usuario-buttons button {
+    height: 35px;
+}
+
+.modify-user-button:hover, .volver-button:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 5px #3b83f65f;
+    color: #fff;
+}
+
+.modify-user-button, .volver-button {
     background-color: #f3f7fe;
     color: #3b82f6;
     border: none;
@@ -96,8 +144,59 @@
     font-weight: 500;
 }
 
-.lista-usuarios button:hover {
-    background-color: #3b82f6;
-    box-shadow: 0 0 0 5px #3b83f65f;
+.delete-user-button:hover {
+    background-color: #FF3A2D;
+    box-shadow: 0 0 0 5px #f63b3b5f;
     color: #fff;
+}
+
+.delete-user-button {
+    background-color: #f3f7fe;
+    color: #FF3A2D;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100px;
+    height: 45px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.form-modificar-usuario {
+    height: 40vh;
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 1rem;
+
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+        -20px -20px 60px #ffffff;
+}
+
+.contenedor-lista-usuarios {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.lista-usuarios {
+    flex: 1;
+    min-width: 300px;
+}
+
+.form-modificar-usuario {
+    flex: 1;
+    min-width: 300px;
+}
+
+.form-modificar-usuario label {
+    padding: 0 0 5px 0;
+}
+
+.modificar-usuario-msg {
+    margin: 30px 0 0 0;
 }
