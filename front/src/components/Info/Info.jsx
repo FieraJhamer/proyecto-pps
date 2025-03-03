@@ -2,8 +2,10 @@ import "./Info.css"
 
 export const Info = () => {
   return (
-    <>
-    <h1 className="test">Información</h1>
-    </>
+    <div className="info-container">
+      <a href="http://www.frlr.utn.edu.ar/" target="_BLANK">
+        <img src="/assets/utnfrlr.png" alt="Logo de UTN - FRLR" />
+      </a>
+    </div>
   );
 };

@@ -20,7 +20,7 @@
     padding: 20px;
     border-radius: 8px;
     height: 90%;
-    width: 50%;
+    width: 60%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -30,23 +30,61 @@
     align-items: self-start;
     justify-content: space-evenly;
     height: 15%;
-    width: 80%;
+    width: 90%;
 }
 
 .modal-view-files {
     display: flex;
     flex-direction: column;
     height: 15%;
-    width: 80%;
+    width: 90%;
     align-items: self-start;
     justify-content: space-around;
 }
 
 .modal-view-dates {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     height: 40%;
-    width: 80%;
+    width: 90%;
+}
+
+.view-table {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 58%;
+}
+
+.view-deadlines {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 40%;
+}
+
+.deadlines {
+    display: flex;
+    margin: 10px 0 0 0;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    gap: 20px 0;
+}
+
+.deadlines p {
+    width: 90%;
+    padding: 10px 5px;
+    border-radius: 6px;
+    color: #242424;
+    font-weight: 500;
+    display: flex;
+    text-align: center;
 }
 
 .file-list {
@@ -61,6 +99,7 @@
 
 .dates-table {
     margin: 10px 0 0 0;
+    height: 95%;
 }
 
 span {

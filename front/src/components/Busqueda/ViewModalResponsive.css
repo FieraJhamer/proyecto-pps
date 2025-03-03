@@ -32,7 +32,7 @@
 
     .modal-view-content {
         width: 70%;
-        height: 90%;
+        height: 94%;
         padding: 15px;
     }
 
@@ -78,6 +78,29 @@
 
     span {
         width: 100%;
+    }
+
+    .deadlines {
+        display: flex;
+        margin: 10px 0 0 0;
+        height: 100%;
+        width: 100%;
+        flex-direction: column;
+        justify-self: center;
+        justify-content: center;
+        align-items: center;
+        gap: 15px 0;
+        font-size: 14px;
+    }
+    
+    .deadlines p {
+        width: 90%;
+        padding: 8px 5px;
+        border-radius: 6px;
+        color: #242424;
+        font-weight: 500;
+        display: flex;
+        text-align: center;
     }
 
 }

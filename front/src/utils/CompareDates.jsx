@@ -1,5 +1,5 @@
 export const compareDates = (date1, date2, limitDays) => {
-    if (!date1 || !date2) return "yellow";
+    if (!date1 || !date2) return "#FFCC00";
   
     const d1 = new Date(date1);
     const d2 = new Date(date2);
@@ -10,6 +10,6 @@ export const compareDates = (date1, date2, limitDays) => {
     if (daysDifference <= limitDays) {
       return "#4CD964";
     } else {
-      return "#FF3A2D";
+      return "#FF3B30";
     }
   };
