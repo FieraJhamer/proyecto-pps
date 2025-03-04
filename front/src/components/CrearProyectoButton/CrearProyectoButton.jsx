@@ -55,6 +55,7 @@ export default function CrearProyectoButton({getProyectos}) {
     docResolucionTribunal: null,
     docResolucionExt1Etapa1: null,
     docResolucionExt1Etapa2: null,
+    docActaTesina: null,
   });
 
   const handleChange = (e) => {
@@ -146,6 +147,7 @@ export default function CrearProyectoButton({getProyectos}) {
         docResolucionTribunal: null,
         docResolucionExt1Etapa1: null,
         docResolucionExt1Etapa2: null,
+        docActaTesina: null,
       });
   
       closeModal();

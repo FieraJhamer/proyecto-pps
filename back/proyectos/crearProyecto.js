@@ -9,6 +9,7 @@ const uploadFiles = upload.fields([
   { name: "docResolucionTribunal", maxCount: 1 },
   { name: "docResolucionExtEtapa1", maxCount: 1 },
   { name: "docResolucionExtEtapa2", maxCount: 1 },
+  { name: "docActaTesina", maxCount: 1 },
 ]);
 
 function limpiarEntero(valor) {
@@ -67,9 +68,10 @@ const crearProyecto = async (req, res) => {
     const docResolucionTribunal = req.files?.docResolucionTribunal?.[0]?.location;
     const docResolucionExtEtapa1 = req.files?.docResolucionExtEtapa1?.[0]?.location;
     const docResolucionExtEtapa2 = req.files?.docResolucionExtEtapa2?.[0]?.location;
+    const docActaTesina = req.files?.docActaTesina?.[0]?.location;
 
     const [result] = await db.query(
-      `CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         carrera_id,
         nombre_proyecto,
@@ -112,6 +114,7 @@ const crearProyecto = async (req, res) => {
         docResolucionTribunal,
         docResolucionExtEtapa1,
         docResolucionExtEtapa2,
+        docActaTesina,
       ]
     );
 

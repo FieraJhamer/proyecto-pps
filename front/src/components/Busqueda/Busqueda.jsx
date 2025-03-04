@@ -275,6 +275,15 @@ export default function Busqueda() {
                   </li>
 
                   <li>
+                    <strong>Acta de tesina: </strong> 
+                      <span className="file-name">
+                        {documentos.doc_acta_tesina ? <a href={documentos.doc_acta_tesina} target="_BLANK">Link al acta de tesina</a> 
+                        :
+                        <p>No se encontró el archivo</p>}
+                      </span>
+                  </li>
+
+                  <li>
                     <strong>Doc. de la tesina: </strong> 
                     <span className="file-name">
                       {documentos?.doc_proyecto ? <a href={documentos.doc_proyecto} target="_BLANK">Link al documento de tesina</a>
@@ -347,6 +356,10 @@ export default function Busqueda() {
                       <tr>
                         <td>Fecha de defensa</td>
                         <td>{fechas?.[8]?.fecha ? formatDate(fechas?.[8]?.fecha) : "No hay fecha registrada"}</td>
+                      </tr>
+                      <tr>
+                        <td>Fecha de acta de tesina</td>
+                        <td>{fechas?.[9]?.fecha ? formatDate(fechas?.[9]?.fecha) : "No hay fecha registrada"}</td>
                       </tr>
                     </tbody>
                   </table>

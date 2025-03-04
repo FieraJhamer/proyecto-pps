@@ -134,7 +134,8 @@ const modificarProyecto = async (req, res) => {
             doc_proyecto = ?, 
             doc_resolucion_tribunal = ?,
             doc_resolucion_ext_etapa1 = ?, 
-            doc_resolucion_ext_etapa2 = ? 
+            doc_resolucion_ext_etapa2 = ?,
+            doc_acta_tesina = ?
            WHERE id_documentos = ?`,
           [
             documentos[0].doc_propuesta_proyecto,
@@ -144,6 +145,7 @@ const modificarProyecto = async (req, res) => {
             documentos[0].doc_resolucion_tribunal,
             documentos[0].doc_resolucion_ext_etapa1,
             documentos[0].doc_resolucion_ext_etapa2,
+            documentos[0].doc_acta_tesina,
             id_documentos,
           ]
         );

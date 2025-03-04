@@ -43,6 +43,8 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         fechaDesignacionTribunal: "",
         fechaDefensaProyecto_tipo: 9,
         fechaDefensaProyecto: "",
+        fechaActaTesina_tipo: 10,
+        fechaActaTesina: "",
         tribunalIntegrante1: "",
         tribunalIntegrante2: "",
         tribunalIntegrante3: "",
@@ -51,7 +53,7 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         doc_cv_tutor: "",
         doc_proyecto: "",
         doc_resolucion_tribunal: "",
-
+        doc_acta_tesina: "",
   });
 
   useEffect(() => {
@@ -104,6 +106,8 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
             fechaDesignacionTribunal: data.fechas[7]?.fecha_valor !== null ? data.fechas[7]?.fecha_valor.split("T")[0] : null,
             fechaDefensaProyecto_tipo: 9,
             fechaDefensaProyecto: data.fechas[8]?.fecha_valor !== null ? data.fechas[8]?.fecha_valor.split("T")[0] : null,
+            fechaActaTesina_tipo: 10,
+            fechaActaTesina: data.fechas[9]?.fecha_valor !== null ? data.fechas[9]?.fecha_valor.split("T")[0] : null,
             tribunalIntegrante1: data.tribunales[0]?.integrante_tribunal_1 || "",
             tribunalIntegrante2: data.tribunales[0]?.integrante_tribunal_2 || "",
             tribunalIntegrante3: data.tribunales[0]?.integrante_tribunal_3 || "",
@@ -114,7 +118,8 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
             doc_proyecto: data.documentos[0]?.doc_proyecto || null,
             doc_resolucion_tribunal: data.documentos[0]?.doc_resolucion_tribunal || null,
             doc_resolucion_ext_etapa1: data.documentos[0]?.doc_resolucion_ext_etapa1 || null,
-            doc_resolucion_ext_etapa2: data.documentos[0]?.doc_resolucion_ext_etapa2 || null
+            doc_resolucion_ext_etapa2: data.documentos[0]?.doc_resolucion_ext_etapa2 || null,
+            doc_acta_tesina: data.documentos[0]?.doc_acta_tesina || null,
           });
 
         } catch (error) {
@@ -213,6 +218,7 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         { id_tipo_fecha: formData.fechaResolucionExtensionEtapa2_tipo, fecha_valor: formData.fechaResolucionExtensionEtapa2 },
         { id_tipo_fecha: formData.fechaDesignacionTribunal_tipo, fecha_valor: formData.fechaDesignacionTribunal },
         { id_tipo_fecha: formData.fechaDefensaProyecto_tipo, fecha_valor: formData.fechaDefensaProyecto },
+        { id_tipo_fecha: formData.fechaActaTesina_tipo, fecha_valor: formData.fechaActaTesina },
       ],
       etapas: [
         { id_tipo_etapa: formData.etapa1_tipo, completa: false },
@@ -235,7 +241,8 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
          doc_proyecto: formData.doc_proyecto,
          doc_resolucion_tribunal: formData.doc_resolucion_tribunal,
          doc_resolucion_ext_etapa1: formData.doc_resolucion_ext_etapa1,
-         doc_resolucion_ext_etapa2: formData.doc_resolucion_ext_etapa2,}
+         doc_resolucion_ext_etapa2: formData.doc_resolucion_ext_etapa2,
+         doc_acta_tesina: formData.doc_acta_tesina}
       ]
     };
     console.log(data)
@@ -293,37 +300,70 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
               />
             </span>
 
-            {[1, 2, 3].map((num) => (
-              <div key={num} className="form-group-alumnos">
-                <span>
-                <label>Alumno {num}</label>
-                <input
-                  type="text"
-                  name={`alumno${num}_nombre`}
-                  value={formData[`alumno${num}_nombre`] || ""}
-                  onChange={handleChange}
-                  placeholder="Nombre"
-                />
-                <input
-                  type="text"
-                  name={`alumno${num}_apellido`}
-                  value={formData[`alumno${num}_apellido`] || ""}
-                  onChange={handleChange}
-                  placeholder="Apellido"
-                />
-                <input
-                  type="number"
-                  name={`alumno${num}_legajo`}
-                  value={formData[`alumno${num}_legajo`] || ""}
-                  onChange={handleChange}
-                  placeholder="N° de legajo"
-                />
-                </span>
-              </div>
-            ))}
+            <span>
+                  <label>Alumno 1</label>
+                  <input
+                    type="text"
+                    name={`alumno1_nombre`}
+                    value={formData[`alumno1_nombre`] || ""}
+                    onChange={handleChange}
+                    placeholder="Nombre"
+                  />
+                  <input
+                    type="text"
+                    name={`alumno1_apellido`}
+                    value={formData[`alumno1_apellido`] || ""}
+                    onChange={handleChange}
+                    placeholder="Apellido"
+                  />
+                  <input
+                    type="number"
+                    name={`alumno1_legajo`}
+                    value={formData[`alumno1_legajo`] || ""}
+                    onChange={handleChange}
+                    placeholder="N° de legajo"
+                  />
+                  </span>
           </div>
 
           <div className="form-group-right">
+            {[2, 3].map((num) => (
+                <div key={num} className="form-group-alumnos">
+                  <span>
+                  <label>Alumno {num}</label>
+                  <input
+                    type="text"
+                    name={`alumno${num}_nombre`}
+                    value={formData[`alumno${num}_nombre`] || ""}
+                    onChange={handleChange}
+                    placeholder="Nombre"
+                  />
+                  <input
+                    type="text"
+                    name={`alumno${num}_apellido`}
+                    value={formData[`alumno${num}_apellido`] || ""}
+                    onChange={handleChange}
+                    placeholder="Apellido"
+                  />
+                  <input
+                    type="number"
+                    name={`alumno${num}_legajo`}
+                    value={formData[`alumno${num}_legajo`] || ""}
+                    onChange={handleChange}
+                    placeholder="N° de legajo"
+                  />
+                  </span>
+                </div>
+              ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Etapa 1",
+      content: (
+        <div className="form-group">
+          <div className="form-group-left">
             <span>
               <label>Finalización de cursada</label>
               <input
@@ -354,6 +394,18 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
               />
             </span>
 
+            <span>
+                <label>Fecha de acta de tesina:</label>
+                <input
+                  type="date"
+                  name="fechaActaTesina"
+                  value={formData.fechaActaTesina}
+                  onChange={handleChange}
+                />
+            </span>            
+          </div>
+
+          <div className="form-group-right">
             <span>
               <label>Propuesta de proyecto:</label>
               {formData.doc_propuesta_proyecto ? (
@@ -390,10 +442,21 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
               </label>
             </span>
 
+            <span>
+              <label>Acta de tesina:</label>
+              {formData.doc_acta_tesina ? (
+                <a target="_blank" rel="noopener noreferrer" href={formData.doc_acta_tesina}>Archivo actual</a>
+              ) : (
+                <p>No hay archivos cargados</p> )} 
+              <input onChange={handleFileChange} name="doc_acta_tesina" type="file" accept="application/pdf" id="file-acta-tesina" style={{display: "none"}} />
+              <label htmlFor="file-acta-tesina" className="custom-file-upload" style={{ cursor: "pointer" }}>
+                Seleccionar nuevo archivo
+              </label>
+            </span>
           </div>
         </div>
       ),
-    },
+    }, 
     {
       title: "Etapa 2",
       content: (
