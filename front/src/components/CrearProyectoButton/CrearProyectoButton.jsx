@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../Busqueda/Busqueda.css";
 import "./CrearProyectoButton.css";
+import "./CrearProyectoButtonResponsive.css";
 import { useAuth } from "../../Auth";
 
 import { useCloseOnEscape } from "../../utils/UseOnCloseEscape";

@@ -1,0 +1,14 @@
+@media screen and (max-height: 800px) {
+    .modal-create-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #E0E0E0;
+        padding: 20px;
+        border-radius: 8px;
+        height: 75%;
+        width: 45%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}
