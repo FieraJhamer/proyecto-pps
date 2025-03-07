@@ -24,7 +24,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `tesina_post`(
     IN docProyecto VARCHAR(250),
     IN docResolucionTribunal VARCHAR(250),
     IN docResolucionExtEtapa1 VARCHAR(250),
-    IN docResolucionExtEtapa2 VARCHAR(250)
+    IN docResolucionExtEtapa2 VARCHAR(250),
+    IN docActaTesina VARCHAR(250)
 )
 BEGIN
     DECLARE idGrupo INT;
@@ -65,7 +66,8 @@ BEGIN
         doc_proyecto, 
         doc_resolucion_tribunal,
         doc_resolucion_ext_etapa1,
-        doc_resolucion_ext_etapa2
+        doc_resolucion_ext_etapa2,
+        doc_acta_tesina
     ) VALUES (
         docPropuestaProyecto, 
         docNotaTutor, 
@@ -73,7 +75,8 @@ BEGIN
         docProyecto, 
         docResolucionTribunal,
         docResolucionExtEtapa1,
-        docResolucionExtEtapa2
+        docResolucionExtEtapa2,
+        docActaTesina
     );
     SET idDocumentos = LAST_INSERT_ID();
 
