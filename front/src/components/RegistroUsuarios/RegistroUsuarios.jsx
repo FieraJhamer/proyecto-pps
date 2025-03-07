@@ -275,7 +275,7 @@ const RegistroUsuarios = () => {
                   type="checkbox"
                 />
                 <div className="button-container">
-                  <button type="submit">Registrar usuario</button>
+                  <button type="submit">Registrar</button>
                   <button type="button" onClick={()=> setModoEdicion(true)} >Ver usuarios</button>
                 </div>
                 <p className="registro-usuario-msg">{mensaje}</p>

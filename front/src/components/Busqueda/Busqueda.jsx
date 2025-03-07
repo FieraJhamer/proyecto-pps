@@ -135,18 +135,22 @@ export default function Busqueda() {
     getProyectos();
   }, []);
 
+  const quitarTildes = (texto) => 
+    texto.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  
   const filtrarProyectos = () => {
-    return proyectos.filter((proyecto) => {
-      const coincideTexto =
-        textoBusqueda === "" ||
-        proyecto.integrantes
-          .toLowerCase()
-          .includes(textoBusqueda.toLowerCase());
-      const coincideCarrera =
-        carreraFiltro === "" || proyecto.carreras === carreraFiltro;
-
-      return coincideTexto && coincideCarrera;
-    });
+      return proyectos.filter((proyecto) => {
+        const textoNormalizado = quitarTildes(textoBusqueda.toLowerCase());
+        const integrantesNormalizado = quitarTildes(proyecto.integrantes.toLowerCase());
+  
+        const coincideTexto =
+          textoBusqueda === "" || integrantesNormalizado.includes(textoNormalizado);
+  
+        const coincideCarrera =
+          carreraFiltro === "" || proyecto.carreras === carreraFiltro;
+  
+        return coincideTexto && coincideCarrera;
+      });
   };
 
   const proyectosFiltrados = filtrarProyectos();
@@ -405,7 +409,7 @@ export default function Busqueda() {
               </div>
 
               <div className="modal-buttons">
-              <button type="button" className="modal-close-button" onClick={closeView}>Cerrar</button>
+              <button type="button" className="modal-close-button" id="modal-view-close-btn" onClick={closeView}>Cerrar</button>
               </div>
 
           </div>

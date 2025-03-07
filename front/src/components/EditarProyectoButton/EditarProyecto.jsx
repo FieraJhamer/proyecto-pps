@@ -355,6 +355,16 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
                   </span>
                 </div>
               ))}
+
+              <span>
+                <label>Finalización de cursada</label>
+                <input
+                  type="date"
+                  name="fechaFinCursada"
+                  value={formData.fechaFinCursada}
+                  onChange={handleChange}
+                />
+            </span>
           </div>
         </div>
       ),
@@ -365,16 +375,6 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         <div className="form-group">
           <div className="form-group-left">
             <span>
-              <label>Finalización de cursada</label>
-              <input
-                type="date"
-                name="fechaFinCursada"
-                value={formData.fechaFinCursada}
-                onChange={handleChange}
-              />
-            </span>
-
-            <span>
               <label>Carga de archivos de la etapa 1</label>
               <input
                 type="date"
@@ -383,29 +383,7 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
                 onChange={handleChange}
               />
             </span>
-
-            <span>
-              <label>Aprobación de etapa 1</label>
-              <input
-                type="date"
-                name="fechaAprobacionEtapa1"
-                value={formData.fechaAprobacionEtapa1}
-                onChange={handleChange}
-              />
-            </span>
-
-            <span>
-                <label>Fecha de acta de tesina:</label>
-                <input
-                  type="date"
-                  name="fechaActaTesina"
-                  value={formData.fechaActaTesina}
-                  onChange={handleChange}
-                />
-            </span>            
-          </div>
-
-          <div className="form-group-right">
+            
             <span>
               <label>Propuesta de proyecto:</label>
               {formData.doc_propuesta_proyecto ? (
@@ -442,6 +420,21 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
               </label>
             </span>
 
+          </div>
+
+          <div className="form-group-right">
+          
+
+            <span>
+              <label>Aprobación de etapa 1</label>
+              <input
+                type="date"
+                name="fechaAprobacionEtapa1"
+                value={formData.fechaAprobacionEtapa1}
+                onChange={handleChange}
+              />
+            </span>
+
             <span>
               <label>Acta de tesina:</label>
               {formData.doc_acta_tesina ? (
@@ -452,6 +445,16 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
               <label htmlFor="file-acta-tesina" className="custom-file-upload" style={{ cursor: "pointer" }}>
                 Seleccionar nuevo archivo
               </label>
+            </span>
+
+            <span>
+                <label>Fecha de acta de tesina:</label>
+                <input
+                  type="date"
+                  name="fechaActaTesina"
+                  value={formData.fechaActaTesina}
+                  onChange={handleChange}
+                />
             </span>
           </div>
         </div>
