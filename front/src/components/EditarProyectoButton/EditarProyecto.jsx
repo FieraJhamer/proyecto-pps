@@ -70,7 +70,6 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
             throw new Error("Error al obtener el proyecto");
           }
           const data = await response.json();
-          console.log(data);
 
           setFormData({
             carrera_id: data.carrera[0]?.id_carrera || "",
@@ -130,8 +129,6 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
     }
   }, [proyectoId, sesion.token]);
 
-
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -153,30 +150,29 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
       const file = files[0];
       const formDataFile = new FormData();
       formDataFile.append("file", file);
-      console.log(formDataFile);
-
       setLoading(true);
-      
+  
       try {
         const response = await fetch("http://localhost:3000/files", {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${sesion.token}`
+            Authorization: `Bearer ${sesion.token}`,
           },
           body: formDataFile,
         });
-        console.log(response)
+
         if (!response.ok) {
           throw new Error("Error al subir el archivo");
         }
+
         const data = await response.json();
-        console.log(data.url)
-        // data.url contiene la URL del archivo subido
+        console.log(data.url);
+  
         setFormData((prev) => ({ ...prev, [name]: data.url }));
         showNotification("Archivo subido con éxito", "success");
       } catch (error) {
         showNotification("Error al subir el archivo", "error");
-        console.log(error)
+        console.log(error);
       } finally {
         setLoading(false);
       }

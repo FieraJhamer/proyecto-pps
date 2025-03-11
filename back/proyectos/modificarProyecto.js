@@ -1,5 +1,5 @@
 import { db } from "../db.js";
-import { upload } from "../s3/s3Client.js"
+import { upload, s3, DeleteObjectCommand } from "../s3/s3Client.js"
 
 export const uploadFile = (req, res, next) => {
     upload.single("file")(req, res, (err) => {
@@ -40,6 +40,44 @@ const modificarProyecto = async (req, res) => {
 
   try {
       await db.beginTransaction(); // Iniciar transacción
+
+      // Obtener los documentos actuales del proyecto
+    const [[{ doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal, doc_resolucion_ext_etapa1, doc_resolucion_ext_etapa2, doc_acta_tesina }]] = await db.query(
+      `SELECT doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal, doc_resolucion_ext_etapa1, doc_resolucion_ext_etapa2, doc_acta_tesina FROM proyectos JOIN documentos ON documentos.id_documentos = proyectos.id_documentos WHERE proyectos.id_proyecto = ?`,
+      [id]
+    );
+
+    // Función para eliminar un archivo de S3
+    const eliminarArchivoDeS3 = async (fileUrl) => {
+      if (!fileUrl) return; // Si no hay URL, no hacer nada
+    
+      try {
+        // Extraer la clave (key) del archivo desde la URL
+        const url = new URL(fileUrl); // Usar la clase URL para parsear el enlace
+        const key = url.pathname.slice(1); // Elimina el primer "/" de la ruta
+    
+        const deleteParams = {
+          Bucket: process.env.BUCKET_NAME, // Nombre del bucket
+          Key: key,
+        };
+    
+        // Eliminar el archivo de S3
+        await s3.send(new DeleteObjectCommand(deleteParams));
+        console.log(`Archivo eliminado de S3: ${key}`);
+      } catch (error) {
+        console.error(`Error al eliminar archivo de S3: ${fileUrl}`, error);
+      }
+    };
+
+    // Eliminar archivos antiguos de S3
+    await eliminarArchivoDeS3(doc_propuesta_proyecto);
+    await eliminarArchivoDeS3(doc_nota_tutor);
+    await eliminarArchivoDeS3(doc_cv_tutor);
+    await eliminarArchivoDeS3(doc_proyecto);
+    await eliminarArchivoDeS3(doc_resolucion_tribunal);
+    await eliminarArchivoDeS3(doc_resolucion_ext_etapa1);
+    await eliminarArchivoDeS3(doc_resolucion_ext_etapa2);
+    await eliminarArchivoDeS3(doc_acta_tesina);
 
       await db.query(`UPDATE proyectos SET nombre_proyecto = ? WHERE id_proyecto = ?`, [nombre_proyecto, id]);
 

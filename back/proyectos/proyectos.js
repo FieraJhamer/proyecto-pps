@@ -9,7 +9,6 @@ import modificarProyecto, {modificarArchivo, uploadFile} from "./modificarProyec
 import obtenerProyecto, { obtenerDocumentos, obtenerFechas } from "./obtenerProyecto.js";
 import { obtenerProyectoPorId } from "./obtenerProyecto.js";
 import {getFiles} from "./obtenerProyecto.js"
-
 const proyectos = express.Router();
 
 // CORREGIR LA VALIDACION DEL FORMULARIO ANTES DE SUBIR LOS ARCHIVOS
