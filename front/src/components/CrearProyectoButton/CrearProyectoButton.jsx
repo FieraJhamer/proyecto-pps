@@ -23,10 +23,6 @@ export default function CrearProyectoButton({getProyectos}) {
     alumno3_nombre: "",
     alumno3_apellido: "",
     alumno3_legajo: "",
-    etapa1_tipo: 1,
-    etapa2_tipo: 2,
-    extension1_tipo: 1,
-    extension2_tipo: 2,
     fechaFinCursada_tipo: 1,
     fechaFinCursada: "",
     fechaCargaArchivosEtapa1_tipo: 2,
@@ -62,15 +58,6 @@ export default function CrearProyectoButton({getProyectos}) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
-  
-    setFiles((prevFiles) => ({
-      ...prevFiles,
-      [name]: files.length > 1 ? [...files] : files[0] || prevFiles[name],
-    }));
   };
 
   const handleSubmit = async (e) => {
@@ -115,10 +102,6 @@ export default function CrearProyectoButton({getProyectos}) {
         alumno3_nombre: "",
         alumno3_apellido: "",
         alumno3_legajo: "",
-        etapa1_tipo: 1,
-        etapa2_tipo: 2,
-        extension1_tipo: 1,
-        extension2_tipo: 2,
         fechaFinCursada_tipo: 1,
         fechaFinCursada: "",
         fechaCargaArchivosEtapa1_tipo: 2,
@@ -273,18 +256,8 @@ export default function CrearProyectoButton({getProyectos}) {
                   </span>
               </div>
             ))}
-          </div>
-            
-        </div>
-      ),
-    },
-    {
-      title: "Crear nuevo proyecto",
-      content: (
-        <div className="form-group">
 
-          <div className="form-group-left">
-          <span>
+            <span>
               <label>Fin de cursada</label>
               <input
                 type="date"
@@ -293,60 +266,8 @@ export default function CrearProyectoButton({getProyectos}) {
                 onChange={handleChange}
               />
             </span>
-
-            <span>
-              <label>Carga inicial de documentos</label>
-              <input
-                type="date"
-                name="fechaCargaArchivosEtapa1"
-                value={formData.fechaCargaArchivosEtapa1}
-                onChange={handleChange}
-              />
-            </span>
+          </div>
             
-            <span>
-              <label>Aprobación de la etapa 1</label>
-              <input
-                type="date"
-                name="fechaAprobacionEtapa1"
-                value={formData.fechaAprobacionEtapa1}
-                onChange={handleChange}
-              />
-            </span>
-          </div>
-
-          <div className="form-group-right">
-            <span>
-              <label>Propuesta de proyecto</label>
-              <input
-                name="docPropuestaProyecto"
-                type="file"
-                accept="application/pdf"
-                onChange={handleFileChange}
-              />
-            </span>
-
-            <span>
-              <label>Nota de aceptación del tutor</label>
-              <input
-                name="docAceptacionTutor"
-                type="file"
-                accept="application/pdf"
-                onChange={handleFileChange}
-              />
-            </span>
-
-            <span>
-              <label>CV del tutor</label>
-              <input
-                name="docCVTutor"
-                type="file"
-                accept="application/pdf"
-                onChange={handleFileChange}
-              />
-            </span>
-          </div>
-          
         </div>
       ),
     },
@@ -410,7 +331,7 @@ export default function CrearProyectoButton({getProyectos}) {
 
                 <button
                   type="button"
-                  className="modal-close-button"
+                  className="modal-create-close-button"
                   onClick={closeModal}
                 >
                   Cerrar

@@ -21,10 +21,6 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         alumno3_nombre: "",
         alumno3_apellido: "",
         alumno3_legajo: "",
-        etapa1_tipo: 1,
-        etapa2_tipo: 2,
-        extension1_tipo: 1,
-        extension2_tipo: 2,
         fechaFinCursada_tipo: 1,
         fechaFinCursada: "",
         fechaCargaArchivosEtapa1_tipo: 2,
@@ -83,10 +79,6 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
             alumno3_nombre: data.integrantes[2]?.nombre_alumno || "",
             alumno3_apellido: data.integrantes[2]?.apellido_alumno || "",
             alumno3_legajo: data.integrantes[2]?.legajo_alumno || null,
-            etapa1_tipo: data.etapas && data.etapas[0] ? data.etapas[0].id_tipo_etapa : 1,
-            etapa2_tipo: data.etapas && data.etapas[1] ? data.etapas[1].id_tipo_etapa : 2,
-            extension1_tipo: data.extensiones && data.extensiones[0] ? data.extensiones[0].id_tipo_extension : 1,
-            extension2_tipo: data.extensiones && data.extensiones[1] ? data.extensiones[1].id_tipo_extension : 2,
             fechaFinCursada_tipo: data.fechas[0]?.id_tipo_fecha, // Si se mantiene fijo, o mapear según data.fechas
             fechaFinCursada: data.fechas[0]?.fecha_valor !== null ? data.fechas[0]?.fecha_valor.split("T")[0] : null,
             fechaCargaArchivosEtapa1_tipo: 2,
@@ -215,14 +207,6 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
         { id_tipo_fecha: formData.fechaDesignacionTribunal_tipo, fecha_valor: formData.fechaDesignacionTribunal },
         { id_tipo_fecha: formData.fechaDefensaProyecto_tipo, fecha_valor: formData.fechaDefensaProyecto },
         { id_tipo_fecha: formData.fechaActaTesina_tipo, fecha_valor: formData.fechaActaTesina },
-      ],
-      etapas: [
-        { id_tipo_etapa: formData.etapa1_tipo, completa: false },
-        { id_tipo_etapa: formData.etapa2_tipo, completa: false },
-      ],
-      extensiones: [
-        { id_tipo_extension: formData.extension1_tipo },
-        { id_tipo_extension: formData.extension2_tipo },
       ],
       tribunales: [
         {id_tribunal: formData.tribunal_id,
@@ -656,7 +640,7 @@ export default function EditarProyecto({ onClose, proyectoId, getProyectos }) {
 
                 <button
                   type="button"
-                  className="modal-close-button"
+                  className="modal-edit-close-button"
                   onClick={onClose}
                 >
                   Cerrar

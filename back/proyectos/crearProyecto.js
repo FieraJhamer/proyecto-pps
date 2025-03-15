@@ -32,10 +32,6 @@ const crearProyecto = async (req, res) => {
       alumno2_apellido,
       alumno3_nombre,
       alumno3_apellido,
-      etapa1_tipo,
-      etapa2_tipo,
-      extension1_tipo,
-      extension2_tipo,
       fechaFinCursada_tipo,
       fechaCargaArchivosEtapa1_tipo,
       fechaAprobacionEtapa1_tipo,
@@ -71,7 +67,7 @@ const crearProyecto = async (req, res) => {
     const docActaTesina = req.files?.docActaTesina?.[0]?.location;
 
     const [result] = await db.query(
-      `CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         carrera_id,
         nombre_proyecto,
@@ -84,10 +80,6 @@ const crearProyecto = async (req, res) => {
         alumno3_nombre,
         alumno3_apellido,
         alumno3_legajo,
-        etapa1_tipo,
-        etapa2_tipo,
-        extension1_tipo,
-        extension2_tipo,
         fechaFinCursada_tipo,
         fechaFinCursada,
         fechaCargaArchivosEtapa1_tipo,

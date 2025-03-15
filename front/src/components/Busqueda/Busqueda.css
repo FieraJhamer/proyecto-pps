@@ -212,6 +212,7 @@ input:hover {
 .modal-close-button {
     background-color: #f5f5f5;
     color: #333;
+    margin: 50px 0 0 0;
     padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 5px;

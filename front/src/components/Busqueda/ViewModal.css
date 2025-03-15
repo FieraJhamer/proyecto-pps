@@ -12,8 +12,6 @@
     z-index: 1000;
 }
 
-
-
 .modal-view-content {
     display: flex;
     flex-direction: column;
@@ -32,14 +30,14 @@
     flex-direction: column;
     align-items: self-start;
     justify-content: space-evenly;
-    height: 15%;
+    height: 13%;
     width: 90%;
 }
 
 .modal-view-files {
     display: flex;
     flex-direction: column;
-    height: 15%;
+    height: 12%;
     width: 90%;
     align-items: self-start;
     justify-content: space-around;

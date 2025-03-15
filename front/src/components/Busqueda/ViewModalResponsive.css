@@ -43,7 +43,7 @@
     }
 
     .modal-view-details {
-        height: 5%;
+        height: 10%;
     }
 
     .modal-view-files {
@@ -104,7 +104,7 @@
     }
 
     #modal-view-close-btn {
-        margin: 35px 0 0 0;
+        margin: 30px 0 0 0;
     }
 
 }

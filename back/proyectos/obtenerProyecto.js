@@ -56,20 +56,6 @@ export const obtenerProyectoPorId = async (req, res) => {
           [id]
       );
 
-      const [etapas] = await db.query(
-          `SELECT id_tipo_etapa, completa
-           FROM etapas
-           WHERE id_proyecto = ?`,
-          [id]
-      );
-
-      const [extensiones] = await db.query(
-          `SELECT id_tipo_extension
-           FROM extensiones
-           WHERE id_proyecto = ?`,
-          [id]
-      );
-
       const [tribunales] = await db.query(
         `SELECT id_tribunal, integrante_tribunal_1, integrante_tribunal_2, integrante_tribunal_3
         FROM tribunales
@@ -89,8 +75,6 @@ export const obtenerProyectoPorId = async (req, res) => {
           nombre_proyecto: proyecto.nombre_proyecto,
           integrantes,
           fechas,
-          etapas,
-          extensiones,
           carrera,
           tribunales,
           documentos
