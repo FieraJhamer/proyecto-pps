@@ -57,17 +57,8 @@ const crearProyecto = async (req, res) => {
     const fechaDesignacionTribunal = limpiarFecha(req.body.fechaDesignacionTribunal);
     const fechaDefensaProyecto = limpiarFecha(req.body.fechaDefensaProyecto);
 
-    const docPropuestaProyecto = req.files?.docPropuestaProyecto?.[0]?.location;
-    const docAceptacionTutor = req.files?.docAceptacionTutor?.[0]?.location;
-    const docCVTutor = req.files?.docCVTutor?.[0]?.location;
-    const docTesina = req.files?.docTesina?.[0]?.location;
-    const docResolucionTribunal = req.files?.docResolucionTribunal?.[0]?.location;
-    const docResolucionExtEtapa1 = req.files?.docResolucionExtEtapa1?.[0]?.location;
-    const docResolucionExtEtapa2 = req.files?.docResolucionExtEtapa2?.[0]?.location;
-    const docActaTesina = req.files?.docActaTesina?.[0]?.location;
-
     const [result] = await db.query(
-      `CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `CALL tesina_post(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         carrera_id,
         nombre_proyecto,
@@ -99,14 +90,6 @@ const crearProyecto = async (req, res) => {
         tribunalIntegrante1,
         tribunalIntegrante2,
         tribunalIntegrante3,
-        docPropuestaProyecto,
-        docAceptacionTutor,
-        docCVTutor,
-        docTesina,
-        docResolucionTribunal,
-        docResolucionExtEtapa1,
-        docResolucionExtEtapa2,
-        docActaTesina,
       ]
     );
 

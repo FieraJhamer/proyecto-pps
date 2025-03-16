@@ -44,17 +44,6 @@ export default function CrearProyectoButton({getProyectos}) {
     tribunalIntegrante3: "",
   });
 
-  const [files, setFiles] = useState({
-    docPropuestaProyecto: null,
-    docAceptacionTutor: null,
-    docCVTutor: null,
-    docTesina: null,
-    docResolucionTribunal: null,
-    docResolucionExt1Etapa1: null,
-    docResolucionExt1Etapa2: null,
-    docActaTesina: null,
-  });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -62,28 +51,16 @@ export default function CrearProyectoButton({getProyectos}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const data = new FormData();
-  
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-  
-    Object.entries(files).forEach(([key, file]) => {
-      if (Array.isArray(file)) {
-        file.forEach((f) => data.append(key, f)); // PARA VARIOS ARCHIVOS
-      } else {
-        data.append(key, file); // PARA UN SOLO ARCHIVO
-      }
-    });
+    console.log(formData)
   
     try {
       const response = await fetch("http://localhost:3000/proyectos/", {
         method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${sesion.token}`,
         },
-        body: data,
+        body: JSON.stringify(formData),
       });
   
       if (!response.ok) {
@@ -123,20 +100,9 @@ export default function CrearProyectoButton({getProyectos}) {
         tribunalIntegrante3: "",
       });
   
-      setFiles({
-        docPropuestaProyecto: null,
-        docAceptacionTutor: null,
-        docCVTutor: null,
-        docTesina: null,
-        docResolucionTribunal: null,
-        docResolucionExt1Etapa1: null,
-        docResolucionExt1Etapa2: null,
-        docActaTesina: null,
-      });
-  
       closeModal();
       console.log("Proyecto creado con éxito");
-      console.log(data)
+      console.log(formData);
   
       if (getProyectos) {
         getProyectos();
@@ -178,6 +144,7 @@ export default function CrearProyectoButton({getProyectos}) {
                 name="carrera_id"
                 value={formData.carrera_id}
                 onChange={handleChange}
+                required
               >
                 <option>Seleccione una carrera</option>
                 <option value="1">Tec. en Higiene y Seguridad</option>
@@ -273,14 +240,6 @@ export default function CrearProyectoButton({getProyectos}) {
     },
   ];
 
-  const goNext = () => {
-    if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
-  };
-
-  const goPrev = () => {
-    if (currentStep > 0) setCurrentStep(currentStep - 1);
-  };
-
   return (
     <>
       <button className="crear-proyecto-button" onClick={openModal}>
@@ -296,32 +255,6 @@ export default function CrearProyectoButton({getProyectos}) {
               {steps[currentStep].content}
 
               <div className="modal-buttons">
-                <button
-                  type="button"
-                  onClick={goPrev}
-                  disabled={currentStep === 0}
-                >
-                  Anterior
-                </button>
-
-                {currentStep < steps.length - 1 ? (
-                  <button
-                    type="button"
-                    className="modal-next-button"
-                    onClick={goNext}
-                  >
-                    Siguiente
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="modal-next-button"
-                    disabled={true}
-                  >
-                    Siguiente
-                  </button>
-                )}
-
                 <button
                   type="submit"
                   className="modal-save-button"
