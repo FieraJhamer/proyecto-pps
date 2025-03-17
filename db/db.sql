@@ -35,7 +35,7 @@ CREATE TABLE `alumnos` (
   UNIQUE KEY `legajo_alumno_UNIQUE` (`legajo_alumno`),
   KEY `fk_alumnos_1_idx` (`id_grupo`),
   CONSTRAINT `fk_alumnos_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=400 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=475 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `alumnos` (
 
 LOCK TABLES `alumnos` WRITE;
 /*!40000 ALTER TABLE `alumnos` DISABLE KEYS */;
-INSERT INTO `alumnos` VALUES (338,60,'Alejandro','Gómez',7630),(339,60,'','',NULL),(340,60,'','',NULL),(341,61,'Leonel','Torres',2412),(342,61,'','',NULL),(343,61,'','',NULL),(344,62,'Ignacio','Sotomayor',24124),(345,62,'','',NULL),(346,62,'','',NULL),(350,63,'Gaspar','Ahumada',9949),(365,64,'Mateo','Giménez',4422),(366,64,'Luis','Depetris',5992),(372,66,'Lionel','Messi',1010),(373,66,'Angel','Di Maria',7777),(378,67,'Cesar','Merlo',4924),(379,68,'Joel','Miller',1998),(380,68,'','',NULL),(381,68,'','',NULL),(386,69,'Nathan','Drake',2914),(398,70,'Jorge','Saracho',9595),(399,70,'Manuel','Andrada',425);
+INSERT INTO `alumnos` VALUES (430,74,'Alejandro','Gómez',2941),(431,74,'','',NULL),(432,74,'','',NULL),(433,75,'Leonel','Torres',2314),(434,75,'','',NULL),(435,75,'','',NULL),(436,76,'Nacho','Sotomayor',2415),(437,76,'','',NULL),(438,76,'','',NULL),(439,77,'Guillero','Herrera',24993),(440,77,'','',NULL),(441,77,'','',NULL),(445,85,'Mateo','Giménez',4352),(446,85,'','',NULL),(447,85,'','',NULL),(448,86,'Lionel','Messi',1010),(449,86,'','',NULL),(450,86,'','',NULL),(451,87,'Julián','Álvarez',2414),(452,87,'','',NULL),(453,87,'','',NULL),(457,88,'Ángel','Di Mari',84858),(462,90,'Leandro','Paredes',59345),(463,90,'','',NULL),(464,90,'','',NULL),(473,89,'Alejandro','Garnacho',8424);
 /*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +101,7 @@ CREATE TABLE `documentos` (
   UNIQUE KEY `doc_resolucion_ext_etapa1_UNIQUE` (`doc_resolucion_ext_etapa1`),
   UNIQUE KEY `doc_resolucion_ext_etapa2_UNIQUE` (`doc_resolucion_ext_etapa2`),
   UNIQUE KEY `doc_acta_tesina_UNIQUE` (`doc_acta_tesina`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,70 +110,8 @@ CREATE TABLE `documentos` (
 
 LOCK TABLES `documentos` WRITE;
 /*!40000 ALTER TABLE `documentos` DISABLE KEYS */;
-INSERT INTO `documentos` VALUES (39,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(40,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(41,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(42,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(43,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/file-e0819f0b2c8a8eee3b02248279f55113.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/file-08f2a8969c6f285a5381abe827269fbb.pdf',NULL,NULL,NULL,NULL,NULL,NULL),(45,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(46,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(47,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(48,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(49,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/file-3e5ac894145eb23ad8c3392ba9a138f1.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/file-68a5787a4579934cf605976f0621c05a.pdf','https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/file-a663ef81023aa56e85885b745b40945d.pdf',NULL,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/file-a6e7c5f71b8071d639f2f9918c90d2ec.pdf',NULL,NULL,NULL);
+INSERT INTO `documentos` VALUES (53,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(54,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(55,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(56,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(57,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(58,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(59,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(60,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(61,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(62,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(63,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(64,'https://proyecto-pps-utn-frlr.s3.sa-east-1.amazonaws.com/file-f6540339259261ebcd606a16d983e637.pdf',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(65,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `documentos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `etapas`
---
-
-DROP TABLE IF EXISTS `etapas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `etapas` (
-  `id_etapa` int NOT NULL AUTO_INCREMENT,
-  `id_tipo_etapa` int NOT NULL,
-  `id_proyecto` int NOT NULL,
-  `completa` tinyint NOT NULL,
-  PRIMARY KEY (`id_etapa`),
-  UNIQUE KEY `id_etapa_UNIQUE` (`id_etapa`),
-  KEY `fk_etapas_1_idx` (`id_proyecto`),
-  KEY `fk_etapas_2_idx` (`id_tipo_etapa`),
-  CONSTRAINT `fk_etapas_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE CASCADE,
-  CONSTRAINT `fk_etapas_2` FOREIGN KEY (`id_tipo_etapa`) REFERENCES `tipo_etapas` (`id_tipo_etapa`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=227 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `etapas`
---
-
-LOCK TABLES `etapas` WRITE;
-/*!40000 ALTER TABLE `etapas` DISABLE KEYS */;
-INSERT INTO `etapas` VALUES (185,1,60,0),(186,2,60,0),(195,1,61,0),(196,2,61,0),(199,1,63,0),(200,2,63,0),(203,1,64,0),(204,2,64,0),(207,1,66,0),(208,2,66,0),(225,1,67,0),(226,2,67,0);
-/*!40000 ALTER TABLE `etapas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `extensiones`
---
-
-DROP TABLE IF EXISTS `extensiones`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `extensiones` (
-  `id_extension` int NOT NULL AUTO_INCREMENT,
-  `id_proyecto` int NOT NULL,
-  `id_tipo_extension` int NOT NULL,
-  `enlace_archivo_extension` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id_extension`),
-  UNIQUE KEY `id_extension_UNIQUE` (`id_extension`),
-  KEY `fk_extensiones_1_idx` (`id_proyecto`),
-  KEY `fk_extensiones_2_idx` (`id_tipo_extension`),
-  CONSTRAINT `fk_extensiones_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE CASCADE,
-  CONSTRAINT `fk_extensiones_2` FOREIGN KEY (`id_tipo_extension`) REFERENCES `tipo_extensiones` (`id_tipo_extension`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=225 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `extensiones`
---
-
-LOCK TABLES `extensiones` WRITE;
-/*!40000 ALTER TABLE `extensiones` DISABLE KEYS */;
-INSERT INTO `extensiones` VALUES (183,60,1,NULL),(184,60,2,NULL),(193,61,1,NULL),(194,61,2,NULL),(197,63,1,NULL),(198,63,2,NULL),(201,64,1,NULL),(202,64,2,NULL),(205,66,1,NULL),(206,66,2,NULL),(223,67,1,NULL),(224,67,2,NULL);
-/*!40000 ALTER TABLE `extensiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -194,7 +132,7 @@ CREATE TABLE `fechas` (
   KEY `fk_fechas_2_idx` (`id_tipo_fecha`),
   CONSTRAINT `fk_fechas_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE CASCADE,
   CONSTRAINT `fk_fechas_2` FOREIGN KEY (`id_tipo_fecha`) REFERENCES `tipo_fechas` (`id_tipo_fecha`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1068 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1292 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +141,7 @@ CREATE TABLE `fechas` (
 
 LOCK TABLES `fechas` WRITE;
 /*!40000 ALTER TABLE `fechas` DISABLE KEYS */;
-INSERT INTO `fechas` VALUES (848,57,1,'2025-02-19'),(849,57,4,NULL),(850,58,1,'2025-02-20'),(851,58,4,NULL),(852,59,1,'2025-02-20'),(853,59,4,NULL),(856,60,1,'2025-02-26'),(857,60,2,'2025-03-19'),(858,60,3,NULL),(859,60,4,NULL),(860,60,5,NULL),(861,60,6,NULL),(862,60,7,NULL),(863,60,8,NULL),(864,60,9,NULL),(905,61,1,'2025-02-24'),(906,61,2,'2025-03-11'),(907,61,3,'2025-04-09'),(908,61,4,NULL),(909,61,5,NULL),(910,61,6,NULL),(911,61,7,NULL),(912,61,8,NULL),(913,61,9,NULL),(925,63,1,'2025-03-03'),(926,63,2,NULL),(927,63,3,NULL),(928,63,4,NULL),(929,63,5,NULL),(930,63,6,NULL),(931,63,7,NULL),(932,63,8,NULL),(933,63,9,NULL),(944,64,4,NULL),(945,64,2,'2025-03-18'),(946,64,3,'2025-03-18'),(947,64,4,NULL),(948,64,5,NULL),(949,64,6,NULL),(950,64,7,NULL),(951,64,8,NULL),(952,64,9,NULL),(953,65,1,'2025-03-05'),(954,65,2,'2025-03-18'),(955,65,3,'2025-03-27'),(956,65,4,NULL),(967,66,4,NULL),(968,66,2,NULL),(969,66,3,NULL),(970,66,4,NULL),(971,66,5,NULL),(972,66,6,NULL),(973,66,7,'2025-03-19'),(974,66,8,NULL),(975,66,9,NULL),(976,66,10,'2025-03-10'),(1058,67,4,'2025-03-27'),(1059,67,2,NULL),(1060,67,3,NULL),(1061,67,4,NULL),(1062,67,5,NULL),(1063,67,6,NULL),(1064,67,7,NULL),(1065,67,8,NULL),(1066,67,9,NULL),(1067,67,10,'2025-03-19');
+INSERT INTO `fechas` VALUES (1231,71,4,NULL),(1232,72,4,NULL),(1233,73,4,NULL),(1234,74,4,NULL),(1235,82,4,NULL),(1236,83,4,NULL),(1237,84,4,NULL),(1239,85,4,NULL),(1240,85,2,NULL),(1241,85,3,NULL),(1242,85,4,NULL),(1243,85,5,NULL),(1244,85,6,NULL),(1245,85,7,NULL),(1246,85,8,NULL),(1247,85,9,NULL),(1248,85,10,NULL),(1260,87,4,NULL),(1272,86,4,NULL),(1273,86,2,NULL),(1274,86,3,NULL),(1275,86,4,NULL),(1276,86,5,NULL),(1277,86,6,NULL),(1278,86,7,NULL),(1279,86,8,NULL),(1280,86,9,NULL),(1281,86,10,NULL);
 /*!40000 ALTER TABLE `fechas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +159,7 @@ CREATE TABLE `grupos` (
   UNIQUE KEY `id_grupo_UNIQUE` (`id_grupo`),
   KEY `fk_grupos_1_idx` (`id_carrera`),
   CONSTRAINT `fk_grupos_1` FOREIGN KEY (`id_carrera`) REFERENCES `carreras` (`id_carrera`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,7 +168,7 @@ CREATE TABLE `grupos` (
 
 LOCK TABLES `grupos` WRITE;
 /*!40000 ALTER TABLE `grupos` DISABLE KEYS */;
-INSERT INTO `grupos` VALUES (60,1),(63,1),(64,1),(67,1),(69,1),(70,1),(61,2),(62,2),(66,2),(68,2);
+INSERT INTO `grupos` VALUES (74,1),(75,1),(76,1),(86,1),(87,1),(88,1),(89,1),(90,1),(77,2),(78,2),(79,2),(80,2),(81,2),(82,2),(83,2),(84,2),(85,2);
 /*!40000 ALTER TABLE `grupos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +190,7 @@ CREATE TABLE `proyectos` (
   KEY `fk_proyectos_2_idx` (`id_documentos`),
   CONSTRAINT `fk_proyectos_1` FOREIGN KEY (`id_grupo`) REFERENCES `grupos` (`id_grupo`) ON DELETE CASCADE,
   CONSTRAINT `fk_proyectos_2` FOREIGN KEY (`id_documentos`) REFERENCES `documentos` (`id_documentos`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,59 +199,8 @@ CREATE TABLE `proyectos` (
 
 LOCK TABLES `proyectos` WRITE;
 /*!40000 ALTER TABLE `proyectos` DISABLE KEYS */;
-INSERT INTO `proyectos` VALUES (57,'Primer proyecto',60,39),(58,'Segundo proyecto',61,40),(59,'Tercer proyecto',62,41),(60,'Cuarto proyecto',63,42),(61,'Quinto proyecto',64,43),(63,'Sexto proyecto',66,45),(64,'Séptimo proyecto',67,46),(65,'Octavo proyecto',68,47),(66,'Noveno proyecto',69,48),(67,'Décimo proyecto',70,49);
+INSERT INTO `proyectos` VALUES (71,'Primer proyecto',74,53),(72,'Segundo proyecto',75,54),(73,'Tercer proyecto',76,55),(74,'Cuarto proyecto',77,56),(79,'Quinto proyecto',82,57),(80,'Sexto proyecto',83,58),(81,'Sexto proyecto',84,59),(82,'Sexto proyecto',85,60),(83,'Quinto proyecto',86,61),(84,'Séptimo proyecto',87,62),(85,'Octavo proyecto',88,63),(86,'Noveno proyecto',89,64),(87,'Décimo proyecto',90,65);
 /*!40000 ALTER TABLE `proyectos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tipo_etapas`
---
-
-DROP TABLE IF EXISTS `tipo_etapas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tipo_etapas` (
-  `id_tipo_etapa` int NOT NULL AUTO_INCREMENT,
-  `nombre_tipo_etapa` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id_tipo_etapa`),
-  UNIQUE KEY `id_tipo_etapa_UNIQUE` (`id_tipo_etapa`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipo_etapas`
---
-
-LOCK TABLES `tipo_etapas` WRITE;
-/*!40000 ALTER TABLE `tipo_etapas` DISABLE KEYS */;
-INSERT INTO `tipo_etapas` VALUES (1,'Etapa 1'),(2,'Etapa 2');
-/*!40000 ALTER TABLE `tipo_etapas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tipo_extensiones`
---
-
-DROP TABLE IF EXISTS `tipo_extensiones`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tipo_extensiones` (
-  `id_tipo_extension` int NOT NULL AUTO_INCREMENT,
-  `nombre_tipo_extension` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id_tipo_extension`),
-  UNIQUE KEY `id_tipo_extension_UNIQUE` (`id_tipo_extension`),
-  UNIQUE KEY `nombre_tipo_extension_UNIQUE` (`nombre_tipo_extension`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipo_extensiones`
---
-
-LOCK TABLES `tipo_extensiones` WRITE;
-/*!40000 ALTER TABLE `tipo_extensiones` DISABLE KEYS */;
-INSERT INTO `tipo_extensiones` VALUES (1,'Extensión de Etapa 1'),(2,'Extensión de Etapa 2');
-/*!40000 ALTER TABLE `tipo_extensiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -359,7 +246,7 @@ CREATE TABLE `tribunales` (
   UNIQUE KEY `id_tribunal_UNIQUE` (`id_tribunal`),
   KEY `fk_tribunales_1_idx` (`id_proyecto`),
   CONSTRAINT `fk_tribunales_1` FOREIGN KEY (`id_proyecto`) REFERENCES `proyectos` (`id_proyecto`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -368,7 +255,7 @@ CREATE TABLE `tribunales` (
 
 LOCK TABLES `tribunales` WRITE;
 /*!40000 ALTER TABLE `tribunales` DISABLE KEYS */;
-INSERT INTO `tribunales` VALUES (42,57,'','',''),(43,58,'','',''),(44,59,'','',''),(45,60,'','',''),(46,61,'','',''),(48,63,'','',''),(49,64,'','',''),(50,65,'','',''),(51,66,'','',''),(52,67,'','','');
+INSERT INTO `tribunales` VALUES (56,71,'','',''),(57,72,'','',''),(58,73,'','',''),(59,74,'','',''),(60,82,'','',''),(61,83,'','',''),(62,84,'','',''),(63,85,'','',''),(64,86,'','',''),(65,87,'','','');
 /*!40000 ALTER TABLE `tribunales` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -414,4 +301,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-07 15:30:11
+-- Dump completed on 2025-03-17 20:01:47

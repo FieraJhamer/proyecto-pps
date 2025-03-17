@@ -1,4 +1,4 @@
-CREATE DEFINER=`alejandro`@`localhost` PROCEDURE `tesina_delete`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tesina_delete`(
     IN p_id_proyecto INT
 )
 BEGIN

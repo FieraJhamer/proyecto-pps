@@ -4,8 +4,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `tesina_post`(
     IN alumno1Nombre VARCHAR(255), IN alumno1Apellido VARCHAR(255), IN alumno1Legajo INT,
     IN alumno2Nombre VARCHAR(255), IN alumno2Apellido VARCHAR(255), IN alumno2Legajo INT,
     IN alumno3Nombre VARCHAR(255), IN alumno3Apellido VARCHAR(255), IN alumno3Legajo INT,
-    IN etapa1Tipo INT, IN etapa2Tipo INT,
-    IN extension1Tipo INT, IN extension2Tipo INT,
     IN fecha1Tipo INT, IN fecha1Fecha DATE,
     IN fecha2Tipo INT, IN fecha2Fecha DATE,
     IN fecha3Tipo INT, IN fecha3Fecha DATE,
@@ -17,15 +15,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `tesina_post`(
     IN fecha9Tipo INT, IN fecha9Fecha DATE,
     IN integranteTrib1 VARCHAR(150),
     IN integranteTrib2 VARCHAR(150),
-    IN integranteTrib3 VARCHAR(150),
-    IN docPropuestaProyecto VARCHAR(250),
-    IN docNotaTutor VARCHAR(250),
-    IN docCVTutor VARCHAR(250),
-    IN docProyecto VARCHAR(250),
-    IN docResolucionTribunal VARCHAR(250),
-    IN docResolucionExtEtapa1 VARCHAR(250),
-    IN docResolucionExtEtapa2 VARCHAR(250),
-    IN docActaTesina VARCHAR(250)
+    IN integranteTrib3 VARCHAR(150)
 )
 BEGIN
     DECLARE idGrupo INT;
@@ -45,15 +35,6 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = full_error_message;
     END;
 
-    -- Verificar si el proyecto ya existe (usando COLLATE para asegurar la misma colación)
-    SELECT COUNT(*) INTO proyectoExistente 
-    FROM proyectos 
-    WHERE nombre_proyecto COLLATE utf8mb4_unicode_ci = nombreProyecto COLLATE utf8mb4_unicode_ci;
-
-    IF proyectoExistente > 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Error: El proyecto con el mismo nombre ya existe';
-    END IF;
-
     -- Insertar en la tabla grupos
     INSERT INTO grupos (id_carrera) VALUES (carreraId);
     SET idGrupo = LAST_INSERT_ID();
@@ -69,14 +50,14 @@ BEGIN
         doc_resolucion_ext_etapa2,
         doc_acta_tesina
     ) VALUES (
-        docPropuestaProyecto, 
-        docNotaTutor, 
-        docCVTutor, 
-        docProyecto, 
-        docResolucionTribunal,
-        docResolucionExtEtapa1,
-        docResolucionExtEtapa2,
-        docActaTesina
+        NULL, 
+        NULL, 
+        NULL, 
+        NULL, 
+        NULL,
+        NULL,
+        NULL,
+        NULL
     );
     SET idDocumentos = LAST_INSERT_ID();
 
