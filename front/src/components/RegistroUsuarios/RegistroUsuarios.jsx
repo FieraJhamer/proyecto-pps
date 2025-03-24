@@ -283,7 +283,7 @@ const RegistroUsuarios = () => {
             </>
           )}
           {sesion.superusuario != 1 && (
-            <h2>Debe ser superusario para poder registrar otros usuarios</h2>
+            <h2>Debe ser superusuario para poder administrar a otros</h2>
           )}
           {sesion.superusuario == 1 && modoEdicion && (
             <div className="contenedor-lista-usuarios">
@@ -311,7 +311,7 @@ const RegistroUsuarios = () => {
                 </ul>
                 <div className="btn-volver-container">
                   <button onClick={() => setModoEdicion(false)} className="volver-button">
-                    Volver al registro
+                    Volver
                   </button>
                 </div>
               </div>

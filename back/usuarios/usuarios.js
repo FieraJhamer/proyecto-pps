@@ -76,7 +76,6 @@ usuarios.put("/usuarios/:id",
 
 usuarios.delete("/usuarios/:id",
   validarJwt,
-  validarSuperUsuario,
   validarId,
    async(req,res)=> {
   const id = req.params.id
