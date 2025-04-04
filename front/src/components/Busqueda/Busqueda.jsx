@@ -136,18 +136,22 @@ export default function Busqueda() {
     getProyectos();
   }, []);
 
+  const quitarTildes = (texto) => 
+    texto.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  
   const filtrarProyectos = () => {
-    return proyectos.filter((proyecto) => {
-      const coincideTexto =
-        textoBusqueda === "" ||
-        proyecto.integrantes
-          .toLowerCase()
-          .includes(textoBusqueda.toLowerCase());
-      const coincideCarrera =
-        carreraFiltro === "" || proyecto.carreras === carreraFiltro;
-
-      return coincideTexto && coincideCarrera;
-    });
+      return proyectos.filter((proyecto) => {
+        const textoNormalizado = quitarTildes(textoBusqueda.toLowerCase());
+        const integrantesNormalizado = quitarTildes(proyecto.integrantes.toLowerCase());
+  
+        const coincideTexto =
+          textoBusqueda === "" || integrantesNormalizado.includes(textoNormalizado);
+  
+        const coincideCarrera =
+          carreraFiltro === "" || proyecto.carreras === carreraFiltro;
+  
+        return coincideTexto && coincideCarrera;
+      });
   };
 
   const proyectosFiltrados = filtrarProyectos();
@@ -276,6 +280,15 @@ export default function Busqueda() {
                   </li>
 
                   <li>
+                    <strong>Acta de tesina: </strong> 
+                      <span className="file-name">
+                        {documentos.doc_acta_tesina ? <a href={documentos.doc_acta_tesina} target="_BLANK">Link al acta de tesina</a> 
+                        :
+                        <p>No se encontró el archivo</p>}
+                      </span>
+                  </li>
+
+                  <li>
                     <strong>Doc. de la tesina: </strong> 
                     <span className="file-name">
                       {documentos?.doc_proyecto ? <a href={documentos.doc_proyecto} target="_BLANK">Link al documento de tesina</a>
@@ -349,6 +362,10 @@ export default function Busqueda() {
                         <td>Fecha de defensa</td>
                         <td>{fechas?.[8]?.fecha ? formatDate(fechas?.[8]?.fecha) : "No hay fecha registrada"}</td>
                       </tr>
+                      <tr>
+                        <td>Fecha de acta de tesina</td>
+                        <td>{fechas?.[9]?.fecha ? formatDate(fechas?.[9]?.fecha) : "No hay fecha registrada"}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -393,7 +410,7 @@ export default function Busqueda() {
               </div>
 
               <div className="modal-buttons">
-              <button type="button" className="modal-close-button" onClick={closeView}>Cerrar</button>
+              <button type="button" className="modal-close-button" id="modal-view-close-btn" onClick={closeView}>Cerrar</button>
               </div>
 
           </div>

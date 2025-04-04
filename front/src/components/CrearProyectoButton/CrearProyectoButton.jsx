@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../Busqueda/Busqueda.css";
 import "./CrearProyectoButton.css";
+import "./CrearProyectoButtonResponsive.css";
 import { useAuth } from "../../Auth";
 
 import { useCloseOnEscape } from "../../utils/UseOnCloseEscape";
@@ -22,10 +23,6 @@ export default function CrearProyectoButton({getProyectos}) {
     alumno3_nombre: "",
     alumno3_apellido: "",
     alumno3_legajo: "",
-    etapa1_tipo: 1,
-    etapa2_tipo: 2,
-    extension1_tipo: 1,
-    extension2_tipo: 2,
     fechaFinCursada_tipo: 1,
     fechaFinCursada: "",
     fechaCargaArchivosEtapa1_tipo: 2,
@@ -47,54 +44,23 @@ export default function CrearProyectoButton({getProyectos}) {
     tribunalIntegrante3: "",
   });
 
-  const [files, setFiles] = useState({
-    docPropuestaProyecto: null,
-    docAceptacionTutor: null,
-    docCVTutor: null,
-    docTesina: null,
-    docResolucionTribunal: null,
-    docResolucionExt1Etapa1: null,
-    docResolucionExt1Etapa2: null,
-  });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
-  
-    setFiles((prevFiles) => ({
-      ...prevFiles,
-      [name]: files.length > 1 ? [...files] : files[0] || prevFiles[name],
-    }));
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const data = new FormData();
-  
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-  
-    Object.entries(files).forEach(([key, file]) => {
-      if (Array.isArray(file)) {
-        file.forEach((f) => data.append(key, f)); // PARA VARIOS ARCHIVOS
-      } else {
-        data.append(key, file); // PARA UN SOLO ARCHIVO
-      }
-    });
+    console.log(formData)
   
     try {
       const response = await fetch("http://localhost:3000/proyectos/", {
         method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${sesion.token}`,
         },
-        body: data,
+        body: JSON.stringify(formData),
       });
   
       if (!response.ok) {
@@ -113,10 +79,6 @@ export default function CrearProyectoButton({getProyectos}) {
         alumno3_nombre: "",
         alumno3_apellido: "",
         alumno3_legajo: "",
-        etapa1_tipo: 1,
-        etapa2_tipo: 2,
-        extension1_tipo: 1,
-        extension2_tipo: 2,
         fechaFinCursada_tipo: 1,
         fechaFinCursada: "",
         fechaCargaArchivosEtapa1_tipo: 2,
@@ -138,19 +100,9 @@ export default function CrearProyectoButton({getProyectos}) {
         tribunalIntegrante3: "",
       });
   
-      setFiles({
-        docPropuestaProyecto: null,
-        docAceptacionTutor: null,
-        docCVTutor: null,
-        docTesina: null,
-        docResolucionTribunal: null,
-        docResolucionExt1Etapa1: null,
-        docResolucionExt1Etapa2: null,
-      });
-  
       closeModal();
       console.log("Proyecto creado con éxito");
-      console.log(data)
+      console.log(formData);
   
       if (getProyectos) {
         getProyectos();
@@ -192,6 +144,7 @@ export default function CrearProyectoButton({getProyectos}) {
                 name="carrera_id"
                 value={formData.carrera_id}
                 onChange={handleChange}
+                required
               >
                 <option>Seleccione una carrera</option>
                 <option value="1">Tec. en Higiene y Seguridad</option>
@@ -270,18 +223,8 @@ export default function CrearProyectoButton({getProyectos}) {
                   </span>
               </div>
             ))}
-          </div>
-            
-        </div>
-      ),
-    },
-    {
-      title: "Crear nuevo proyecto",
-      content: (
-        <div className="form-group">
 
-          <div className="form-group-left">
-          <span>
+            <span>
               <label>Fin de cursada</label>
               <input
                 type="date"
@@ -290,72 +233,12 @@ export default function CrearProyectoButton({getProyectos}) {
                 onChange={handleChange}
               />
             </span>
-
-            <span>
-              <label>Carga inicial de documentos</label>
-              <input
-                type="date"
-                name="fechaCargaArchivosEtapa1"
-                value={formData.fechaCargaArchivosEtapa1}
-                onChange={handleChange}
-              />
-            </span>
+          </div>
             
-            <span>
-              <label>Aprobación de la etapa 1</label>
-              <input
-                type="date"
-                name="fechaAprobacionEtapa1"
-                value={formData.fechaAprobacionEtapa1}
-                onChange={handleChange}
-              />
-            </span>
-          </div>
-
-          <div className="form-group-right">
-            <span>
-              <label>Propuesta de proyecto</label>
-              <input
-                name="docPropuestaProyecto"
-                type="file"
-                accept="application/pdf"
-                onChange={handleFileChange}
-              />
-            </span>
-
-            <span>
-              <label>Nota de aceptación del tutor</label>
-              <input
-                name="docAceptacionTutor"
-                type="file"
-                accept="application/pdf"
-                onChange={handleFileChange}
-              />
-            </span>
-
-            <span>
-              <label>CV del tutor</label>
-              <input
-                name="docCVTutor"
-                type="file"
-                accept="application/pdf"
-                onChange={handleFileChange}
-              />
-            </span>
-          </div>
-          
         </div>
       ),
     },
   ];
-
-  const goNext = () => {
-    if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
-  };
-
-  const goPrev = () => {
-    if (currentStep > 0) setCurrentStep(currentStep - 1);
-  };
 
   return (
     <>
@@ -373,32 +256,6 @@ export default function CrearProyectoButton({getProyectos}) {
 
               <div className="modal-buttons">
                 <button
-                  type="button"
-                  onClick={goPrev}
-                  disabled={currentStep === 0}
-                >
-                  Anterior
-                </button>
-
-                {currentStep < steps.length - 1 ? (
-                  <button
-                    type="button"
-                    className="modal-next-button"
-                    onClick={goNext}
-                  >
-                    Siguiente
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    className="modal-next-button"
-                    disabled={true}
-                  >
-                    Siguiente
-                  </button>
-                )}
-
-                <button
                   type="submit"
                   className="modal-save-button"
                 >
@@ -407,7 +264,7 @@ export default function CrearProyectoButton({getProyectos}) {
 
                 <button
                   type="button"
-                  className="modal-close-button"
+                  className="modal-create-close-button"
                   onClick={closeModal}
                 >
                   Cerrar

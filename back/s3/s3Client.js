@@ -2,7 +2,7 @@ import path from "path";
 import multer from "multer";
 import multerS3 from "multer-s3";
 import crypto from "crypto";
-import { S3Client } from "@aws-sdk/client-s3";
+import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 /* S3 */
 export const s3 = new S3Client({
@@ -28,3 +28,5 @@ export const upload = multer({
   }),
   preservePath: true,
 });
+
+export { DeleteObjectCommand };

@@ -83,7 +83,7 @@ authRouter.post(
     // Crear jwt
     const payload = { nombre: usuarios[0].nombre, superusuario: usuarios[0].superusuario, id: usuarios[0].id_usuario};
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: "2h",
+      expiresIn: "8h",
     });
 
     // Enviar jwt

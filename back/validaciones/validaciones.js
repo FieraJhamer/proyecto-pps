@@ -39,11 +39,6 @@ export const validarCrearProyecto = [
   body("alumno3_apellido").optional().isString(),
   body("alumno3_legajo").optional({ checkFalsy: true }).isNumeric(),
 
-  body("etapa1_tipo").isInt(),
-  body("etapa2_tipo").isInt(),
-  body("extension1_tipo").isInt(),
-  body("extension2_tipo").isInt(),
-
   body("fechaFinCursada").optional({ checkFalsy: true }).isISO8601(),
   body("fechaCargaArchivosEtapa1").optional({ checkFalsy: true }).isISO8601(),
   body("fechaAprobacionEtapa1").optional({ checkFalsy: true }).isISO8601(),

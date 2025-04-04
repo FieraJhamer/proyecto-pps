@@ -56,20 +56,6 @@ export const obtenerProyectoPorId = async (req, res) => {
           [id]
       );
 
-      const [etapas] = await db.query(
-          `SELECT id_tipo_etapa, completa
-           FROM etapas
-           WHERE id_proyecto = ?`,
-          [id]
-      );
-
-      const [extensiones] = await db.query(
-          `SELECT id_tipo_extension
-           FROM extensiones
-           WHERE id_proyecto = ?`,
-          [id]
-      );
-
       const [tribunales] = await db.query(
         `SELECT id_tribunal, integrante_tribunal_1, integrante_tribunal_2, integrante_tribunal_3
         FROM tribunales
@@ -78,7 +64,7 @@ export const obtenerProyectoPorId = async (req, res) => {
         );
 
         const [documentos] = await db.query(
-            `SELECT doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal, doc_resolucion_ext_etapa1, doc_resolucion_ext_etapa2
+            `SELECT doc_propuesta_proyecto, doc_nota_tutor, doc_cv_tutor, doc_proyecto, doc_resolucion_tribunal, doc_resolucion_ext_etapa1, doc_resolucion_ext_etapa2, doc_acta_tesina
              FROM documentos
              WHERE id_documentos = ?`,
             [proyecto.id_documentos]
@@ -89,8 +75,6 @@ export const obtenerProyectoPorId = async (req, res) => {
           nombre_proyecto: proyecto.nombre_proyecto,
           integrantes,
           fechas,
-          etapas,
-          extensiones,
           carrera,
           tribunales,
           documentos
@@ -119,7 +103,7 @@ export const obtenerDocumentos = async (req,res)=>{
     const {id}=req.params
     try{
         const [ListaDocumentos]= await db.query(
-            `select doc_propuesta_proyecto,doc_nota_tutor,doc_cv_tutor,doc_proyecto, doc_resolucion_tribunal from documentos d 
+            `select doc_propuesta_proyecto,doc_nota_tutor,doc_cv_tutor,doc_proyecto, doc_resolucion_tribunal, doc_acta_tesina from documentos d 
             join proyectos p on d.id_documentos=p.id_documentos
             where p.id_proyecto=?`
         ,[id])

@@ -275,7 +275,7 @@ const RegistroUsuarios = () => {
                   type="checkbox"
                 />
                 <div className="button-container">
-                  <button type="submit">Registrar usuario</button>
+                  <button type="submit">Registrar</button>
                   <button type="button" onClick={()=> setModoEdicion(true)} >Ver usuarios</button>
                 </div>
                 <p className="registro-usuario-msg">{mensaje}</p>
@@ -283,7 +283,7 @@ const RegistroUsuarios = () => {
             </>
           )}
           {sesion.superusuario != 1 && (
-            <h2>Debe ser superusario para poder registrar otros usuarios</h2>
+            <h2>Debe ser superusuario para poder administrar a otros</h2>
           )}
           {sesion.superusuario == 1 && modoEdicion && (
             <div className="contenedor-lista-usuarios">
@@ -311,7 +311,7 @@ const RegistroUsuarios = () => {
                 </ul>
                 <div className="btn-volver-container">
                   <button onClick={() => setModoEdicion(false)} className="volver-button">
-                    Volver al registro
+                    Volver
                   </button>
                 </div>
               </div>

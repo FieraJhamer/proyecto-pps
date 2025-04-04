@@ -1,5 +1,25 @@
-.iframe-utn {
-    height: 85vh;
-    width: 80vw;
-    border-radius: 1em;
+.info-container {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
 }
+
+.utn-logo-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 0 0;
+}
+
+.utn-logo-info {
+    width: 65%;
+}
+
+.info-container {
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
