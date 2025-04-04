@@ -203,6 +203,7 @@ INSERT INTO `proyectos` VALUES (71,'Primer proyecto',74,53),(72,'Segundo proyect
 /*!40000 ALTER TABLE `proyectos` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 --
 -- Table structure for table `tipo_fechas`
 --
@@ -213,6 +214,7 @@ DROP TABLE IF EXISTS `tipo_fechas`;
 CREATE TABLE `tipo_fechas` (
   `id_tipo_fecha` int NOT NULL AUTO_INCREMENT,
   `nombre_tipo_fecha` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+
   PRIMARY KEY (`id_tipo_fecha`),
   UNIQUE KEY `id_tipo_fecha_UNIQUE` (`id_tipo_fecha`),
   UNIQUE KEY `nombre_tipo_fecha_UNIQUE` (`nombre_tipo_fecha`)

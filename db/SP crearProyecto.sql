@@ -34,7 +34,7 @@ BEGIN
         ROLLBACK;
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = full_error_message;
     END;
-
+    
     -- Insertar en la tabla grupos
     INSERT INTO grupos (id_carrera) VALUES (carreraId);
     SET idGrupo = LAST_INSERT_ID();

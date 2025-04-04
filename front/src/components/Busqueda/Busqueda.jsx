@@ -80,6 +80,7 @@ export default function Busqueda() {
       }
 
       const data = await response.json();
+      console.log(data)
       setProyectos(data);
     } catch (error) {
       console.error("Error al cargar los proyectos:", error);
